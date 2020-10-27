@@ -1,0 +1,23 @@
+object dtmPrincipal: TdtmPrincipal
+  OldCreateOrder = False
+  Height = 183
+  Width = 302
+  object conexao: TUniConnection
+    ProviderName = 'InterBase'
+    Database = 
+      'C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\BaseDados\LOC' +
+      'ADORA.FDB'
+    Username = 'sysdba'
+    Server = 'localhost'
+    Connected = True
+    Left = 32
+    Top = 16
+    EncryptedPassword = '92FF9EFF8CFF8BFF9AFF8DFF94FF9AFF86FF'
+  end
+  object tblFilme: TUniTable
+    TableName = 'FILME'
+    Connection = conexao
+    Left = 96
+    Top = 16
+  end
+end

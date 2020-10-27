@@ -1,0 +1,93 @@
+unit lcdLocalizarFilme;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxStyles, dxSkinsCore, dxSkinsDefaultPainters,
+  cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
+  dxDateRanges, DB, cxDBData, DBCtrls, StdCtrls, cxGridLevel, cxClasses,
+  cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
+  cxGrid, lcdDataModule, MemDS, DBAccess, Uni;
+
+type
+  TLocalizarFilme = class(TForm)
+    edtPesquisar: TEdit;
+    btnPesquisar: TButton;
+    Nome: TRadioButton;
+    Codigo: TRadioButton;
+    pnlbottom: TPanel;
+    btnNavigator: TDBNavigator;
+    btnNovo: TButton;
+    btnAlterar: TButton;
+    btnCancelar: TButton;
+    btnGravar: TButton;
+    btnApagar: TButton;
+    btnFechar: TButton;
+    pnlTop: TPanel;
+    pnlfields: TPanel;
+    cxGrid1DBTableView1: TcxGridDBTableView;
+    cxGrid1Level1: TcxGridLevel;
+    cxGrid1: TcxGrid;
+    qryFilme: TUniQuery;
+    dsFilme: TDataSource;
+    cxGrid1DBTableView1ID: TcxGridDBColumn;
+    cxGrid1DBTableView1TITULO: TcxGridDBColumn;
+    cxGrid1DBTableView1SINOPSE: TcxGridDBColumn;
+    cxGrid1DBTableView1DT_LANCAMENTO: TcxGridDBColumn;
+    cxGrid1DBTableView1NM_DIRETOR: TcxGridDBColumn;
+    cxGrid1DBTableView1NM_ESTUDIO: TcxGridDBColumn;
+    cxGrid1DBTableView1GENERO: TcxGridDBColumn;
+    cxGrid1DBTableView1VALOR: TcxGridDBColumn;
+    cxGrid1DBTableView1JUROS: TcxGridDBColumn;
+    cxGrid1DBTableView1QUANTIDADE: TcxGridDBColumn;
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure exibirLocalizarFilme();
+  end;
+
+var
+  LocalizarFilme: TLocalizarFilme;
+
+implementation
+
+{$R *.dfm}
+
+{ TuLocalizarFilme }
+
+procedure TLocalizarFilme.exibirLocalizarFilme;
+var
+  lcadastro : TLocalizarFilme;
+begin
+  lcadastro := TLocalizarFilme.Create(self);
+
+  lcadastro.ShowModal();
+  FreeAndNil(lcadastro);
+end;
+
+procedure TLocalizarFilme.FormCreate(Sender: TObject);
+begin
+  qryFilme.Connection := dtmPrincipal.conexao;
+end;
+
+procedure TLocalizarFilme.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_ESCAPE) then
+  Close;
+
+end;
+
+procedure TLocalizarFilme.FormShow(Sender: TObject);
+begin
+  if not qryFilme.Active then
+    qryFilme.Open;
+end;
+
+end.

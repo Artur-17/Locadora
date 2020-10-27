@@ -1,0 +1,53 @@
+unit lcdPrincipal;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
+  dxRibbonSkins, dxSkinsCore, dxSkinsDefaultPainters, dxRibbonCustomizationForm,
+  dxBar, cxClasses, dxRibbon, ExtCtrls, ComCtrls, lcdDataModule;
+
+type
+  TPrincipal = class(TForm)
+    Início: TdxRibbonTab;
+    dxRibbon1: TdxRibbon;
+    dxbrmngr1: TdxBarManager;
+    dxbrCadastro: TdxBar;
+    btnFilme: TdxBarLargeButton;
+    btnCliente: TdxBarLargeButton;
+    btnUsuario: TdxBarLargeButton;
+    sttPrincipal: TStatusBar;
+    Timer: TTimer;
+    procedure TimerTimer(Sender: TObject);
+    procedure btnFilmeClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Principal: TPrincipal;
+
+implementation
+
+uses
+  lcdLocalizarFilme;
+
+{$R *.dfm}
+
+
+
+procedure TPrincipal.btnFilmeClick(Sender: TObject);
+begin
+  TLocalizarFilme.exibirLocalizarFilme();
+end;
+
+procedure TPrincipal.TimerTimer(Sender: TObject);
+begin
+  sttPrincipal.Panels [1].Text := ' '+formatdatetime ('dddd","dd" de "mmmm" de "yyyy',now);// para data
+  sttPrincipal.Panels [2].Text := ' '+formatdatetime ('hh:mm:ss',now);//para hora
+End;
+
+end.

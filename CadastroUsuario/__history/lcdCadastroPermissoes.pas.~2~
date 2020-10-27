@@ -1,0 +1,25 @@
+unit lcdCadastroPermissoes;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls;
+
+type
+  TCadastroPermissoes = class(TForm)
+    pnlTop: TPanel;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  CadastroPermissoes: TCadastroPermissoes;
+
+implementation
+
+{$R *.dfm}
+
+end.

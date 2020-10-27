@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/10/19 12:16:34.265.pas,C:\Users\pdvfo\Documents\RAD Studio\Projects\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\Desafio\escPrincipal.pas</Transaction>
+    <Transaction>2020/10/19 12:16:34.265.dfm,C:\Users\pdvfo\Documents\RAD Studio\Projects\Unit1.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\Desafio\escPrincipal.dfm</Transaction>
+    <Transaction>2020/10/19 12:17:08.184.dproj,C:\Users\pdvfo\Documents\RAD Studio\Projects\Project1.dproj=C:\Users\pdvfo\Desktop\OficinaDelphi\Desafio\Escola.dproj</Transaction>
+    <Transaction>2020/10/20 19:35:32.310.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\Desafio\escPrincipal.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\lcdPrincipal.pas</Transaction>
+    <Transaction>2020/10/20 19:35:32.310.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\Desafio\escPrincipal.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\lcdPrincipal.dfm</Transaction>
+    <Transaction>2020/10/20 19:35:53.167.dproj,C:\Users\pdvfo\Desktop\OficinaDelphi\Desafio\Escola.dproj=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\FocusLocadora.dproj</Transaction>
+    <Transaction>2020/10/20 20:09:14.304.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroUsuario.pas</Transaction>
+    <Transaction>2020/10/20 20:09:14.304.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroUsuario.dfm</Transaction>
+    <Transaction>2020/10/20 20:25:30.166.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit2.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\lcdLocalizarFilme.pas</Transaction>
+    <Transaction>2020/10/20 20:25:30.166.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit2.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\lcdLocalizarFilme.dfm</Transaction>
+    <Transaction>2020/10/20 21:03:54.170.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\uDataModule.pas</Transaction>
+    <Transaction>2020/10/20 21:03:54.170.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\uDataModule.dfm</Transaction>
+    <Transaction>2020/10/20 21:28:00.707.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\uDataModule.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\lcdDataModule.pas</Transaction>
+    <Transaction>2020/10/20 21:28:00.707.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\uDataModule.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\lcdDataModule.dfm</Transaction>
+    <Transaction>2020/10/21 22:18:18.681.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroUsuario.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroFuncionario.pas</Transaction>
+    <Transaction>2020/10/21 22:18:18.681.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroUsuario.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroFuncionario.dfm</Transaction>
+    <Transaction>2020/10/22 20:47:23.728.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Utils.pas</Transaction>
+    <Transaction>2020/10/26 20:40:31.701.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Utils\FuncaoCriptografia.pas</Transaction>
+    <Transaction>2020/10/26 21:28:56.813.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroCategoriaUsuario.pas</Transaction>
+    <Transaction>2020/10/26 21:28:56.813.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroCategoriaUsuario.dfm</Transaction>
+    <Transaction>2020/10/26 21:29:34.074.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Utils.pas=</Transaction>
+    <Transaction>2020/10/26 21:55:51.051.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit2.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroPermissoes.pas</Transaction>
+    <Transaction>2020/10/26 21:55:51.051.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit2.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroPermissoes.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

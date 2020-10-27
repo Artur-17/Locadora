@@ -1,0 +1,364 @@
+object LocalizarFilme: TLocalizarFilme
+  Left = 0
+  Top = 0
+  Caption = 'Localizar filme'
+  ClientHeight = 692
+  ClientWidth = 968
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  KeyPreview = True
+  OldCreateOrder = False
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlbottom: TPanel
+    Left = 0
+    Top = 636
+    Width = 968
+    Height = 56
+    Align = alBottom
+    TabOrder = 0
+    ExplicitTop = 642
+    object btnNavigator: TDBNavigator
+      Left = 528
+      Top = 16
+      Width = 224
+      Height = 25
+      DataSource = dtsFilme
+      VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+      TabOrder = 0
+    end
+    object btnNovo: TcxButton
+      Left = 16
+      Top = 16
+      Width = 75
+      Height = 25
+      Caption = 'Novo'
+      LookAndFeel.Kind = lfUltraFlat
+      LookAndFeel.NativeStyle = False
+      LookAndFeel.SkinName = 'Office2010Silver'
+      OptionsImage.Glyph.SourceDPI = 96
+      OptionsImage.Glyph.Data = {
+        89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+        610000000473424954080808087C086488000000097048597300000059000000
+        5901AA9DA9860000001974455874536F667477617265007777772E696E6B7363
+        6170652E6F72679BEE3C1A000000E649444154388D95D2C14DC3401005D01703
+        16173742D2007728810640DC68051411E586E80308670A48688420E540A270D8
+        0958B6D7902F7DED7AF6CFCEECF8D3C608632CF0195C446CD4A1FF41892936D8
+        66B8C624B4ADE4D79EC42667CD4BA619E12AD875765F7FF33A23BA0CE69E333C
+        C4350E32735966279672AE0A9CF588FEC2F9001FA822B0C24DADF25BACA7B156
+        D2BC8E771D167B561C7405DFE57FD74530773E2FF0BC6717753C157890DCD785
+        CAEF7C9AD8E071F731C9B4D867A471FDB652B2E77FADFC82A3664BA564CF9C2B
+        B7F88ACAADE43A86B8C35CF2C332F6B738698ABF01062775A96EA3EBA7000000
+        0049454E44AE426082}
+      TabOrder = 1
+    end
+    object btnAlterar: TcxButton
+      Left = 112
+      Top = 16
+      Width = 75
+      Height = 25
+      Caption = 'Alterar'
+      LookAndFeel.Kind = lfUltraFlat
+      LookAndFeel.NativeStyle = False
+      LookAndFeel.SkinName = 'Office2010Silver'
+      OptionsImage.Glyph.SourceDPI = 96
+      OptionsImage.Glyph.Data = {
+        89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+        610000000473424954080808087C08648800000009704859730000005C000000
+        5C018727CC700000001974455874536F667477617265007777772E696E6B7363
+        6170652E6F72679BEE3C1A0000009749444154388DCDD23D0AC2501045E1CF22
+        3B08FE6CC585D8B80E2DDC93BD5DB4B6D404415C82E0028458240F4288E12536
+        1E9866E0DC3BC5308C19323CB119E84A7041D9986DAC9CD6016BBC1B01AF1879
+        8A2BF61D2159AC1C1A43C8AADE2F86C8ED90A44F9EA3E890CB7A9F8E692E711B
+        7BF69FCB09F22F72A17ADF5E96639B03BB5F6438B4E43CE6ECC0040FDC71C211
+        67D5AF47F101B4A2582947CFEBF80000000049454E44AE426082}
+      TabOrder = 2
+    end
+    object btnCancelar: TcxButton
+      Left = 208
+      Top = 16
+      Width = 75
+      Height = 25
+      Caption = 'Cancelar'
+      LookAndFeel.Kind = lfUltraFlat
+      LookAndFeel.NativeStyle = False
+      LookAndFeel.SkinName = 'Office2010Silver'
+      OptionsImage.Glyph.SourceDPI = 96
+      OptionsImage.Glyph.Data = {
+        89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+        610000000473424954080808087C086488000000097048597300000059000000
+        5901AA9DA9860000001974455874536F667477617265007777772E696E6B7363
+        6170652E6F72679BEE3C1A000000CB49444154388DADD25D4EC3301004E08F16
+        F2CE35486F05D7695351F534C0295A2ED2F48D54E5A11B646D928ABF9146B6C6
+        3BB6676D8658608D3D8EC17D688B91FA2F54D8E284F3043B6CA276607EBB62CC
+        7CCD9B6C7F60EEF95C66EED2623B62C85A877A8627CC8BDBB4B84753684D68C7
+        429BE311DE474E5BE126C6729EEB767098C8D81BA7CC671C66FE017F8ED0E46B
+        E1361956A1E5975842EDF7CFF8D0C7D84C34E91AD7651F2A97EFF95DF30BEE72
+        332B97EF99E394FC889307E61275346D17B9DB982FCBCC3D3E01CE9C9E84BC00
+        CBCA0000000049454E44AE426082}
+      TabOrder = 3
+    end
+    object btnGravar: TcxButton
+      Left = 304
+      Top = 16
+      Width = 75
+      Height = 25
+      Caption = 'Gravar'
+      LookAndFeel.Kind = lfUltraFlat
+      LookAndFeel.NativeStyle = False
+      LookAndFeel.SkinName = 'Office2010Silver'
+      OptionsImage.Glyph.SourceDPI = 96
+      OptionsImage.Glyph.Data = {
+        89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+        610000000473424954080808087C086488000000097048597300000059000000
+        5901AA9DA9860000001974455874536F667477617265007777772E696E6B7363
+        6170652E6F72679BEE3C1A000000E849444154388D9DD2314EC3401404D0A758
+        B8A2E00274D0E04834141C817B844B7008504494032051D250939CC2A10B1D3D
+        52401460140AAF236BED98E091A6D8D59FF93B7F3F4D0C31C6021F818B70376C
+        A9DF20C5143F586F618149A86D88E71DC298B3D864FA0F71C5DB7AE6A2874181
+        6C804B245DC30978C1055EC339C1089E77E8B6C421CEF059BBCF611515CF955F
+        D6267E8B6A576D068F18E0EA0FF1C6A02DC25D30D9EF10AF912738C67934B053
+        1CE10B0F38D832D87BC8F4FFC693CA69D2C3605C7F4AAA5CCF5DC54FD88BF3A4
+        CAF5EC8AF31D3A37C47564B8512EC97B608EEB7AE60ABFBEECA3748BBA647900
+        00000049454E44AE426082}
+      TabOrder = 4
+    end
+    object btnApagar: TcxButton
+      Left = 400
+      Top = 16
+      Width = 75
+      Height = 25
+      Caption = 'Apagar'
+      LookAndFeel.Kind = lfUltraFlat
+      LookAndFeel.NativeStyle = False
+      LookAndFeel.SkinName = 'Office2010Silver'
+      OptionsImage.Glyph.SourceDPI = 96
+      OptionsImage.Glyph.Data = {
+        89504E470D0A1A0A0000000D4948445200000010000000100403000000EDDDE2
+        520000000373424954080808DBE14FE000000009704859730000004B0000004B
+        019C777AC50000001974455874536F667477617265007777772E696E6B736361
+        70652E6F72679BEE3C1A00000021504C5445FFFFFF0000000000000000000000
+        00000000000000000000000000000000000000DD7064570000000A74524E5300
+        014044498091A0F2F3BA098FA20000004649444154085B636060609EB5D28001
+        04580BD8031840FC55400014635D0506010811048802892C0531162DAFD20233
+        162C8DE2229A01D3E5053267099021D6B56AD58A440600DDC52C2A6CBB80B500
+        00000049454E44AE426082}
+      TabOrder = 5
+    end
+    object btnFechar: TcxButton
+      Left = 880
+      Top = 16
+      Width = 75
+      Height = 25
+      Caption = 'Fechar'
+      LookAndFeel.Kind = lfUltraFlat
+      LookAndFeel.NativeStyle = False
+      LookAndFeel.SkinName = 'Office2010Silver'
+      OptionsImage.Glyph.SourceDPI = 96
+      OptionsImage.Glyph.Data = {
+        89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+        610000000473424954080808087C08648800000009704859730000006F000000
+        6F01F1A2DC430000001974455874536F667477617265007777772E696E6B7363
+        6170652E6F72679BEE3C1A0000007149444154388DD593CB0980400C05E789FD
+        D98ECDD8C76E219EBCD8883C0FAB1EC41575453010082199901F4000FC508316
+        E3B1D4AB615B77122519A02AA9FE0D40522FA9C906D83E55D29027A03DF01B60
+        E4FADABA3DA07806AFB4E0C4C90206A0C980BD5DE27F0FA9F8992A2016E4C719
+        85119E2654D1CAB70000000049454E44AE426082}
+      TabOrder = 6
+      OnClick = btnFecharClick
+    end
+  end
+  object pnlTop: TPanel
+    Left = 0
+    Top = 0
+    Width = 968
+    Height = 41
+    Align = alTop
+    Caption = 'LOCALIZAR FILME'
+    Color = 4605510
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = 15790320
+    Font.Height = -19
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 1
+  end
+  object pnlfields: TPanel
+    Left = 0
+    Top = 41
+    Width = 968
+    Height = 46
+    ParentCustomHint = False
+    Align = alTop
+    BiDiMode = bdLeftToRight
+    Color = 15921906
+    Ctl3D = True
+    DoubleBuffered = False
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentBiDiMode = False
+    ParentBackground = False
+    ParentCtl3D = False
+    ParentDoubleBuffered = False
+    ParentFont = False
+    ParentShowHint = False
+    ShowCaption = False
+    ShowHint = False
+    TabOrder = 2
+    object Codigo: TRadioButton
+      Left = 785
+      Top = 6
+      Width = 113
+      Height = 17
+      Caption = 'Codigo'
+      TabOrder = 0
+    end
+    object edtPesquisar: TEdit
+      Left = 8
+      Top = 13
+      Width = 657
+      Height = 21
+      TabOrder = 1
+    end
+    object Nome: TRadioButton
+      Left = 785
+      Top = 22
+      Width = 113
+      Height = 17
+      Caption = 'Nome'
+      TabOrder = 2
+    end
+    object btnPesquisar: TcxButton
+      Left = 677
+      Top = 6
+      Width = 75
+      Height = 25
+      Caption = 'Pesquisar'
+      TabOrder = 3
+    end
+  end
+  object cxGrid1: TcxGrid
+    Left = 0
+    Top = 87
+    Width = 968
+    Height = 549
+    Align = alClient
+    TabOrder = 3
+    object cxGrid1DBTableView1: TcxGridDBTableView
+      Navigator.Buttons.CustomButtons = <>
+      DataController.DataSource = dtsFilme
+      DataController.Summary.DefaultGroupSummaryItems = <>
+      DataController.Summary.FooterSummaryItems = <>
+      DataController.Summary.SummaryGroups = <>
+      object cxGrid1DBTableView1ID: TcxGridDBColumn
+        DataBinding.FieldName = 'ID'
+      end
+      object cxGrid1DBTableView1TITULO: TcxGridDBColumn
+        DataBinding.FieldName = 'TITULO'
+        Width = 92
+      end
+      object cxGrid1DBTableView1SINOPSE: TcxGridDBColumn
+        DataBinding.FieldName = 'SINOPSE'
+        Width = 119
+      end
+      object cxGrid1DBTableView1DT_LANCAMENTO: TcxGridDBColumn
+        DataBinding.FieldName = 'DT_LANCAMENTO'
+        Width = 121
+      end
+      object cxGrid1DBTableView1NM_DIRETOR: TcxGridDBColumn
+        DataBinding.FieldName = 'NM_DIRETOR'
+        Width = 78
+      end
+      object cxGrid1DBTableView1NM_ESTUDIO: TcxGridDBColumn
+        DataBinding.FieldName = 'NM_ESTUDIO'
+        Width = 82
+      end
+      object cxGrid1DBTableView1GENERO: TcxGridDBColumn
+        DataBinding.FieldName = 'GENERO'
+      end
+      object cxGrid1DBTableView1VALOR: TcxGridDBColumn
+        DataBinding.FieldName = 'VALOR'
+      end
+      object cxGrid1DBTableView1JUROS: TcxGridDBColumn
+        DataBinding.FieldName = 'JUROS'
+      end
+      object cxGrid1DBTableView1QUANTIDADE: TcxGridDBColumn
+        DataBinding.FieldName = 'QUANTIDADE'
+      end
+    end
+    object cxGrid1Level1: TcxGridLevel
+      GridView = cxGrid1DBTableView1
+    end
+  end
+  object qryFilme: TUniQuery
+    Connection = dtmPrincipal.conexao
+    SQL.Strings = (
+      'select * from filme')
+    Left = 848
+    Top = 48
+    object qryFilmeID: TIntegerField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'ID'
+      Required = True
+    end
+    object qryFilmeTITULO: TStringField
+      DisplayLabel = 'T'#237'tulo'
+      FieldName = 'TITULO'
+      Size = 30
+    end
+    object qryFilmeSINOPSE: TStringField
+      DisplayLabel = 'Sinopse'
+      FieldName = 'SINOPSE'
+      Size = 30
+    end
+    object qryFilmeDT_LANCAMENTO: TDateField
+      DisplayLabel = 'Data de Lan'#231'amento'
+      FieldName = 'DT_LANCAMENTO'
+    end
+    object qryFilmeNM_DIRETOR: TStringField
+      DisplayLabel = 'Diretor'
+      FieldName = 'NM_DIRETOR'
+      Size = 30
+    end
+    object qryFilmeNM_ESTUDIO: TStringField
+      DisplayLabel = 'Est'#250'dio'
+      FieldName = 'NM_ESTUDIO'
+      Size = 30
+    end
+    object qryFilmeGENERO: TStringField
+      DisplayLabel = 'Genero'
+      FieldName = 'GENERO'
+      Size = 30
+    end
+    object qryFilmeVALOR: TFloatField
+      DisplayLabel = 'Valor'
+      FieldName = 'VALOR'
+    end
+    object qryFilmeJUROS: TFloatField
+      DisplayLabel = 'Juros'
+      FieldName = 'JUROS'
+    end
+    object qryFilmeQUANTIDADE: TIntegerField
+      DisplayLabel = 'Quantidade'
+      FieldName = 'QUANTIDADE'
+    end
+  end
+  object dtsFilme: TDataSource
+    DataSet = qryFilme
+    Left = 896
+    Top = 48
+  end
+end

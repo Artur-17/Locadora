@@ -1,0 +1,25 @@
+unit lcdDataModule;
+
+interface
+
+uses
+  SysUtils, Classes, DB, MemDS, DBAccess, Uni;
+
+type
+  TdtmPrincipal = class(TDataModule)
+    conexao: TUniConnection;
+    tblFilme: TUniTable;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dtmPrincipal: TdtmPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+end.

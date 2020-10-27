@@ -1,0 +1,59 @@
+create table aluno(
+    id int not null primary key auto_increment,
+    nm_aluno varchar(30),
+    nm_pai varchar(30),
+    nm_mae varchar(30)
+    matricula varchar(15),
+    dt_nascimento date,
+
+    constraint pk_aluno primary key (id)
+)
+
+create table cliente(
+    id int not null primary null auto_increment,
+    nome varchar(30),
+    cpf varchar(15),
+    dt_nascimento date,
+    telefone varchar(9),
+    email varchar(30)
+)
+
+create table endereco(
+    id int not null primary key auto_increment,
+    bairro varchar(50),
+    logradouro varchar(50),
+    uf char(2),
+    cep varchar(9),
+    numero varchar(10),
+
+    id_cliente int foreign key
+
+)
+
+ALTER TABLE endereco ADD CONSTRAINT fk_cliente_endereco FOREIGN KEY (id_cliente)
+REFERENCES cliente(id);
+
+create table filme(
+    id int not null primary key auto_increment,
+    titulo varchar(30),
+    sinopse varchar(50),
+    dt_lancamento date,
+    nm_diretor varchar(30),
+    nm_estudio varchar(30),
+    genero varchar(30),
+    valor numeric,
+    juros numeric, 
+    quantidade int
+)
+
+ALTER TABLE filme ADD CONSTRAINT pk_id primary key
+
+create table usuario(
+    id int not null primary key auto_increment,
+    usuario varchar(30),
+    senha varchar(30),
+    dt_criacao date
+)
+
+ALTER TABLE usuario ADD CONSTRAINT pk_id primary key
+

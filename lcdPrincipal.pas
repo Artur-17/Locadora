@@ -20,7 +20,9 @@ uses
   dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
   dxSkinTheAsphaltWorld, dxSkinValentine, dxSkinVisualStudio2013Blue,
   dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinVS2010,
-  dxSkinWhiteprint, dxSkinXmas2008Blue, Enter, lcdCadastroFuncionario;
+  dxSkinWhiteprint, dxSkinXmas2008Blue, Enter, lcdLocalizarFilme, lcdCadastroFuncionario, lcdLogin,
+  lcdCadastroCategoriaUsuario,
+  dxSkinsForm, Menus;
 
 type
   TPrincipal = class(TForm)
@@ -33,12 +35,20 @@ type
     btnUsuario: TdxBarLargeButton;
     sttPrincipal: TStatusBar;
     Timer: TTimer;
+    dxSkinController1: TdxSkinController;
+    MainMenu1: TMainMenu;
+    CADASTRO1: TMenuItem;
+    UsuriosFuncionrios1: TMenuItem;
+    Funcionrio1: TMenuItem;
+    Ca1: TMenuItem;
     procedure TimerTimer(Sender: TObject);
     procedure btnFilmeClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormShow(Sender: TObject);
     procedure btnUsuarioClick(Sender: TObject);
+    procedure Ca1Click(Sender: TObject);
   private
     { Private declarations }
 
@@ -52,10 +62,10 @@ var
 
 implementation
 
-uses
-  lcdLocalizarFilme;
 
 {$R *.dfm}
+
+uses lcdLocalizarCategoriaUsuario;
 
 
 
@@ -67,6 +77,13 @@ end;
 procedure TPrincipal.btnUsuarioClick(Sender: TObject);
 begin
   TCadastroFuncionario.exibirCadastroFuncionario();
+end;
+
+procedure TPrincipal.Ca1Click(Sender: TObject);
+begin
+// Comentei para verificar que o cadastro de categoria está inserindo no bd
+  TLocalizarCategoriaUsuario.exibirCategoriaUsuario();
+//  TCadastroCategoriaUsuario.exibirCadastroCategoriaUsuario();
 end;
 
 procedure TPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -86,6 +103,11 @@ procedure TPrincipal.FormKeyDown(Sender: TObject; var Key: Word;
 begin
   if (Key = VK_ESCAPE) then
   Close;
+end;
+
+procedure TPrincipal.FormShow(Sender: TObject);
+begin
+  Tlogin.exibirLogin();
 end;
 
 procedure TPrincipal.TimerTimer(Sender: TObject);

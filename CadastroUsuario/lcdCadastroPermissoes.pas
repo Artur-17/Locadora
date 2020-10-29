@@ -27,12 +27,14 @@ type
     pnlTop: TPanel;
     lblGeral: TLabel;
     cbVender: TcxCheckBox;
-    cxButton1: TcxButton;
+    btnCancelar: TcxButton;
     btnGravar: TcxButton;
+    procedure btnCancelarClick(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
+  class procedure exibirCadastroPermissoes();
   end;
 
 var
@@ -41,5 +43,22 @@ var
 implementation
 
 {$R *.dfm}
+
+{ TCadastroPermissoes }
+
+
+procedure TCadastroPermissoes.btnCancelarClick(Sender: TObject);
+begin
+  Close;
+end;
+
+class procedure TCadastroPermissoes.exibirCadastroPermissoes;
+var
+  lcadastro : TCadastroPermissoes;
+begin
+  lcadastro := TCadastroPermissoes.Create(nil);
+  lcadastro.ShowModal();
+  FreeAndNil(lcadastro);
+end;
 
 end.

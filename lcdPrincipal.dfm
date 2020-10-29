@@ -10,11 +10,13 @@
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  Menu = MainMenu1
   OldCreateOrder = False
   WindowState = wsMaximized
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object dxRibbon1: TdxRibbon
@@ -285,5 +287,28 @@
     OnTimer = timerTimer
     Left = 824
     Top = 448
+  end
+  object dxSkinController1: TdxSkinController
+    NativeStyle = False
+    SkinName = 'Office2010Silver'
+    Left = 768
+    Top = 448
+  end
+  object MainMenu1: TMainMenu
+    Left = 696
+    Top = 440
+    object CADASTRO1: TMenuItem
+      Caption = 'Cadastro'
+      object UsuriosFuncionrios1: TMenuItem
+        Caption = 'Usu'#225'rios / Funcion'#225'rios'
+        object Funcionrio1: TMenuItem
+          Caption = 'Usu'#225'rio e Funcion'#225'rio'
+        end
+        object Ca1: TMenuItem
+          Caption = 'Categoria de usu'#225'rio'
+          OnClick = Ca1Click
+        end
+      end
+    end
   end
 end

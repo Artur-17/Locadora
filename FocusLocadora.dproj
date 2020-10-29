@@ -62,10 +62,16 @@
 			<DCCReference Include="terceiros\Enter.pas"/>
 			<DCCReference Include="Utils\FuncaoCriptografia.pas"/>
 			<DCCReference Include="CadastroUsuario\lcdCadastroCategoriaUsuario.pas">
-				<Form>Form1</Form>
+				<Form>CadastroCategoriaUsuario</Form>
 			</DCCReference>
 			<DCCReference Include="CadastroUsuario\lcdCadastroPermissoes.pas">
 				<Form>CadastroPermissoes</Form>
+			</DCCReference>
+			<DCCReference Include="CadastroUsuario\lcdLocalizarCategoriaUsuario.pas">
+				<Form>LocalizarCategoriaUsuario</Form>
+			</DCCReference>
+			<DCCReference Include="Login\lcdLogin.pas">
+				<Form>Login</Form>
 			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>

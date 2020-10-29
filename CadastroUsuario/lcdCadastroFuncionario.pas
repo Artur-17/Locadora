@@ -22,7 +22,7 @@ uses
   dxSkinXmas2008Blue, dxBarBuiltInMenu, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, Menus, cxButtons, ComCtrls, Mask, dxGDIPlusClasses,
   cxPC, Buttons, lcdDataModule, DB, MemDS, DBAccess, Uni, cxContainer, cxEdit,
-  dxCore, cxDateUtils, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar;
+  dxCore, cxDateUtils, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar, lcdLocalizarCategoriaUsuario;
 
 type
   TCadastroFuncionario = class(TForm)
@@ -87,6 +87,7 @@ type
     procedure btnGravarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnGravarUsuarioClick(Sender: TObject);
+    procedure btnLocalizarCategoriaClick(Sender: TObject);
   private
     { Private declarations }
     procedure gravarDadosFuncionario();
@@ -102,6 +103,7 @@ type
 
 var
   CadastroFuncionario: TCadastroFuncionario;
+  CategoriaUsuario : TLocalizarCategoriaUsuario;
 
 implementation
 
@@ -131,6 +133,11 @@ begin
   validarCamposObgUsuario();
   
   gravarDadosUsuario();
+end;
+
+procedure TCadastroFuncionario.btnLocalizarCategoriaClick(Sender: TObject);
+begin
+  TLocalizarCategoriaUsuario.exibirCategoriaUsuario();
 end;
 
 procedure TCadastroFuncionario.carregarEstados;

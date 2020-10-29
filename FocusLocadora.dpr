@@ -8,8 +8,10 @@ uses
   lcdDataModule in 'lcdDataModule.pas' {dtmPrincipal: TDataModule},
   Enter in 'terceiros\Enter.pas',
   FuncaoCriptografia in 'Utils\FuncaoCriptografia.pas',
-  lcdCadastroCategoriaUsuario in 'CadastroUsuario\lcdCadastroCategoriaUsuario.pas' {Form1},
-  lcdCadastroPermissoes in 'CadastroUsuario\lcdCadastroPermissoes.pas' {CadastroPermissoes};
+  lcdCadastroCategoriaUsuario in 'CadastroUsuario\lcdCadastroCategoriaUsuario.pas' {CadastroCategoriaUsuario},
+  lcdCadastroPermissoes in 'CadastroUsuario\lcdCadastroPermissoes.pas' {CadastroPermissoes},
+  lcdLocalizarCategoriaUsuario in 'CadastroUsuario\lcdLocalizarCategoriaUsuario.pas' {LocalizarCategoriaUsuario},
+  lcdLogin in 'Login\lcdLogin.pas' {Login};
 
 {$R *.res}
 
@@ -18,7 +20,5 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TPrincipal, Principal);
   Application.CreateForm(TdtmPrincipal, dtmPrincipal);
-  Application.CreateForm(TForm1, Form1);
-  Application.CreateForm(TCadastroPermissoes, CadastroPermissoes);
   Application.Run;
 end.

@@ -290,6 +290,7 @@
         Width = 559
         Height = 21
         AutoSize = False
+        MaxLength = 80
         TabOrder = 0
       end
       object edtEmail: TEdit
@@ -297,7 +298,8 @@
         Top = 73
         Width = 433
         Height = 23
-        TabOrder = 1
+        MaxLength = 30
+        TabOrder = 2
       end
       object edtCpf: TMaskEdit
         Left = 11
@@ -306,7 +308,7 @@
         Height = 23
         EditMask = '###.###.###-##;0;'
         MaxLength = 14
-        TabOrder = 2
+        TabOrder = 1
       end
       object edtTelefone: TEdit
         Left = 10
@@ -314,14 +316,16 @@
         Width = 181
         Height = 21
         AutoSize = False
+        MaxLength = 40
         TabOrder = 3
       end
       object edtEndereco: TEdit
         Left = 224
-        Top = 124
+        Top = 126
         Width = 345
         Height = 21
         AutoSize = False
+        MaxLength = 80
         TabOrder = 4
       end
       object edtBairro: TEdit
@@ -361,7 +365,7 @@
         Top = 295
         Width = 790
         Height = 137
-        TabOrder = 9
+        TabOrder = 10
       end
       object btnGravar: TcxButton
         Left = 568
@@ -385,7 +389,7 @@
           2711F1EBB9CF04F0D4730CDCD8C40AEB0E4ED92AD09CB10BF58FF4856D4FDE03
           2695C041F73EFC85E3C0CF76DD637029192FDF89D476AD1A1B827F0000000049
           454E44AE426082}
-        TabOrder = 10
+        TabOrder = 12
         OnClick = btnGravarClick
       end
       object btnCancelar: TcxButton
@@ -436,13 +440,13 @@
           C543372D5CE55E5F2AACA9FDD4D7A53FFA48B358C03CB632DBC322664A73F515
           4A1DE324AF97B01C9992F6ADD7A2CD2ED44858C12606FE78F815FB3D26FED207
           5A6C551E6C27733E0000000049454E44AE426082}
-        TabOrder = 12
+        TabOrder = 13
       end
       object dtpDataNascimento: TcxDateEdit
         Left = 326
         Top = 238
         EditValue = 43972d
-        TabOrder = 13
+        TabOrder = 9
         Width = 121
       end
     end
@@ -662,6 +666,7 @@
           0000000000000000000000000000000000000000000000000000000000000000
           00002E23144F6F5430C08D6B3DF48D6B3DF46E5430BF2C22134D000000000000
           0000000000000000000000000000000000000000000000000000}
+        OnClick = btnLocalizarCategoriaClick
       end
       object lblCategoria: TLabel
         Left = 217
@@ -699,7 +704,7 @@
           2711F1EBB9CF04F0D4730CDCD8C40AEB0E4ED92AD09CB10BF58FF4856D4FDE03
           2695C041F73EFC85E3C0CF76DD637029192FDF89D476AD1A1B827F0000000049
           454E44AE426082}
-        TabOrder = 0
+        TabOrder = 5
         OnClick = btnGravarUsuarioClick
       end
       object edtLogin: TEdit
@@ -707,7 +712,7 @@
         Top = 83
         Width = 181
         Height = 23
-        TabOrder = 1
+        TabOrder = 0
       end
       object btnFechar: TcxButton
         Left = 689
@@ -728,7 +733,7 @@
           E3B1D4AB615B77122519A02AA9FE0D40522FA9C906D83E55D29027A03DF01B60
           E4FADABA3DA07806AFB4E0C4C90206A0C980BD5DE27F0FA9F8992A2016E4C719
           85119E2654D1CAB70000000049454E44AE426082}
-        TabOrder = 2
+        TabOrder = 4
         OnClick = btnFecharClick
       end
       object edtNomeCategoria: TEdit
@@ -736,7 +741,7 @@
         Top = 230
         Width = 280
         Height = 23
-        TabOrder = 4
+        TabOrder = 6
       end
       object edtSenha: TMaskEdit
         Left = 384
@@ -744,7 +749,7 @@
         Width = 181
         Height = 23
         PasswordChar = '*'
-        TabOrder = 5
+        TabOrder = 1
       end
       object edtConfirmarSenha: TMaskEdit
         Left = 384
@@ -752,7 +757,7 @@
         Width = 181
         Height = 23
         PasswordChar = '*'
-        TabOrder = 6
+        TabOrder = 2
       end
     end
   end

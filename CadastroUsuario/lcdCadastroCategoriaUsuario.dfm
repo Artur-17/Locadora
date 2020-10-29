@@ -1,7 +1,7 @@
-object Form1: TForm1
+object CadastroCategoriaUsuario: TCadastroCategoriaUsuario
   Left = 0
   Top = 0
-  Caption = 'CadastroCategoriaUsuario'
+  Caption = 'Cadastro de Categoria'
   ClientHeight = 398
   ClientWidth = 646
   Color = clBtnFace
@@ -11,6 +11,9 @@ object Form1: TForm1
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poOwnerFormCenter
+  OnClose = FormClose
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object lblCategoria: TLabel
@@ -43,21 +46,21 @@ object Form1: TForm1
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitLeft = -279
-    ExplicitWidth = 806
   end
   object edtCategoria: TEdit
     Left = 8
     Top = 66
     Width = 473
     Height = 21
+    MaxLength = 80
     TabOrder = 1
   end
-  object Edit1: TEdit
+  object edtDescricao: TEdit
     Left = 8
     Top = 114
     Width = 473
     Height = 21
+    MaxLength = 80
     TabOrder = 2
   end
   object mmObs: TMemo
@@ -65,6 +68,7 @@ object Form1: TForm1
     Top = 160
     Width = 617
     Height = 177
+    MaxLength = 800
     TabOrder = 3
   end
   object btnPermissoes: TcxButton
@@ -137,6 +141,7 @@ object Form1: TForm1
       2695C041F73EFC85E3C0CF76DD637029192FDF89D476AD1A1B827F0000000049
       454E44AE426082}
     TabOrder = 5
+    OnClick = btnGravarClick
   end
   object cxButton1: TcxButton
     Left = 528
@@ -160,5 +165,16 @@ object Form1: TForm1
       332B97EF99E394FC889307E61275346D17B9DB982FCBCC3D3E01CE9C9E84BC00
       CBCA0000000049454E44AE426082}
     TabOrder = 6
+    OnClick = cxButton1Click
+  end
+  object qryCategoria: TUniQuery
+    Connection = dtmPrincipal.conexao
+    SQL.Strings = (
+      'select '
+      ' *'
+      'from '
+      ' usuario_categoria')
+    Left = 344
+    Top = 344
   end
 end

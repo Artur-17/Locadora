@@ -19,7 +19,8 @@ uses
   dxSkinSummer2008, dxSkinTheAsphaltWorld, dxSkinsDefaultPainters,
   dxSkinValentine, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
   dxSkinVisualStudio2013Light, dxSkinVS2010, dxSkinWhiteprint,
-  dxSkinXmas2008Blue, ExtCtrls, StdCtrls, cxButtons, dxGDIPlusClasses;
+  dxSkinXmas2008Blue, ExtCtrls, StdCtrls, cxButtons, dxGDIPlusClasses, DB,
+  MemDS, DBAccess, Uni, lcdDataModule, FuncaoCriptografia, lcdCadastroFuncionario;
 
 type
   TLogin = class(TForm)
@@ -37,6 +38,7 @@ type
   private
     { Private declarations }
     fFechar : boolean;
+    procedure validarLogin();
   public
     { Public declarations }
     class procedure exibirLogin();
@@ -58,9 +60,31 @@ begin
 end;
 
 procedure TLogin.btnOkClick(Sender: TObject);
+var
+  oUsuario : TCadastroFuncionario;     
 begin
-  fFechar := true;
-  Close;
+//  validarLogin();
+
+  try
+     oUsuario := TCadastroFuncionario.Create(dtmPrincipal.conexao);
+    if oUsuario.logarUsuario(edtLogin.Text, edtSenha.Text)  then
+    begin
+      fFechar := true;
+      Close;
+    end
+    else
+    begin
+      MessageDlg('Usuário inválido', mtInformation, [mbOK], 0);
+    end;
+ 
+  finally
+    if Assigned(oUsuario) then
+      FreeAndNil(oUsuario);
+
+  end;
+  
+
+  
 end;
 
 class procedure TLogin.exibirLogin;
@@ -80,6 +104,28 @@ end;
 procedure TLogin.FormShow(Sender: TObject);
 begin
   fFechar := false;
+end;
+
+procedure TLogin.validarLogin;
+begin
+  if ( edtLogin.Text = '' ) then  //Verifica se o campo "Login" foi preenchido
+    begin
+      ShowMessage('O campo login deve ser preenchido para prosseguir');
+      if edtLogin.CanFocus then
+      edtLogin.SetFocus;
+      Exit;
+
+    end;
+
+
+  if (edtSenha.Text = '') then //Verifica se o campo "Senha" foi preenchido
+		begin
+		ShowMessage('O campo Senha deve ser preenchido para prosseguir');
+		if edtSenha.CanFocus then
+    edtSenha.SetFocus;
+		Exit;
+    end;
+
 end;
 
 end.

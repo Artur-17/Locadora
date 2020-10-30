@@ -34,8 +34,6 @@ object LocalizarCategoriaUsuario: TLocalizarCategoriaUsuario
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitLeft = -70
-    ExplicitWidth = 806
   end
   object pnlBottom: TPanel
     Left = 0
@@ -44,9 +42,6 @@ object LocalizarCategoriaUsuario: TLocalizarCategoriaUsuario
     Height = 41
     Align = alBottom
     TabOrder = 1
-    ExplicitLeft = 328
-    ExplicitTop = 352
-    ExplicitWidth = 185
     DesignSize = (
       1150
       41)
@@ -68,6 +63,7 @@ object LocalizarCategoriaUsuario: TLocalizarCategoriaUsuario
         7BF69FCB09F22F72A17ADF5E96639B03BB5F6438B4E43CE6ECC0040FDC71C211
         67D5AF47F101B4A2582947CFEBF80000000049454E44AE426082}
       TabOrder = 0
+      OnClick = btnAlterarClick
     end
     object btnExcluir: TcxButton
       Left = 208
@@ -107,7 +103,6 @@ object LocalizarCategoriaUsuario: TLocalizarCategoriaUsuario
         85119E2654D1CAB70000000049454E44AE426082}
       TabOrder = 2
       OnClick = btnFecharClick
-      ExplicitLeft = 1000
     end
     object btnIncluir: TcxButton
       Left = 8
@@ -148,16 +143,15 @@ object LocalizarCategoriaUsuario: TLocalizarCategoriaUsuario
     Height = 492
     Align = alClient
     TabOrder = 2
-    ExplicitLeft = 95
-    ExplicitTop = 79
-    ExplicitWidth = 809
-    ExplicitHeight = 352
     object gridTbv: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = dtsCategoriaUsuario
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsData.Deleting = False
+      OptionsData.Editing = False
+      OptionsData.Inserting = False
       object gridTbvID: TcxGridDBColumn
         DataBinding.FieldName = 'ID'
       end
@@ -185,9 +179,6 @@ object LocalizarCategoriaUsuario: TLocalizarCategoriaUsuario
     Height = 41
     Align = alTop
     TabOrder = 3
-    ExplicitLeft = 456
-    ExplicitTop = 75
-    ExplicitWidth = 185
     DesignSize = (
       1150
       41)

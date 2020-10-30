@@ -57,6 +57,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure btnAlterarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -72,6 +73,11 @@ implementation
 {$R *.dfm}
 
 { TLocalizarCatUsuario }
+
+procedure TLocalizarCategoriaUsuario.btnAlterarClick(Sender: TObject);
+begin
+  ShowMessage( qryCategoriaUsuario.FieldByName('id').AsString );
+end;
 
 procedure TLocalizarCategoriaUsuario.btnFecharClick(Sender: TObject);
 begin

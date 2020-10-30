@@ -95,10 +95,12 @@ type
     procedure validarDados();
     procedure validarCamposObgUsuario();
     procedure gravarDadosUsuario();
+
   public
     { Public declarations }
     class procedure exibirCadastroFuncionario();
     class function ConverterData(pDateTime: TDateTime) : String;
+    function logarUsuario(aUsuario, aSenha: String): Boolean;
   end;
 
 var
@@ -337,6 +339,43 @@ begin
 
   if (dtpDataNascimento.Text = ' ') then
     ShowMessage('Preencha a data e tente novamente');
+end;
+
+function TCadastroFuncionario.logarUsuario(aUsuario, aSenha: String): Boolean;
+var
+  LQRY : TUniQuery;
+begin
+  try
+    LQRY := TUniQuery.Create(nil);
+    LQRY.Connection := dtmPrincipal.conexao;
+    LQRY.Close;
+    LQRY.SQL.Clear;
+
+    LQRY.SQL.Add('SELECT COUNT(id) AS Qtde ' +
+                 'FROM USUARIO ' +
+                 'WHERE LOGIN=:LOGIN AND SENHA=:SENHA');
+    LQRY.ParamByName('LOGIN').AsString := aUsuario;
+    aSenha := Criptografar(aSenha);
+    LQRY.ParamByName('SENHA').AsString := aSenha;
+    LQRY.Active := true;
+
+    try
+//      LQRY.Open;
+
+      if LQRY.FieldByName('Qtde').AsInteger>0 then
+        result := true
+      else
+        result := false;
+    except
+      Result := false;
+
+    end;
+  finally
+    if Assigned(LQRY) then
+      FreeAndNil(LQRY);
+  end;
+
+
 end;
 
 end.

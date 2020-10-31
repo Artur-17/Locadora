@@ -27,7 +27,7 @@ uses
 
 type
   TLocalizarCategoriaUsuario = class(TForm)
-    edtPesquisar: TEdit;
+    edtPesquisa: TEdit;
     pnlTop: TPanel;
     btnPesquisar: TcxButton;
     pnlBottom: TPanel;
@@ -58,6 +58,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnAlterarClick(Sender: TObject);
+    procedure btnPesquisarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -82,6 +83,43 @@ end;
 procedure TLocalizarCategoriaUsuario.btnFecharClick(Sender: TObject);
 begin
   Close;
+end;
+
+procedure TLocalizarCategoriaUsuario.btnPesquisarClick(Sender: TObject);
+var
+  selectOriginal : string;
+  lQRY : TuniQuery;
+begin
+
+    lQRY := qryCategoriaUsuario;
+    selectOriginal := 'SELECT * FROM USUARIO_CATEGORIA' ;
+
+
+    try
+
+      try
+        if lQRY.Active then
+        begin
+          lQRY.Close;
+          lQRY.SQL.Add('SELECT * FROM USUARIO_CATEGORIA WHERE ID = :ID ');
+          lQRY.ParamByName('ID').AsString := edtPesquisa.Text;
+
+          lQRY.Open;
+
+        end;
+      except
+        on E: Exception do
+          ShowMessage( E.Message );
+      end;
+
+
+
+
+
+    finally
+       if Assigned(lQRY) then
+      FreeAndNil(lQRY);
+    end;
 end;
 
 class procedure TLocalizarCategoriaUsuario.exibirCategoriaUsuario;
@@ -112,6 +150,7 @@ end;
 
 procedure TLocalizarCategoriaUsuario.FormShow(Sender: TObject);
 begin
+
     try
     if not Assigned(qryCategoriaUsuario.Connection)  then
       qryCategoriaUsuario.Connection := dtmPrincipal.conexao;

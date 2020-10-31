@@ -138,11 +138,13 @@ object LocalizarCategoriaUsuario: TLocalizarCategoriaUsuario
   end
   object grid: TcxGrid
     Left = 0
-    Top = 82
+    Top = 97
     Width = 1150
-    Height = 492
+    Height = 477
     Align = alClient
     TabOrder = 2
+    ExplicitTop = 82
+    ExplicitHeight = 492
     object gridTbv: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = dtsCategoriaUsuario
@@ -176,15 +178,15 @@ object LocalizarCategoriaUsuario: TLocalizarCategoriaUsuario
     Left = 0
     Top = 41
     Width = 1150
-    Height = 41
+    Height = 56
     Align = alTop
     TabOrder = 3
     DesignSize = (
       1150
-      41)
+      56)
     object btnPesquisar: TcxButton
-      Left = 997
-      Top = 7
+      Left = 887
+      Top = 11
       Width = 145
       Height = 25
       Anchors = [akTop, akRight]
@@ -212,11 +214,12 @@ object LocalizarCategoriaUsuario: TLocalizarCategoriaUsuario
         F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
         CCCEC728114BCD0000000049454E44AE426082}
       TabOrder = 0
+      OnClick = btnPesquisarClick
     end
-    object edtPesquisar: TEdit
+    object edtPesquisa: TEdit
       Left = 8
-      Top = 9
-      Width = 969
+      Top = 14
+      Width = 849
       Height = 21
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 1
@@ -229,8 +232,8 @@ object LocalizarCategoriaUsuario: TLocalizarCategoriaUsuario
       '  * '
       'from'
       ' usuario_categoria')
-    Left = 672
-    Top = 128
+    Left = 920
+    Top = 168
     object qryCategoriaUsuarioID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -263,7 +266,7 @@ object LocalizarCategoriaUsuario: TLocalizarCategoriaUsuario
   end
   object dtsCategoriaUsuario: TDataSource
     DataSet = qryCategoriaUsuario
-    Left = 680
-    Top = 184
+    Left = 1048
+    Top = 168
   end
 end

@@ -306,6 +306,7 @@ object Login: TLogin
     Height = 23
     MaxLength = 30
     TabOrder = 1
+    Text = 'admin'
   end
   object edtSenha: TEdit
     Left = 176
@@ -313,7 +314,9 @@ object Login: TLogin
     Width = 177
     Height = 23
     MaxLength = 10
+    PasswordChar = '*'
     TabOrder = 2
+    Text = 'admin'
   end
   object btnFechar: TcxButton
     Left = 278

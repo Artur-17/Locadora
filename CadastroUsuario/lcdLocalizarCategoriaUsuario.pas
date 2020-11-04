@@ -77,6 +77,8 @@ implementation
 
 procedure TLocalizarCategoriaUsuario.btnAlterarClick(Sender: TObject);
 begin
+
+
   ShowMessage( qryCategoriaUsuario.FieldByName('id').AsString );
 end;
 
@@ -94,32 +96,50 @@ begin
     lQRY := qryCategoriaUsuario;
     selectOriginal := 'SELECT * FROM USUARIO_CATEGORIA' ;
 
-
-    try
-
-      try
-        if lQRY.Active then
-        begin
-          lQRY.Close;
-          lQRY.SQL.Add('SELECT * FROM USUARIO_CATEGORIA WHERE ID = :ID ');
-          lQRY.ParamByName('ID').AsString := edtPesquisa.Text;
-
-          lQRY.Open;
-
-        end;
-      except
-        on E: Exception do
-          ShowMessage( E.Message );
+    if (edtPesquisa.Text = '') then
+      begin
+        ShowMessage('Insira o nome da categoria ou código para pesquisar');
+        edtPesquisa.SetFocus;
       end;
 
+      if StrToIntDef(edtPesquisa.Text, 0) = 0  then
+          //Tem letras
+        try
+          if lQRY.Active then
+          begin
+            lQRY.Close;
+            lQRY.SQL.Clear;
+            lQRY.SQL.Add('Select * from usuario_categoria');
+            lQRY.SQL.Add('Where categoria LIKE :Texto');
+            lQRY.ParamByName('Texto').AsString := '%'+edtPesquisa.Text+'%';
+            lQRY.Open;
 
 
+          end;
+        except
+          on E: Exception do
+            ShowMessage( E.Message );
+        end
+      else
+        //é número
+        try
+          if lQRY.Active then
+          begin
+            lQRY.Close;
+            lQRY.SQL.Clear;
+            lQRY.SQL.Add('Select * from usuario_categoria');
+            lQRY.SQL.Add('Where id LIKE :id');
+            lQRY.ParamByName('id').AsString := '%'+edtPesquisa.Text+'%';
+            lQRY.Open;
 
 
-    finally
-       if Assigned(lQRY) then
-      FreeAndNil(lQRY);
-    end;
+          end;
+        except
+          on E: Exception do
+            ShowMessage( E.Message );
+        end
+
+
 end;
 
 class procedure TLocalizarCategoriaUsuario.exibirCategoriaUsuario;

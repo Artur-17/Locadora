@@ -52,9 +52,6 @@
 			<DCCReference Include="CadastroUsuario\lcdCadastroFuncionario.pas">
 				<Form>CadastroFuncionario</Form>
 			</DCCReference>
-			<DCCReference Include="lcdLocalizarFilme.pas">
-				<Form>LocalizarFilme</Form>
-			</DCCReference>
 			<DCCReference Include="lcdDataModule.pas">
 				<Form>dtmPrincipal</Form>
 				<DesignClass>TDataModule</DesignClass>
@@ -72,6 +69,9 @@
 			</DCCReference>
 			<DCCReference Include="Login\lcdLogin.pas">
 				<Form>Login</Form>
+			</DCCReference>
+			<DCCReference Include="CadastroFilme\lcdLocalizarFilme.pas">
+				<Form>LocalizarFilme</Form>
 			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>

@@ -143,8 +143,6 @@ object LocalizarCategoriaUsuario: TLocalizarCategoriaUsuario
     Height = 477
     Align = alClient
     TabOrder = 2
-    ExplicitTop = 82
-    ExplicitHeight = 492
     object gridTbv: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = dtsCategoriaUsuario
@@ -186,7 +184,7 @@ object LocalizarCategoriaUsuario: TLocalizarCategoriaUsuario
       56)
     object btnPesquisar: TcxButton
       Left = 887
-      Top = 11
+      Top = 14
       Width = 145
       Height = 25
       Anchors = [akTop, akRight]

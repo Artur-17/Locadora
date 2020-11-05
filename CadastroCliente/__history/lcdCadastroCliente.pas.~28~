@@ -1,0 +1,257 @@
+unit lcdCadastroCliente;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
+  dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinBlueprint, dxSkinCaramel,
+  dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinFoggy, dxSkinGlassOceans, dxSkinHighContrast,
+  dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky, dxSkinLondonLiquidSky,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark, dxSkinPumpkin, dxSkinSeven, dxSkinSevenClassic,
+  dxSkinSharp, dxSkinSharpPlus, dxSkinSilver, dxSkinSpringTime, dxSkinStardust,
+  dxSkinSummer2008, dxSkinTheAsphaltWorld, dxSkinsDefaultPainters,
+  dxSkinValentine, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light, dxSkinVS2010, dxSkinWhiteprint,
+  dxSkinXmas2008Blue, cxControls, cxContainer, cxEdit, ComCtrls, dxCore,
+  cxDateUtils, StdCtrls, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar,
+  Mask, cxButtons, dxGDIPlusClasses, ExtCtrls, DB, MemDS, DBAccess, Uni,
+  lcdDataModule;
+
+type
+  TCadastroCliente = class(TForm)
+    pnlTop: TPanel;
+    imgFoto: TImage;
+    btnFoto: TcxButton;
+    edtNome: TEdit;
+    lblNome: TLabel;
+    lblCPF: TLabel;
+    edtCpf: TMaskEdit;
+    lblEmail: TLabel;
+    edtEmail: TEdit;
+    lblTelefone: TLabel;
+    edtTelefone: TEdit;
+    lblEndereco: TLabel;
+    edtEndereco: TEdit;
+    lblBairro: TLabel;
+    edtBairro: TEdit;
+    lblCidade: TLabel;
+    edtCidade: TEdit;
+    lblComplemento: TLabel;
+    edtComplemento: TEdit;
+    edtEstado: TLabel;
+    cbxEstado: TComboBox;
+    lblDataNascimento: TLabel;
+    dtpDataNascimento: TcxDateEdit;
+    lblObservacao: TLabel;
+    mmObservacao: TMemo;
+    btnCancelar: TcxButton;
+    btnGravar: TcxButton;
+    qryCliente: TUniQuery;
+    qryClienteID: TIntegerField;
+    qryClienteNOME: TStringField;
+    qryClienteCPF: TStringField;
+    qryClienteEMAIL: TStringField;
+    qryClienteTELEFONE: TStringField;
+    qryClienteDT_NASCIMENTO: TDateField;
+    qryClienteESTADO: TStringField;
+    qryClienteLOGRADOURO: TStringField;
+    qryClienteBAIRRO: TStringField;
+    qryClienteCIDADE: TStringField;
+    qryClienteCOMPLEMENTO: TStringField;
+    qryClienteOBSERVACAO: TStringField;
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnGravarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnFotoClick(Sender: TObject);
+  private
+    FDataSet: TDataSet;
+    { Private declarations }
+    procedure GravarDadosCliente();
+    procedure carregarEstados;
+    procedure SetDataSet(const Value: TDataSet);
+    procedure PreencherDados;
+  public
+    { Public declarations }
+    class procedure Novo();
+    class function Alterar(pOwner: TForm; pDataSet: TDataset): TmodalResult;
+
+    procedure CarregarCadastroUsuario();
+  end;
+
+var
+  CadastroCliente: TCadastroCliente;
+
+implementation
+
+{$R *.dfm}
+
+procedure TCadastroCliente.btnCancelarClick(Sender: TObject);
+begin
+  ModalResult := mrCancel;
+end;
+
+procedure TCadastroCliente.btnFotoClick(Sender: TObject);
+begin
+   CarregarCadastroUsuario()
+end;
+
+procedure TCadastroCliente.btnGravarClick(Sender: TObject);
+begin
+  GravarDadosCliente();
+end;
+
+procedure TCadastroCliente.CarregarCadastroUsuario();
+var
+  SelecaoAtual: String;
+begin
+
+//Se for class procedure o delphi não deixa chamar a qrycliente
+
+  SelecaoAtual := qryCliente.FieldByName('ID').AsString;
+  ShowMessage(SelecaoAtual);
+
+  qryCliente.Close;
+  qryCliente.SQL.Clear;
+
+  edtNome.Text := qryCliente.FieldByName('Nome').AsString;
+
+end;
+
+procedure TCadastroCliente.GravarDadosCliente;
+begin
+   try
+    qryCliente.Close;
+    qryCliente.SQL.Clear;
+    qryCliente.SQL.Add('INSERT INTO CLIENTE');
+    qryCliente.SQL.Add('(NOME, CPF, EMAIL, TELEFONE, DT_NASCIMENTO, ESTADO, LOGRADOURO, BAIRRO, CIDADE, COMPLEMENTO, OBSERVACAO)');
+    qryCliente.SQL.Add('values ( :pNOME, :pCPF, :pEMAIL, :pTELEFONE, :pDT_NASCIMENTO, :pESTADO, :pLOGRADOURO, :pBAIRRO, :pCIDADE, :pCOMPLEMENTO, :pOBSERVACAO)');
+
+    // Exemplo para inserir do tipo int
+    //Query1.ParamByName('pCodigo').AsInteger := StrToInt(edtCodigo.Text);
+
+    qryCliente.ParamByName('pNOME').AsString := edtNome.Text;
+    qryCliente.ParamByName('pCPF').AsString := edtCpf.Text;
+    qryCliente.ParamByName('pEMAIL').AsString := edtEmail.Text;
+    qryCliente.ParamByName('pTELEFONE').AsString := edtTelefone.Text;
+    qryCliente.ParamByName('pDT_NASCIMENTO').AsDate := dtpDataNascimento.Date;
+    qryCliente.ParamByName('pESTADO').AsString := cbxEstado.Text;
+    qryCliente.ParamByName('pLOGRADOURO').AsString := edtEndereco.Text;
+    qryCliente.ParamByName('pBAIRRO').AsString := edtBairro.Text;
+    qryCliente.ParamByName('pCIDADE').AsString := edtCidade.Text;
+    qryCliente.ParamByName('pCOMPLEMENTO').AsString := edtComplemento.Text;
+    qryCliente.ParamByName('pOBSERVACAO').AsString := mmObservacao.Text;
+
+
+
+    qryCliente.ExecSQL;
+
+    ShowMessage('Os dados foram inseridos com sucesso');
+    ModalResult := mrCancel;
+
+
+  except
+    on E: Exception do
+
+    ShowMessage( E.Message )
+  end;
+
+end;
+
+procedure TCadastroCliente.carregarEstados();
+var
+  lQry: TUniQuery;
+begin
+  cbxEstado.ItemIndex := -1;
+  cbxEstado.Text := 'RJ';
+  cbxEstado.Items.Clear;
+  lQry := TUniQuery.Create(nil);
+
+  lQry.Connection := dtmPrincipal.conexao;
+
+  lQry.SQL.Add('select * from estados');
+
+  try
+    lQry.Open();
+    lQry.First;
+
+    while not lQry.Eof do
+    begin
+      cbxEstado.Items.Add( lQry.FieldByName('SIGLA').AsString );
+      lQry.Next;
+    end;
+
+  finally
+    if Assigned(lQry) then
+      FreeAndNil(lQry);
+  end;
+
+end;
+
+class procedure TCadastroCliente.Novo;
+var
+  lcadastro : TCadastroCliente;
+begin
+   lcadastro := TCadastroCliente.Create(nil);
+   lcadastro.ShowModal();
+   FreeAndNil(lcadastro);
+end;
+
+
+procedure TCadastroCliente.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if qryCliente.Active then
+    qryCliente.Close;
+
+  if qryCliente.Active then
+    qryCliente.Close;
+end;
+
+procedure TCadastroCliente.FormShow(Sender: TObject);
+begin
+  edtNome.SetFocus;
+
+  carregarEstados();
+
+   try
+    if not Assigned(qryCliente.Connection)  then
+      qryCliente.Connection := dtmPrincipal.conexao;
+
+    if not qryCliente.Connection.Connected then
+      qryCliente.Connection.Connect();
+
+    if not qryCliente.Active then
+      qryCliente.Open;
+  except
+    on E: Exception do
+      ShowMessage( E.Message );
+  end;
+end;
+
+procedure TCadastroCliente.PreencherDados;
+begin
+  edtNome.Text := FDataSet.FieldByName('NOME').asstring;
+end;
+
+class function TCadastroCliente.Alterar(pOwner :TForm; pDataSet :TDataset) : TmodalResult;
+var
+  lCadastroCliente : TCadastroCliente;
+begin
+  lCadastroCliente := TCadastroCliente.Create(pOwner);
+  try
+    lCadastroCliente.FDataSet := pDataSet;
+    lCadastroCliente.PreencherDados;
+    Result := lCadastroCliente.ShowModal
+  finally
+    FreeAndNil(lCadastroCliente);
+  end;
+end;
+
+end.

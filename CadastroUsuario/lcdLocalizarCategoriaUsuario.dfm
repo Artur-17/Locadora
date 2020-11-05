@@ -216,7 +216,7 @@ object LocalizarCategoriaUsuario: TLocalizarCategoriaUsuario
     end
     object edtPesquisa: TEdit
       Left = 8
-      Top = 14
+      Top = 15
       Width = 849
       Height = 21
       Anchors = [akLeft, akTop, akRight]

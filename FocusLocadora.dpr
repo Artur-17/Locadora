@@ -11,7 +11,10 @@ uses
   lcdCadastroPermissoes in 'CadastroUsuario\lcdCadastroPermissoes.pas' {CadastroPermissoes},
   lcdLocalizarCategoriaUsuario in 'CadastroUsuario\lcdLocalizarCategoriaUsuario.pas' {LocalizarCategoriaUsuario},
   lcdLogin in 'Login\lcdLogin.pas' {Login},
-  lcdLocalizarFilme in 'CadastroFilme\lcdLocalizarFilme.pas' {LocalizarFilme};
+  lcdLocalizarFilme in 'CadastroFilme\lcdLocalizarFilme.pas' {LocalizarFilme},
+  lcdCadastroCliente in 'CadastroCliente\lcdCadastroCliente.pas' {CadastroCliente},
+  lcdCaminhoBancoDados in 'CaminhoBancoDados\lcdCaminhoBancoDados.pas' {CaminhoBancoDados},
+  lcdLocalizarCliente in 'CadastroCliente\lcdLocalizarCliente.pas' {LocalizarCliente};
 
 {$R *.res}
 
@@ -20,6 +23,7 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TPrincipal, Principal);
   Application.CreateForm(TdtmPrincipal, dtmPrincipal);
-  Application.CreateForm(TLocalizarFilme, LocalizarFilme);
+  Application.CreateForm(TCaminhoBancoDados, CaminhoBancoDados);
+  Application.CreateForm(TLocalizarCliente, LocalizarCliente);
   Application.Run;
 end.

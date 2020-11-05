@@ -73,6 +73,15 @@
 			<DCCReference Include="CadastroFilme\lcdLocalizarFilme.pas">
 				<Form>LocalizarFilme</Form>
 			</DCCReference>
+			<DCCReference Include="CadastroCliente\lcdCadastroCliente.pas">
+				<Form>CadastroCliente</Form>
+			</DCCReference>
+			<DCCReference Include="CaminhoBancoDados\lcdCaminhoBancoDados.pas">
+				<Form>CaminhoBancoDados</Form>
+			</DCCReference>
+			<DCCReference Include="CadastroCliente\lcdLocalizarCliente.pas">
+				<Form>LocalizarCliente</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

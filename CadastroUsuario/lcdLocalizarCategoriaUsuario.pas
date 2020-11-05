@@ -79,6 +79,7 @@ procedure TLocalizarCategoriaUsuario.btnAlterarClick(Sender: TObject);
 begin
 
 
+
   ShowMessage( qryCategoriaUsuario.FieldByName('id').AsString );
 end;
 

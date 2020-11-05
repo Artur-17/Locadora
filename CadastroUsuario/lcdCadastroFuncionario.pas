@@ -238,10 +238,7 @@ begin
 end;
 
 procedure TCadastroFuncionario.gravarDadosFuncionario;
-var
-  dataConvertida: string;
 begin
-  dataConvertida := ConverterData(dtpDataNascimento.Date);
 
   try
     qryFuncionario.Close;

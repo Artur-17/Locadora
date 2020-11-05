@@ -20,8 +20,9 @@ uses
   dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
   dxSkinTheAsphaltWorld, dxSkinValentine, dxSkinVisualStudio2013Blue,
   dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinVS2010,
-  dxSkinWhiteprint, dxSkinXmas2008Blue, Enter, lcdLocalizarFilme, lcdCadastroFuncionario, lcdLogin,
-  lcdCadastroCategoriaUsuario,
+  dxSkinWhiteprint, dxSkinXmas2008Blue, Enter,
+  lcdLocalizarFilme, lcdCadastroFuncionario, lcdLogin, lcdCadastroCategoriaUsuario,
+  lcdCadastroCliente, lcdLocalizarCliente,
   dxSkinsForm, Menus;
 
 type
@@ -49,6 +50,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure btnUsuarioClick(Sender: TObject);
     procedure Ca1Click(Sender: TObject);
+    procedure btnClienteClick(Sender: TObject);
   private
     { Private declarations }
 
@@ -68,6 +70,13 @@ implementation
 uses lcdLocalizarCategoriaUsuario;
 
 
+
+procedure TPrincipal.btnClienteClick(Sender: TObject);
+begin
+// Comenteo porque o cadasro de cliente já está pronto, só falta fazer a tela de localizar
+//  TCadastroCliente.ExibirCadastroCliente();
+  TLocalizarCliente.ExibirLocalizarCliente();
+end;
 
 procedure TPrincipal.btnFilmeClick(Sender: TObject);
 begin

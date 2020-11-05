@@ -1,0 +1,42 @@
+unit Utils;
+
+interface
+
+uses
+  windows,Classes, Registry,DB;
+
+type
+  TUtils = class
+    private
+
+    public
+      class function LerValorRegistro(pChave :string; pTipo : TFieldType) :variant;
+  end;
+implementation
+
+
+{ TUtils }
+
+class function TUtils.LerValorRegistro(pChave: string; pTipo: TFieldType) : variant;
+var
+  lReg: TRegistry;
+begin
+  lReg := TRegistry.Create;
+  try
+    lReg.RootKey := HKEY_LOCAL_MACHINE;
+
+    lReg.OpenKey('Software\Locadora', True);
+
+    case pTipo of
+      ftString : Result  := lReg.ReadString(pChave);
+      ftBoolean : Result  := lReg.ReadBool(pChave);
+      ftInteger : Result  := lReg.ReadInteger(pChave);
+      ftDateTime : Result  := lReg.ReadDateTime(pChave);
+    end;
+  finally
+    lReg.CloseKey;
+    lReg.Free;
+  end;
+end;
+
+end.

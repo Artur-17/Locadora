@@ -20,7 +20,7 @@ uses
   dxSkinValentine, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
   dxSkinVisualStudio2013Light, dxSkinVS2010, dxSkinWhiteprint,
   dxSkinXmas2008Blue, ExtCtrls, StdCtrls, cxButtons, dxGDIPlusClasses, DB,
-  MemDS, DBAccess, Uni, lcdDataModule, FuncaoCriptografia, lcdCadastroFuncionario;
+  MemDS, DBAccess, Uni, lcdDataModule, FuncaoCriptografia, lcdCadastroFuncionario, lcdCaminhoBancoDados;
 
 type
   TLogin = class(TForm)
@@ -31,10 +31,12 @@ type
     edtSenha: TEdit;
     lblSenha: TLabel;
     btnFechar: TcxButton;
+    btnBancoDados: TcxButton;
     procedure btnFecharClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormShow(Sender: TObject);
     procedure btnOkClick(Sender: TObject);
+    procedure btnBancoDadosClick(Sender: TObject);
   private
     { Private declarations }
     fFechar : boolean;
@@ -53,6 +55,11 @@ implementation
 
 { TLogin }
 
+procedure TLogin.btnBancoDadosClick(Sender: TObject);
+begin
+   TCaminhoBancoDados.ExibirCaminhoBancoDados();
+end;
+
 procedure TLogin.btnFecharClick(Sender: TObject);
 begin
   fFechar:= true;
@@ -64,6 +71,18 @@ var
   oUsuario : TCadastroFuncionario;     
 begin
 //  validarLogin();
+
+
+//  try
+//     if (dtmPrincipal.conexao.Database = '') then
+//      ShowMessage('Selecione o caminho da Base de Dados');
+//
+//      TCaminhoBancoDados.ExibirCaminhoBancoDados();
+//  except
+//    on E: Exception do
+//      ShowMessage(E.Message);
+//  end;
+
 
   try
      oUsuario := TCadastroFuncionario.Create(dtmPrincipal.conexao);

@@ -23,7 +23,7 @@ uses
   cxDataStorage, cxEdit, cxNavigator, dxDateRanges, DB, cxDBData, DBCtrls,
   cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
   cxClasses, cxGridCustomView, cxGrid, StdCtrls, cxButtons, ExtCtrls, MemDS,
-  DBAccess, Uni, lcdDataModule;
+  DBAccess, Uni, lcdDataModule, lcdCadastroCliente;
 
 type
   TLocalizarCliente = class(TForm)
@@ -69,7 +69,13 @@ type
     procedure btnFecharClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnPesquisarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure btnIncluirClick(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure btnAlterarClick(Sender: TObject);
   private
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure AlterarDadosCliente();
     { Private declarations }
   public
     { Public declarations }
@@ -83,9 +89,24 @@ implementation
 
 {$R *.dfm}
 
+procedure TLocalizarCliente.AlterarDadosCliente;
+begin
+
+end;
+
+procedure TLocalizarCliente.btnAlterarClick(Sender: TObject);
+begin
+  TCadastroCliente.Alterar(Self,qryCliente);
+end;
+
 procedure TLocalizarCliente.btnFecharClick(Sender: TObject);
 begin
   ModalResult := mrCancel;
+end;
+
+procedure TLocalizarCliente.btnIncluirClick(Sender: TObject);
+begin
+  TCadastroCliente.Novo();
 end;
 
 procedure TLocalizarCliente.btnPesquisarClick(Sender: TObject);
@@ -95,11 +116,11 @@ var
 begin
 
     lQRY := qryCliente;
-    selectOriginal := 'SELECT * FROM USUARIO_CATEGORIA' ;
+    selectOriginal := 'SELECT * FROM CLIENTE' ;
 
     if (edtPesquisa.Text = '') then
       begin
-        ShowMessage('Insira o nome da categoria ou código para pesquisar');
+        ShowMessage('Insira o nome do Cliente ou Código para pesquisar');
         edtPesquisa.SetFocus;
       end;
 
@@ -110,8 +131,8 @@ begin
           begin
             lQRY.Close;
             lQRY.SQL.Clear;
-            lQRY.SQL.Add('Select * from usuario_categoria');
-            lQRY.SQL.Add('Where categoria LIKE :Texto');
+            lQRY.SQL.Add('Select * from cliente');
+            lQRY.SQL.Add('Where nome LIKE :Texto');
             lQRY.ParamByName('Texto').AsString := '%'+edtPesquisa.Text+'%';
             lQRY.Open;
 
@@ -128,7 +149,7 @@ begin
           begin
             lQRY.Close;
             lQRY.SQL.Clear;
-            lQRY.SQL.Add('Select * from usuario_categoria');
+            lQRY.SQL.Add('Select * from cliente');
             lQRY.SQL.Add('Where id LIKE :id');
             lQRY.ParamByName('id').AsString := '%'+edtPesquisa.Text+'%';
             lQRY.Open;
@@ -155,6 +176,41 @@ procedure TLocalizarCliente.FormKeyDown(Sender: TObject; var Key: Word;
 begin
   if (Key = VK_ESCAPE) then
     Close;
+end;
+
+procedure TLocalizarCliente.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (key = VK_F2) then
+    TCadastroCliente.Novo();
+end;
+
+procedure TLocalizarCliente.FormShow(Sender: TObject);
+begin
+
+   try
+    if not Assigned(qryCliente.Connection)  then
+      qryCliente.Connection := dtmPrincipal.conexao;
+
+    if not qryCliente.Connection.Connected then
+      qryCliente.Connection.Connect();
+
+    if not qryCliente.Active then
+      qryCliente.Open;
+  except
+    on E: Exception do
+      ShowMessage( E.Message );
+  end;
+
+end;
+
+procedure TLocalizarCliente.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if qryCliente.Active then
+    qryCliente.Close;
+
+  if qryCliente.Active then
+    qryCliente.Close;
 end;
 
 end.

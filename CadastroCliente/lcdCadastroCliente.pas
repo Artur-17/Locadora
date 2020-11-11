@@ -45,7 +45,7 @@ type
     edtCidade: TEdit;
     lblComplemento: TLabel;
     edtComplemento: TEdit;
-    edtEstado: TLabel;
+    lblEstado: TLabel;
     cbxEstado: TComboBox;
     lblDataNascimento: TLabel;
     dtpDataNascimento: TcxDateEdit;
@@ -71,16 +71,20 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnFotoClick(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FDataSet: TDataSet;
-    { Private declarations }
+    FIDCliente: integer;
+    FModo : string;
     procedure GravarDadosCliente();
     procedure carregarEstados;
     procedure PreencherDados;
+
+   // function SelecaoBotao(pGravar; pAlterar; pExcluir ) : Boolean;
   public
     { Public declarations }
-    class procedure Novo();
-    class function Alterar(pOwner: TForm; pDataSet: TDataset): TmodalResult;
+    class function Novo(pOwner: TForm; pDataSet: TDataset;  pIDCliente: integer): TmodalResult;
+    class function Alterar(pOwner: TForm; pDataSet: TDataset;  pIDCliente: integer): TmodalResult;
 
     procedure CarregarCadastroUsuario();
   end;
@@ -113,6 +117,7 @@ var
 begin
 
 //Se for class procedure o delphi não deixa chamar a qrycliente
+// Tentativa de clicar alteção de usuário
 
   SelecaoAtual := qryCliente.FieldByName('ID').AsString;
   ShowMessage(SelecaoAtual);
@@ -129,26 +134,59 @@ begin
    try
     qryCliente.Close;
     qryCliente.SQL.Clear;
-    qryCliente.SQL.Add('INSERT INTO CLIENTE');
-    qryCliente.SQL.Add('(NOME, CPF, EMAIL, TELEFONE, DT_NASCIMENTO, ESTADO, LOGRADOURO, BAIRRO, CIDADE, COMPLEMENTO, OBSERVACAO)');
-    qryCliente.SQL.Add('values ( :pNOME, :pCPF, :pEMAIL, :pTELEFONE, :pDT_NASCIMENTO, :pESTADO, :pLOGRADOURO, :pBAIRRO, :pCIDADE, :pCOMPLEMENTO, :pOBSERVACAO)');
+//    qryCliente.SQL.Add('INSERT INTO CLIENTE');
+
+    // TESTE COM UPDATE E INSERT
+
+//    qryCliente.SQL.Add('(NOME, CPF, EMAIL, TELEFONE, DT_NASCIMENTO, ESTADO, LOGRADOURO, BAIRRO, CIDADE, COMPLEMENTO, OBSERVACAO)');
+//    qryCliente.SQL.Add('values ( :pNOME, :pCPF, :pEMAIL, :pTELEFONE, :pDT_NASCIMENTO, :pESTADO, :pLOGRADOURO, :pBAIRRO, :pCIDADE, :pCOMPLEMENTO, :pOBSERVACAO)');
 
     // Exemplo para inserir do tipo int
     //Query1.ParamByName('pCodigo').AsInteger := StrToInt(edtCodigo.Text);
 
-    qryCliente.ParamByName('pNOME').AsString := edtNome.Text;
-    qryCliente.ParamByName('pCPF').AsString := edtCpf.Text;
-    qryCliente.ParamByName('pEMAIL').AsString := edtEmail.Text;
-    qryCliente.ParamByName('pTELEFONE').AsString := edtTelefone.Text;
-    qryCliente.ParamByName('pDT_NASCIMENTO').AsDate := dtpDataNascimento.Date;
-    qryCliente.ParamByName('pESTADO').AsString := cbxEstado.Text;
-    qryCliente.ParamByName('pLOGRADOURO').AsString := edtEndereco.Text;
-    qryCliente.ParamByName('pBAIRRO').AsString := edtBairro.Text;
-    qryCliente.ParamByName('pCIDADE').AsString := edtCidade.Text;
-    qryCliente.ParamByName('pCOMPLEMENTO').AsString := edtComplemento.Text;
-    qryCliente.ParamByName('pOBSERVACAO').AsString := mmObservacao.Text;
+//    qryCliente.ParamByName('pNOME').AsString := edtNome.Text;
+//    qryCliente.ParamByName('pCPF').AsString := edtCpf.Text;
+//    qryCliente.ParamByName('pEMAIL').AsString := edtEmail.Text;
+//    qryCliente.ParamByName('pTELEFONE').AsString := edtTelefone.Text;
+//    qryCliente.ParamByName('pDT_NASCIMENTO').AsDate := dtpDataNascimento.Date;
+//    qryCliente.ParamByName('pESTADO').AsString := cbxEstado.Text;
+//    qryCliente.ParamByName('pLOGRADOURO').AsString := edtEndereco.Text;
+//    qryCliente.ParamByName('pBAIRRO').AsString := edtBairro.Text;
+//    qryCliente.ParamByName('pCIDADE').AsString := edtCidade.Text;
+//    qryCliente.ParamByName('pCOMPLEMENTO').AsString := edtComplemento.Text;
+//    qryCliente.ParamByName('pOBSERVACAO').AsString := mmObservacao.Text;
 
 
+
+
+       if FModo = 'novo' then
+       begin
+         qryCliente.SQL.Add('INSERT INTO CLIENTE');
+         qryCliente.SQL.Add('(NOME, CPF, EMAIL, TELEFONE, DT_NASCIMENTO, ESTADO, LOGRADOURO, BAIRRO, CIDADE, COMPLEMENTO, OBSERVACAO)');
+         qryCliente.SQL.Add('values ( :pNOME, :pCPF, :pEMAIL, :pTELEFONE, :pDT_NASCIMENTO, :pESTADO, :pLOGRADOURO, :pBAIRRO, :pCIDADE, :pCOMPLEMENTO, :pOBSERVACAO)')
+       end
+       else
+       begin
+        qryCliente.SQL.Add('UPDATE OR INSERT INTO CLIENTE');
+        qryCliente.SQL.Add('(ID, NOME, CPF, EMAIL, TELEFONE, DT_NASCIMENTO, ESTADO, LOGRADOURO, BAIRRO, CIDADE, COMPLEMENTO, OBSERVACAO)');
+        qryCliente.SQL.Add('values (:ID, :pNOME, :pCPF, :pEMAIL, :pTELEFONE, :pDT_NASCIMENTO, :pESTADO, :pLOGRADOURO, :pBAIRRO, :pCIDADE, :pCOMPLEMENTO, :pOBSERVACAO)');
+        qryCliente.SQL.Add('MATCHING (ID);');
+
+        qryCliente.ParamByName('ID').AsInteger := FIDCliente;
+       end;
+
+
+      qryCliente.ParamByName('pNOME').AsString := edtNome.Text;
+      qryCliente.ParamByName('pCPF').AsString := edtCpf.Text;
+      qryCliente.ParamByName('pEMAIL').AsString := edtEmail.Text;
+      qryCliente.ParamByName('pTELEFONE').AsString := edtTelefone.Text;
+      qryCliente.ParamByName('pDT_NASCIMENTO').AsDate := dtpDataNascimento.Date;
+      qryCliente.ParamByName('pESTADO').AsString := cbxEstado.Text;
+      qryCliente.ParamByName('pLOGRADOURO').AsString := edtEndereco.Text;
+      qryCliente.ParamByName('pBAIRRO').AsString := edtBairro.Text;
+      qryCliente.ParamByName('pCIDADE').AsString := edtCidade.Text;
+      qryCliente.ParamByName('pCOMPLEMENTO').AsString := edtComplemento.Text;
+      qryCliente.ParamByName('pOBSERVACAO').AsString := mmObservacao.Text;
 
     qryCliente.ExecSQL;
 
@@ -168,8 +206,8 @@ procedure TCadastroCliente.carregarEstados();
 var
   lQry: TUniQuery;
 begin
-  cbxEstado.ItemIndex := -1;
-  cbxEstado.Text := 'RJ';
+//  cbxEstado.ItemIndex := -1;
+//  cbxEstado.Text := 'RJ';
   cbxEstado.Items.Clear;
   lQry := TUniQuery.Create(nil);
 
@@ -194,11 +232,12 @@ begin
 
 end;
 
-class procedure TCadastroCliente.Novo;
+class function TCadastroCliente.Novo(pOwner :TForm; pDataSet :TDataset; pIDCliente: integer) : TmodalResult;
 var
   lcadastro : TCadastroCliente;
 begin
    lcadastro := TCadastroCliente.Create(nil);
+   lcadastro.FModo := 'novo';
    lcadastro.ShowModal();
    FreeAndNil(lcadastro);
 end;
@@ -211,6 +250,13 @@ begin
 
   if qryCliente.Active then
     qryCliente.Close;
+end;
+
+procedure TCadastroCliente.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_ESCAPE) then
+    ModalResult := mrCancel;
 end;
 
 procedure TCadastroCliente.FormShow(Sender: TObject);
@@ -236,10 +282,27 @@ end;
 
 procedure TCadastroCliente.PreencherDados;
 begin
-  edtNome.Text := FDataSet.FieldByName('NOME').asstring;
+  Try
+    edtNome.Text := FDataSet.FieldByName('NOME').AsString;
+    edtCpf.Text := FDataSet.FieldByName('CPF').AsString;
+    edtEmail.Text := FDataSet.FieldByName('EMAIL').AsString;
+    edtTelefone.Text := FDataSet.FieldByName('TELEFONE').AsString;
+    edtEndereco.Text := FDataSet.FieldByName('LOGRADOURO').AsString;
+    edtBairro.Text := FDataSet.FieldByName('BAIRRO').AsString;
+    edtCidade.Text := FDataSet.FieldByName('CIDADE').AsString;
+    edtComplemento.Text := FDataSet.FieldByName('COMPLEMENTO').AsString;
+    cbxEstado.Text := FDataSet.FieldByName('ESTADO').AsString;
+    mmObservacao.Text := FDataSet.FieldByName('OBSERVACAO').AsString;
+    dtpDataNascimento.Date := FDataSet.FieldByName('DT_NASCIMENTO').AsDateTime;
+  except
+    on E: Exception do
+      ShowMessage( E.Message );
+  End;
+
+
 end;
 
-class function TCadastroCliente.Alterar(pOwner :TForm; pDataSet :TDataset) : TmodalResult;
+class function TCadastroCliente.Alterar(pOwner :TForm; pDataSet :TDataset; pIDCliente: integer) : TmodalResult;
 var
   lCadastroCliente : TCadastroCliente;
 begin
@@ -247,10 +310,14 @@ begin
   try
     lCadastroCliente.FDataSet := pDataSet;
     lCadastroCliente.PreencherDados;
+    lCadastroCliente.FIDCliente := pIDCliente;
+    lCadastroCliente.FModo := 'alterar';
+
     Result := lCadastroCliente.ShowModal
   finally
     FreeAndNil(lCadastroCliente);
   end;
 end;
+
 
 end.

@@ -227,7 +227,7 @@ object CadastroCliente: TCadastroCliente
     Height = 15
     Caption = 'Complemento'
   end
-  object lblEstado: TLabel
+  object edtEstado: TLabel
     Left = 229
     Top = 273
     Width = 35
@@ -366,34 +366,6 @@ object CadastroCliente: TCadastroCliente
     Height = 23
     Style = csDropDownList
     TabOrder = 10
-    Items.Strings = (
-      'AC'
-      'AL'
-      'AP'
-      'AM'
-      'BA'
-      'CE'
-      'ES'
-      'GO'
-      'MA'
-      'MT'
-      'MS'
-      'MG'
-      'PA'
-      'PB'
-      'PR'
-      'PE'
-      'PI'
-      'RJ'
-      'RN'
-      'RS'
-      'RO'
-      'RR'
-      'SC'
-      'SP'
-      'SE'
-      'TO'
-      'DF')
   end
   object dtpDataNascimento: TcxDateEdit
     Left = 331
@@ -460,8 +432,8 @@ object CadastroCliente: TCadastroCliente
     Connection = dtmPrincipal.conexao
     SQL.Strings = (
       'select * from cliente')
-    Left = 304
-    Top = 520
+    Left = 496
+    Top = 528
     object qryClienteID: TIntegerField
       FieldName = 'ID'
       Required = True

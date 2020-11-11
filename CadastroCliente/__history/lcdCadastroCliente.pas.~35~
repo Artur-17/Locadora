@@ -22,7 +22,7 @@ uses
   dxSkinXmas2008Blue, cxControls, cxContainer, cxEdit, ComCtrls, dxCore,
   cxDateUtils, StdCtrls, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar,
   Mask, cxButtons, dxGDIPlusClasses, ExtCtrls, DB, MemDS, DBAccess, Uni,
-  lcdDataModule,db;
+  lcdDataModule;
 
 type
   TCadastroCliente = class(TForm)
@@ -45,7 +45,7 @@ type
     edtCidade: TEdit;
     lblComplemento: TLabel;
     edtComplemento: TEdit;
-    edtEstado: TLabel;
+    lblEstado: TLabel;
     cbxEstado: TComboBox;
     lblDataNascimento: TLabel;
     dtpDataNascimento: TcxDateEdit;
@@ -71,18 +71,19 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnFotoClick(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FDataSet: TDataSet;
     { Private declarations }
     procedure GravarDadosCliente();
     procedure carregarEstados;
-    class function Alterar(pOwner: TForm; pDataSet: TDataset): TmodalResult; static;
-    procedure SetDataSet(const Value: TDataSet);
+    procedure PreencherDados;
   public
     { Public declarations }
     class procedure Novo();
+    class function Alterar(pOwner: TForm; pDataSet: TDataset): TmodalResult;
+
     procedure CarregarCadastroUsuario();
-    property DataSet : TDataSet read FDataSet write SetDataSet;
   end;
 
 var
@@ -113,6 +114,7 @@ var
 begin
 
 //Se for class procedure o delphi não deixa chamar a qrycliente
+// Tentativa de clicar alteção de usuário
 
   SelecaoAtual := qryCliente.FieldByName('ID').AsString;
   ShowMessage(SelecaoAtual);
@@ -203,10 +205,6 @@ begin
    FreeAndNil(lcadastro);
 end;
 
-procedure TCadastroCliente.SetDataSet(const Value: TDataSet);
-begin
-  FDataSet := Value;
-end;
 
 procedure TCadastroCliente.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -215,6 +213,13 @@ begin
 
   if qryCliente.Active then
     qryCliente.Close;
+end;
+
+procedure TCadastroCliente.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_ESCAPE) then
+    ModalResult := mrCancel;
 end;
 
 procedure TCadastroCliente.FormShow(Sender: TObject);
@@ -238,13 +243,34 @@ begin
   end;
 end;
 
+procedure TCadastroCliente.PreencherDados;
+begin
+  Try
+    edtNome.Text := FDataSet.FieldByName('NOME').AsString;
+    edtCpf.Text := FDataSet.FieldByName('CPF').AsString;
+    edtEmail.Text := FDataSet.FieldByName('EMAIL').AsString;
+    edtTelefone.Text := FDataSet.FieldByName('TELEFONE').AsString;
+    edtEndereco.Text := FDataSet.FieldByName('LOGRADOURO').AsString;
+    edtBairro.Text := FDataSet.FieldByName('BAIRRO').AsString;
+    edtCidade.Text := FDataSet.FieldByName('CIDADE').AsString;
+    edtComplemento := FDataSet.FieldByName('COMPLEMENTO').AsString;
+    cbxEstado.Text  := FDataSet.FieldByName('ESTADO').AsString;
+    mmObservacao.Text := FDataSet.FieldByName('OBSERVACAO').AsString;
+  Finally
+
+  End;
+
+
+end;
+
 class function TCadastroCliente.Alterar(pOwner :TForm; pDataSet :TDataset) : TmodalResult;
 var
   lCadastroCliente : TCadastroCliente;
 begin
   lCadastroCliente := TCadastroCliente.Create(pOwner);
   try
-    lCadastroCliente.DataSet := pDataSet;
+    lCadastroCliente.FDataSet := pDataSet;
+    lCadastroCliente.PreencherDados;
     Result := lCadastroCliente.ShowModal
   finally
     FreeAndNil(lCadastroCliente);

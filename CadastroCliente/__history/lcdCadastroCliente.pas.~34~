@@ -45,7 +45,7 @@ type
     edtCidade: TEdit;
     lblComplemento: TLabel;
     edtComplemento: TEdit;
-    edtEstado: TLabel;
+    lblEstado: TLabel;
     cbxEstado: TComboBox;
     lblDataNascimento: TLabel;
     dtpDataNascimento: TcxDateEdit;
@@ -71,12 +71,12 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnFotoClick(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FDataSet: TDataSet;
     { Private declarations }
     procedure GravarDadosCliente();
     procedure carregarEstados;
-    procedure SetDataSet(const Value: TDataSet);
     procedure PreencherDados;
   public
     { Public declarations }
@@ -114,6 +114,7 @@ var
 begin
 
 //Se for class procedure o delphi não deixa chamar a qrycliente
+// Tentativa de clicar alteção de usuário
 
   SelecaoAtual := qryCliente.FieldByName('ID').AsString;
   ShowMessage(SelecaoAtual);
@@ -214,6 +215,13 @@ begin
     qryCliente.Close;
 end;
 
+procedure TCadastroCliente.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_ESCAPE) then
+    ModalResult := mrCancel;
+end;
+
 procedure TCadastroCliente.FormShow(Sender: TObject);
 begin
   edtNome.SetFocus;
@@ -237,7 +245,15 @@ end;
 
 procedure TCadastroCliente.PreencherDados;
 begin
-  edtNome.Text := FDataSet.FieldByName('NOME').asstring;
+  edtNome.Text := FDataSet.FieldByName('NOME').AsString;
+  edtCpf.Text := FDataSet.FieldByName('CPF').AsString;
+  edtEmail.Text := FDataSet.FieldByName('EMAIL').AsString;
+  edtTelefone.Text := FDataSet.FieldByName('TELEFONE').AsString;
+  edtEndereco.Text := FDataSet.FieldByName('LOGRADOURO').AsString;
+  edtBairro.Text := FDataSet.FieldByName('BAIRRO').AsString;
+  edtCidade.Text := FDataSet.FieldByName('CIDADE').AsString;
+  edtComplemento := FDataSet.FieldByName('COMPLEMENTO').AsString;
+  cbxEstado  := FDataSet.FieldByName('ESTADO').AsString;
 end;
 
 class function TCadastroCliente.Alterar(pOwner :TForm; pDataSet :TDataset) : TmodalResult;

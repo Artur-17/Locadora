@@ -32,8 +32,8 @@ type
     btnPesquisar: TcxButton;
     pnlClient: TPanel;
     grid: TcxGrid;
-    gridTbv: TcxGridDBTableView;
-    gridLvl: TcxGridLevel;
+    viewcliente: TcxGridDBTableView;
+    levelCliente: TcxGridLevel;
     pnlBottom: TPanel;
     btnAlterar: TcxButton;
     btnExcluir: TcxButton;
@@ -54,18 +54,18 @@ type
     qryClienteCOMPLEMENTO: TStringField;
     qryClienteOBSERVACAO: TStringField;
     dtsCliente: TDataSource;
-    gridTbvID: TcxGridDBColumn;
-    gridTbvNOME: TcxGridDBColumn;
-    gridTbvCPF: TcxGridDBColumn;
-    gridTbvEMAIL: TcxGridDBColumn;
-    gridTbvTELEFONE: TcxGridDBColumn;
-    gridTbvDT_NASCIMENTO: TcxGridDBColumn;
-    gridTbvESTADO: TcxGridDBColumn;
-    gridTbvLOGRADOURO: TcxGridDBColumn;
-    gridTbvBAIRRO: TcxGridDBColumn;
-    gridTbvCIDADE: TcxGridDBColumn;
-    gridTbvCOMPLEMENTO: TcxGridDBColumn;
-    gridTbvOBSERVACAO: TcxGridDBColumn;
+    viewclienteID: TcxGridDBColumn;
+    viewclienteNOME: TcxGridDBColumn;
+    viewclienteCPF: TcxGridDBColumn;
+    viewclienteEMAIL: TcxGridDBColumn;
+    viewclienteTELEFONE: TcxGridDBColumn;
+    viewclienteDT_NASCIMENTO: TcxGridDBColumn;
+    viewclienteESTADO: TcxGridDBColumn;
+    viewclienteLOGRADOURO: TcxGridDBColumn;
+    viewclienteBAIRRO: TcxGridDBColumn;
+    viewclienteCIDADE: TcxGridDBColumn;
+    viewclienteCOMPLEMENTO: TcxGridDBColumn;
+    viewclienteOBSERVACAO: TcxGridDBColumn;
     procedure btnFecharClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnPesquisarClick(Sender: TObject);
@@ -73,9 +73,10 @@ type
     procedure btnIncluirClick(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnAlterarClick(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
   private
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure AlterarDadosCliente();
+
     { Private declarations }
   public
     { Public declarations }
@@ -89,14 +90,19 @@ implementation
 
 {$R *.dfm}
 
-procedure TLocalizarCliente.AlterarDadosCliente;
-begin
-
-end;
-
 procedure TLocalizarCliente.btnAlterarClick(Sender: TObject);
 begin
-  TCadastroCliente.Alterar(Self,qryCliente);
+  TCadastroCliente.Alterar(Self,qryCliente, qryCliente.FieldByName('ID').AsInteger);
+  viewcliente.DataController.DataSet.Refresh;
+end;
+
+procedure TLocalizarCliente.btnExcluirClick(Sender: TObject);
+begin
+  if Application.MessageBox('AVISO: Deseja realmente excluir esse registro ?','ATENÇÃO ',MB_YESNO + MB_ICONWARNING)=MRYES then
+  begin
+    qryCliente.Delete;
+  end;
+
 end;
 
 procedure TLocalizarCliente.btnFecharClick(Sender: TObject);
@@ -106,7 +112,8 @@ end;
 
 procedure TLocalizarCliente.btnIncluirClick(Sender: TObject);
 begin
-  TCadastroCliente.Novo();
+  TCadastroCliente.Novo(Self, qrycliente, qryCliente.FieldByName('ID').AsInteger);
+  viewcliente.DataController.DataSet.Refresh;
 end;
 
 procedure TLocalizarCliente.btnPesquisarClick(Sender: TObject);
@@ -182,7 +189,7 @@ procedure TLocalizarCliente.FormKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if (key = VK_F2) then
-    TCadastroCliente.Novo();
+    TCadastroCliente.Novo(Self, qrycliente, qryCliente.FieldByName('ID').AsInteger);
 end;
 
 procedure TLocalizarCliente.FormShow(Sender: TObject);

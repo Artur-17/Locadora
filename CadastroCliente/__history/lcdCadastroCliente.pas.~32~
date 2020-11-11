@@ -71,12 +71,12 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnFotoClick(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     FDataSet: TDataSet;
     { Private declarations }
     procedure GravarDadosCliente();
     procedure carregarEstados;
-    procedure SetDataSet(const Value: TDataSet);
     procedure PreencherDados;
   public
     { Public declarations }
@@ -84,7 +84,6 @@ type
     class function Alterar(pOwner: TForm; pDataSet: TDataset): TmodalResult;
 
     procedure CarregarCadastroUsuario();
-    property DataSet : TDataSet read FDataSet write SetDataSet;
   end;
 
 var
@@ -205,10 +204,6 @@ begin
    FreeAndNil(lcadastro);
 end;
 
-procedure TCadastroCliente.SetDataSet(const Value: TDataSet);
-begin
-  FDataSet := Value;
-end;
 
 procedure TCadastroCliente.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
@@ -217,6 +212,13 @@ begin
 
   if qryCliente.Active then
     qryCliente.Close;
+end;
+
+procedure TCadastroCliente.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_ESCAPE) then
+    ModalResult := mrCancel;
 end;
 
 procedure TCadastroCliente.FormShow(Sender: TObject);
@@ -242,7 +244,10 @@ end;
 
 procedure TCadastroCliente.PreencherDados;
 begin
-  lCadastroCliente.edtNome.Text := FDataSet.FieldByName('NOME').asstring;
+  edtNome.Text := FDataSet.FieldByName('NOME').AsString;
+  edtCpf.Text := FDataSet.FieldByName('CPF').AsString;
+  edtEmail.Text := FDataSet.FieldByName('EMAIL').AsString;
+  edtTelefone.Text := FDataSet.FieldByName('TELEFONE').AsString;
 end;
 
 class function TCadastroCliente.Alterar(pOwner :TForm; pDataSet :TDataset) : TmodalResult;

@@ -2,7 +2,7 @@ object LocalizarCliente: TLocalizarCliente
   Left = 0
   Top = 0
   Caption = 'Localizar Cliente'
-  ClientHeight = 624
+  ClientHeight = 620
   ClientWidth = 1207
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -34,6 +34,7 @@ object LocalizarCliente: TLocalizarCliente
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 1150
   end
   object pnlClient: TPanel
     Left = 0
@@ -42,12 +43,13 @@ object LocalizarCliente: TLocalizarCliente
     Height = 56
     Align = alTop
     TabOrder = 1
+    ExplicitWidth = 1150
     DesignSize = (
       1207
       56)
     object btnPesquisar: TcxButton
-      Left = 1046
-      Top = 15
+      Left = 887
+      Top = 12
       Width = 145
       Height = 25
       Anchors = [akTop, akRight]
@@ -80,7 +82,7 @@ object LocalizarCliente: TLocalizarCliente
     object edtPesquisa: TEdit
       Left = 8
       Top = 15
-      Width = 1009
+      Width = 849
       Height = 21
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 1
@@ -90,11 +92,12 @@ object LocalizarCliente: TLocalizarCliente
     Left = 0
     Top = 97
     Width = 1207
-    Height = 486
+    Height = 482
     Align = alClient
     TabOrder = 2
-    ExplicitHeight = 482
-    object viewcliente: TcxGridDBTableView
+    ExplicitWidth = 1150
+    ExplicitHeight = 477
+    object gridTbv: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = dtsCliente
       DataController.Summary.DefaultGroupSummaryItems = <>
@@ -103,55 +106,56 @@ object LocalizarCliente: TLocalizarCliente
       OptionsData.Deleting = False
       OptionsData.Editing = False
       OptionsData.Inserting = False
-      object viewclienteID: TcxGridDBColumn
+      object gridTbvID: TcxGridDBColumn
         DataBinding.FieldName = 'ID'
       end
-      object viewclienteNOME: TcxGridDBColumn
+      object gridTbvNOME: TcxGridDBColumn
         DataBinding.FieldName = 'NOME'
       end
-      object viewclienteCPF: TcxGridDBColumn
+      object gridTbvCPF: TcxGridDBColumn
         DataBinding.FieldName = 'CPF'
       end
-      object viewclienteEMAIL: TcxGridDBColumn
+      object gridTbvEMAIL: TcxGridDBColumn
         DataBinding.FieldName = 'EMAIL'
       end
-      object viewclienteTELEFONE: TcxGridDBColumn
+      object gridTbvTELEFONE: TcxGridDBColumn
         DataBinding.FieldName = 'TELEFONE'
       end
-      object viewclienteDT_NASCIMENTO: TcxGridDBColumn
+      object gridTbvDT_NASCIMENTO: TcxGridDBColumn
         DataBinding.FieldName = 'DT_NASCIMENTO'
       end
-      object viewclienteESTADO: TcxGridDBColumn
+      object gridTbvESTADO: TcxGridDBColumn
         DataBinding.FieldName = 'ESTADO'
       end
-      object viewclienteLOGRADOURO: TcxGridDBColumn
+      object gridTbvLOGRADOURO: TcxGridDBColumn
         DataBinding.FieldName = 'LOGRADOURO'
       end
-      object viewclienteBAIRRO: TcxGridDBColumn
+      object gridTbvBAIRRO: TcxGridDBColumn
         DataBinding.FieldName = 'BAIRRO'
       end
-      object viewclienteCIDADE: TcxGridDBColumn
+      object gridTbvCIDADE: TcxGridDBColumn
         DataBinding.FieldName = 'CIDADE'
       end
-      object viewclienteCOMPLEMENTO: TcxGridDBColumn
+      object gridTbvCOMPLEMENTO: TcxGridDBColumn
         DataBinding.FieldName = 'COMPLEMENTO'
       end
-      object viewclienteOBSERVACAO: TcxGridDBColumn
+      object gridTbvOBSERVACAO: TcxGridDBColumn
         DataBinding.FieldName = 'OBSERVACAO'
       end
     end
-    object levelCliente: TcxGridLevel
-      GridView = viewcliente
+    object gridLvl: TcxGridLevel
+      GridView = gridTbv
     end
   end
   object pnlBottom: TPanel
     Left = 0
-    Top = 583
+    Top = 579
     Width = 1207
     Height = 41
     Align = alBottom
     TabOrder = 3
-    ExplicitTop = 579
+    ExplicitTop = 574
+    ExplicitWidth = 1150
     DesignSize = (
       1207
       41)
@@ -176,7 +180,7 @@ object LocalizarCliente: TLocalizarCliente
       OnClick = btnAlterarClick
     end
     object btnExcluir: TcxButton
-      Left = 224
+      Left = 216
       Top = 6
       Width = 85
       Height = 25
@@ -193,7 +197,6 @@ object LocalizarCliente: TLocalizarCliente
         162C8DE2229A01D3E5053267099021D6B56AD58A440600DDC52C2A6CBB80B500
         00000049454E44AE426082}
       TabOrder = 1
-      OnClick = btnExcluirClick
     end
     object btnFechar: TcxButton
       Left = 1059

@@ -1,4 +1,4 @@
-﻿object CadastroFuncionario: TCadastroFuncionario
+object CadastroFuncionario: TCadastroFuncionario
   Left = 0
   Top = 0
   Caption = 'Cadastro de usu'#225'rio'
@@ -42,7 +42,7 @@
     Height = 531
     Align = alClient
     TabOrder = 1
-    Properties.ActivePage = Funcionário
+    Properties.ActivePage = pgFuncionario
     Properties.CustomButtons.Buttons = <>
     Properties.TabHeight = 25
     Properties.TabWidth = 200
@@ -52,7 +52,7 @@
     ClientRectLeft = 3
     ClientRectRight = 800
     ClientRectTop = 33
-    object Funcionário: TcxTabSheet
+    object pgFuncionario: TcxTabSheet
       Caption = 'Funcionario'
       ImageIndex = 0
       object lblNome: TLabel
@@ -334,7 +334,7 @@
         Width = 181
         Height = 21
         AutoSize = False
-        TabOrder = 5
+        TabOrder = 6
       end
       object edtCidade: TEdit
         Left = 224
@@ -342,7 +342,7 @@
         Width = 345
         Height = 21
         AutoSize = False
-        TabOrder = 6
+        TabOrder = 7
       end
       object edtComplemento: TEdit
         Left = 10
@@ -350,7 +350,7 @@
         Width = 181
         Height = 21
         AutoSize = False
-        TabOrder = 7
+        TabOrder = 8
       end
       object cbxEstado: TComboBox
         Left = 224
@@ -358,64 +358,14 @@
         Width = 45
         Height = 23
         Style = csDropDownList
-        TabOrder = 8
+        TabOrder = 9
       end
       object mmObservacao: TMemo
         Left = 3
         Top = 295
         Width = 790
         Height = 137
-        TabOrder = 10
-      end
-      object btnGravar: TcxButton
-        Left = 568
-        Top = 464
-        Width = 105
-        Height = 25
-        Caption = 'Gravar (F10)'
-        LookAndFeel.Kind = lfUltraFlat
-        LookAndFeel.NativeStyle = False
-        LookAndFeel.SkinName = 'Office2010Silver'
-        OptionsImage.Glyph.SourceDPI = 96
-        OptionsImage.Glyph.Data = {
-          89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
-          610000000473424954080808087C086488000000097048597300000094000000
-          940179BF0DEF0000001974455874536F667477617265007777772E696E6B7363
-          6170652E6F72679BEE3C1A000000C449444154388DADD3416A02411005D0D7A3
-          EECC15C453040201AF61EEE022B7105C0572082727C83A1BBD46CC115CEAA2B2
-          488F4C463233463F145435FD3F55BFBB608503D611A119982350E67A8F578C23
-          4281678C90F4C31D16784F298D8B4C6EC30E6FD834CE1FB194DB3BB5D815B5FB
-          817DCAC9BF515C4386612DFFC4474FDE0CD3AAB8C883EC4359F1864DE99452AB
-          2711F1EBB9CF04F0D4730CDCD8C40AEB0E4ED92AD09CB10BF58FF4856D4FDE03
-          2695C041F73EFC85E3C0CF76DD637029192FDF89D476AD1A1B827F0000000049
-          454E44AE426082}
-        TabOrder = 12
-        OnClick = btnGravarClick
-      end
-      object btnCancelar: TcxButton
-        Left = 688
-        Top = 464
-        Width = 105
-        Height = 25
-        Caption = 'Cancelar (ESC)'
-        LookAndFeel.Kind = lfUltraFlat
-        LookAndFeel.NativeStyle = False
-        LookAndFeel.SkinName = 'Office2010Silver'
-        OptionsImage.Glyph.SourceDPI = 96
-        OptionsImage.Glyph.Data = {
-          89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
-          610000000473424954080808087C086488000000097048597300000059000000
-          5901AA9DA9860000001974455874536F667477617265007777772E696E6B7363
-          6170652E6F72679BEE3C1A000000CB49444154388DADD25D4EC3301004E08F16
-          F2CE35486F05D7695351F534C0295A2ED2F48D54E5A11B646D928ABF9146B6C6
-          3BB6676D8658608D3D8EC17D688B91FA2F54D8E284F3043B6CA276607EBB62CC
-          7CCD9B6C7F60EEF95C66EED2623B62C85A877A8627CC8BDBB4B84753684D68C7
-          429BE311DE474E5BE126C6729EEB767098C8D81BA7CC671C66FE017F8ED0E46B
-          E1361956A1E5975842EDF7CFF8D0C7D84C34E91AD7651F2A97EFF95DF30BEE72
-          332B97EF99E394FC889307E61275346D17B9DB982FCBCC3D3E01CE9C9E84BC00
-          CBCA0000000049454E44AE426082}
         TabOrder = 11
-        OnClick = btnCancelarClick
       end
       object btnFoto: TcxButton
         Left = 664
@@ -440,23 +390,20 @@
           C543372D5CE55E5F2AACA9FDD4D7A53FFA48B358C03CB632DBC322664A73F515
           4A1DE324AF97B01C9992F6ADD7A2CD2ED44858C12606FE78F815FB3D26FED207
           5A6C551E6C27733E0000000049454E44AE426082}
-        TabOrder = 13
+        TabOrder = 5
       end
       object dtpDataNascimento: TcxDateEdit
         Left = 326
         Top = 238
         EditValue = 43972d
-        TabOrder = 9
+        TabOrder = 10
         Width = 121
       end
     end
-    object usuario: TcxTabSheet
+    object pgUsuario: TcxTabSheet
       Caption = 'Usuario'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
+      ExplicitTop = 36
       object lblLogin: TLabel
         Left = 384
         Top = 64
@@ -635,6 +582,7 @@
         Top = 229
         Width = 28
         Height = 25
+        Enabled = False
         Glyph.Data = {
           36040000424D3604000000000000360000002800000010000000100000000100
           2000000000000004000000000000000000000000000000000000000000000000
@@ -674,126 +622,104 @@
       end
       object lblCategoria: TLabel
         Left = 217
-        Top = 209
+        Top = 208
         Width = 51
         Height = 15
         Caption = 'Categoria'
       end
       object edtCodigoCategoria: TEdit
         Left = 217
-        Top = 230
+        Top = 229
         Width = 49
         Height = 23
+        Enabled = False
         TabOrder = 3
-      end
-      object btnGravarUsuario: TcxButton
-        Left = 463
-        Top = 259
-        Width = 105
-        Height = 25
-        Caption = 'Gravar (F10)'
-        LookAndFeel.Kind = lfUltraFlat
-        LookAndFeel.NativeStyle = False
-        LookAndFeel.SkinName = 'Office2010Silver'
-        OptionsImage.Glyph.SourceDPI = 96
-        OptionsImage.Glyph.Data = {
-          89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
-          610000000473424954080808087C086488000000097048597300000094000000
-          940179BF0DEF0000001974455874536F667477617265007777772E696E6B7363
-          6170652E6F72679BEE3C1A000000C449444154388DADD3416A02411005D0D7A3
-          EECC15C453040201AF61EEE022B7105C0572082727C83A1BBD46CC115CEAA2B2
-          488F4C463233463F145435FD3F55BFBB608503D611A119982350E67A8F578C23
-          4281678C90F4C31D16784F298D8B4C6EC30E6FD834CE1FB194DB3BB5D815B5FB
-          817DCAC9BF515C4386612DFFC4474FDE0CD3AAB8C883EC4359F1864DE99452AB
-          2711F1EBB9CF04F0D4730CDCD8C40AEB0E4ED92AD09CB10BF58FF4856D4FDE03
-          2695C041F73EFC85E3C0CF76DD637029192FDF89D476AD1A1B827F0000000049
-          454E44AE426082}
-        TabOrder = 5
-        OnClick = btnGravarUsuarioClick
       end
       object edtLogin: TEdit
         Left = 384
         Top = 83
         Width = 181
         Height = 23
+        CharCase = ecUpperCase
         TabOrder = 0
-      end
-      object btnFechar: TcxButton
-        Left = 689
-        Top = 464
-        Width = 105
-        Height = 25
-        Caption = 'Fechar (ESC)'
-        LookAndFeel.Kind = lfUltraFlat
-        LookAndFeel.NativeStyle = False
-        LookAndFeel.SkinName = 'Office2010Silver'
-        OptionsImage.Glyph.SourceDPI = 96
-        OptionsImage.Glyph.Data = {
-          89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
-          610000000473424954080808087C08648800000009704859730000006F000000
-          6F01F1A2DC430000001974455874536F667477617265007777772E696E6B7363
-          6170652E6F72679BEE3C1A0000007149444154388DD593CB0980400C05E789FD
-          D98ECDD8C76E219EBCD8883C0FAB1EC41575453010082199901F4000FC508316
-          E3B1D4AB615B77122519A02AA9FE0D40522FA9C906D83E55D29027A03DF01B60
-          E4FADABA3DA07806AFB4E0C4C90206A0C980BD5DE27F0FA9F8992A2016E4C719
-          85119E2654D1CAB70000000049454E44AE426082}
-        TabOrder = 4
-        OnClick = btnFecharClick
       end
       object edtNomeCategoria: TEdit
         Left = 288
         Top = 230
         Width = 280
         Height = 23
-        TabOrder = 6
+        Enabled = False
+        TabOrder = 4
       end
       object edtSenha: TMaskEdit
         Left = 384
         Top = 131
         Width = 181
         Height = 23
+        CharCase = ecUpperCase
         PasswordChar = '*'
         TabOrder = 1
       end
-      object edtConfirmarSenha: TMaskEdit
+      object edtConfirmacaoSenha: TMaskEdit
         Left = 384
         Top = 181
         Width = 181
         Height = 23
+        CharCase = ecUpperCase
         PasswordChar = '*'
         TabOrder = 2
       end
     end
   end
-  object qryFuncionario: TUniQuery
-    Connection = dtmPrincipal.conexao
-    SQL.Strings = (
-      'select * from funcionario')
-    Left = 504
-    Top = 520
-    object qryFuncionarioID: TIntegerField
-      FieldName = 'ID'
-      Required = True
-    end
-    object qryFuncionarioNOME: TStringField
-      FieldName = 'NOME'
-      Size = 80
-    end
-    object qryFuncionarioCPF: TStringField
-      FieldName = 'CPF'
-      Size = 11
-    end
-    object qryFuncionarioEMAIL: TStringField
-      FieldName = 'EMAIL'
-      Size = 30
-    end
-    object qryFuncionarioTELEFONE: TStringField
-      FieldName = 'TELEFONE'
-      Size = 40
-    end
-    object qryFuncionarioDT_NASCIMENTO: TDateField
-      FieldName = 'DT_NASCIMENTO'
-    end
+  object btnCancelar: TcxButton
+    Left = 688
+    Top = 528
+    Width = 105
+    Height = 25
+    Caption = 'Cancelar (ESC)'
+    LookAndFeel.Kind = lfUltraFlat
+    LookAndFeel.NativeStyle = False
+    LookAndFeel.SkinName = 'Office2010Silver'
+    OptionsImage.Glyph.SourceDPI = 96
+    OptionsImage.Glyph.Data = {
+      89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+      610000000473424954080808087C086488000000097048597300000059000000
+      5901AA9DA9860000001974455874536F667477617265007777772E696E6B7363
+      6170652E6F72679BEE3C1A000000CB49444154388DADD25D4EC3301004E08F16
+      F2CE35486F05D7695351F534C0295A2ED2F48D54E5A11B646D928ABF9146B6C6
+      3BB6676D8658608D3D8EC17D688B91FA2F54D8E284F3043B6CA276607EBB62CC
+      7CCD9B6C7F60EEF95C66EED2623B62C85A877A8627CC8BDBB4B84753684D68C7
+      429BE311DE474E5BE126C6729EEB767098C8D81BA7CC671C66FE017F8ED0E46B
+      E1361956A1E5975842EDF7CFF8D0C7D84C34E91AD7651F2A97EFF95DF30BEE72
+      332B97EF99E394FC889307E61275346D17B9DB982FCBCC3D3E01CE9C9E84BC00
+      CBCA0000000049454E44AE426082}
+    TabOrder = 3
+    OnClick = btnCancelarClick
+  end
+  object btnGravar: TcxButton
+    Left = 568
+    Top = 528
+    Width = 105
+    Height = 25
+    Caption = 'Gravar (F10)'
+    LookAndFeel.Kind = lfUltraFlat
+    LookAndFeel.NativeStyle = False
+    LookAndFeel.SkinName = 'Office2010Silver'
+    OptionsImage.Glyph.SourceDPI = 96
+    OptionsImage.Glyph.Data = {
+      89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+      610000000473424954080808087C086488000000097048597300000094000000
+      940179BF0DEF0000001974455874536F667477617265007777772E696E6B7363
+      6170652E6F72679BEE3C1A000000C449444154388DADD3416A02411005D0D7A3
+      EECC15C453040201AF61EEE022B7105C0572082727C83A1BBD46CC115CEAA2B2
+      488F4C463233463F145435FD3F55BFBB608503D611A119982350E67A8F578C23
+      4281678C90F4C31D16784F298D8B4C6EC30E6FD834CE1FB194DB3BB5D815B5FB
+      817DCAC9BF515C4386612DFFC4474FDE0CD3AAB8C883EC4359F1864DE99452AB
+      2711F1EBB9CF04F0D4730CDCD8C40AEB0E4ED92AD09CB10BF58FF4856D4FDE03
+      2695C041F73EFC85E3C0CF76DD637029192FDF89D476AD1A1B827F0000000049
+      454E44AE426082}
+    TabOrder = 2
+    OnClick = btnGravarClick
   end
   object qryUsuario: TUniQuery
     Connection = dtmPrincipal.conexao

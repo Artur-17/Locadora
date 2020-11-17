@@ -14,7 +14,8 @@ uses
   lcdLocalizarFilme in 'CadastroFilme\lcdLocalizarFilme.pas' {LocalizarFilme},
   lcdCadastroCliente in 'CadastroCliente\lcdCadastroCliente.pas' {CadastroCliente},
   lcdCaminhoBancoDados in 'CaminhoBancoDados\lcdCaminhoBancoDados.pas' {CaminhoBancoDados},
-  lcdLocalizarCliente in 'CadastroCliente\lcdLocalizarCliente.pas' {LocalizarCliente};
+  lcdLocalizarCliente in 'CadastroCliente\lcdLocalizarCliente.pas' {LocalizarCliente},
+  lcdLocalizarUsuario in 'CadastroUsuario\lcdLocalizarUsuario.pas' {LocalizarUsuario};
 
 {$R *.res}
 
@@ -25,5 +26,6 @@ begin
   Application.CreateForm(TdtmPrincipal, dtmPrincipal);
   Application.CreateForm(TCaminhoBancoDados, CaminhoBancoDados);
   Application.CreateForm(TLocalizarCliente, LocalizarCliente);
+  Application.CreateForm(TLocalizarUsuario, LocalizarUsuario);
   Application.Run;
 end.

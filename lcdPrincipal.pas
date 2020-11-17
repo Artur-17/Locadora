@@ -22,7 +22,7 @@ uses
   dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinVS2010,
   dxSkinWhiteprint, dxSkinXmas2008Blue, Enter,
   lcdLocalizarFilme, lcdCadastroFuncionario, lcdLogin, lcdCadastroCategoriaUsuario,
-  lcdCadastroCliente, lcdLocalizarCliente,
+  lcdCadastroCliente, lcdLocalizarCliente, lcdLocalizarUsuario,
   dxSkinsForm, Menus;
 
 type
@@ -85,7 +85,7 @@ end;
 
 procedure TPrincipal.btnUsuarioClick(Sender: TObject);
 begin
-  TCadastroFuncionario.exibirCadastroFuncionario();
+  TLocalizarUsuario.Exibir();
 end;
 
 procedure TPrincipal.Ca1Click(Sender: TObject);

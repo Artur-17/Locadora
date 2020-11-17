@@ -36,5 +36,11 @@
     <Transaction>2020/11/04 19:25:40.805.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CaminhoBancoDados\lcdCaminhoBancoDados.dfm</Transaction>
     <Transaction>2020/11/04 19:57:51.818.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroCliente\lcdLocalizarCliente.pas</Transaction>
     <Transaction>2020/11/04 19:57:51.818.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroCliente\lcdLocalizarCliente.dfm</Transaction>
+    <Transaction>2020/11/16 21:33:10.067.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroFuncionario.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroUsuario.pas</Transaction>
+    <Transaction>2020/11/16 21:33:10.067.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroFuncionario.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroUsuario.dfm</Transaction>
+    <Transaction>2020/11/16 21:34:07.479.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroUsuario.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroFuncionario.pas</Transaction>
+    <Transaction>2020/11/16 21:34:07.479.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroUsuario.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroFuncionario.dfm</Transaction>
+    <Transaction>2020/11/16 21:35:57.708.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdLocalizarUsuario.pas</Transaction>
+    <Transaction>2020/11/16 21:35:57.708.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdLocalizarUsuario.dfm</Transaction>
   </Transactions>
 </BorlandProject>

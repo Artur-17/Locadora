@@ -30,7 +30,7 @@ type
     lblNome: TLabel;
     edtNome: TEdit;
     pgCadastro: TcxPageControl;
-    Funcionário: TcxTabSheet;
+    pgFuncionario: TcxTabSheet;
     imgFoto: TImage;
     edtCpf: TMaskEdit;
     lblCPF: TLabel;
@@ -54,27 +54,18 @@ type
     btnGravar: TcxButton;
     btnCancelar: TcxButton;
     btnFoto: TcxButton;
-    usuario: TcxTabSheet;
-    btnGravarUsuario: TcxButton;
+    pgUsuario: TcxTabSheet;
     lblLogin: TLabel;
     edtLogin: TEdit;
     Image1: TImage;
     lblSenha: TLabel;
     lblConfirmarSenha: TLabel;
-    btnFechar: TcxButton;
     edtCodigoCategoria: TEdit;
     edtNomeCategoria: TEdit;
     btnLocalizarCategoria: TSpeedButton;
-    qryFuncionario: TUniQuery;
-    qryFuncionarioID: TIntegerField;
-    qryFuncionarioNOME: TStringField;
-    qryFuncionarioCPF: TStringField;
-    qryFuncionarioEMAIL: TStringField;
-    qryFuncionarioTELEFONE: TStringField;
-    qryFuncionarioDT_NASCIMENTO: TDateField;
     dtpDataNascimento: TcxDateEdit;
     edtSenha: TMaskEdit;
-    edtConfirmarSenha: TMaskEdit;
+    edtConfirmacaoSenha: TMaskEdit;
     qryUsuario: TUniQuery;
     qryUsuarioID: TIntegerField;
     qryUsuarioLOGIN: TStringField;
@@ -86,21 +77,25 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnGravarClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure btnGravarUsuarioClick(Sender: TObject);
     procedure btnLocalizarCategoriaClick(Sender: TObject);
+    procedure cxButton1Click(Sender: TObject);
   private
     { Private declarations }
+    FModo : string;
     procedure gravarDadosFuncionario();
     procedure carregarEstados();
-    procedure validarDados();
-    procedure validarCamposObgUsuario();
-    procedure gravarDadosUsuario();
+//    procedure gravarDadosUsuario();
+    function Validar(): Boolean;
+
 
   public
     { Public declarations }
     class procedure exibirCadastroFuncionario();
     class function ConverterData(pDateTime: TDateTime) : String;
     function logarUsuario(aUsuario, aSenha: String): Boolean;
+
+     class function Novo(pOwner: TForm; pDataSet: TDataset;
+      pIDCliente: integer): TmodalResult; static;
   end;
 
 var
@@ -127,14 +122,6 @@ end;
 procedure TCadastroFuncionario.btnGravarClick(Sender: TObject);
 begin
   gravarDadosFuncionario();
-end;
-
-procedure TCadastroFuncionario.btnGravarUsuarioClick(Sender: TObject);
-begin
-
-  validarCamposObgUsuario();
-  
-  gravarDadosUsuario();
 end;
 
 procedure TCadastroFuncionario.btnLocalizarCategoriaClick(Sender: TObject);
@@ -177,6 +164,11 @@ begin
   result := FormatDateTime('dd.mm.yyyy',pDateTime);
 end;
 
+procedure TCadastroFuncionario.cxButton1Click(Sender: TObject);
+begin
+  gravarDadosFuncionario();
+end;
+
 class procedure TCadastroFuncionario.exibirCadastroFuncionario;
 var
   lcadastro : TCadastroFuncionario;
@@ -189,8 +181,6 @@ end;
 procedure TCadastroFuncionario.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  if qryFuncionario.Active then
-    qryFuncionario.Close;
 
   if qryUsuario.Active then
     qryUsuario.Close;
@@ -205,21 +195,8 @@ end;
 
 procedure TCadastroFuncionario.FormShow(Sender: TObject);
 begin
+  pgCadastro.ActivePage := pgFuncionario;
   carregarEstados();
-
-  try
-    if not Assigned(qryFuncionario.Connection)  then
-      qryFuncionario.Connection := dtmPrincipal.conexao;
-
-    if not qryFuncionario.Connection.Connected then
-      qryFuncionario.Connection.Connect();
-
-    if not qryFuncionario.Active then
-      qryFuncionario.Open;
-  except
-    on E: Exception do
-      ShowMessage( E.Message );
-  end;
 
   try
     if not Assigned(qryUsuario.Connection)  then
@@ -237,36 +214,48 @@ begin
 
 end;
 
-procedure TCadastroFuncionario.gravarDadosFuncionario;
+procedure TCadastroFuncionario.gravarDadosFuncionario();
+var
+  SenhaCriptografada: String;
 begin
+  if (not Validar()) then
+    Exit;
+
+  SenhaCriptografada := Criptografar(edtSenha.Text);
 
   try
-    qryFuncionario.Close;
-    qryfuncionario.SQL.Clear;
-    qryfuncionario.SQL.Add('INSERT INTO FUNCIONARIO');
-    qryfuncionario.SQL.Add('(NOME, CPF, EMAIL, TELEFONE, DT_NASCIMENTO, ESTADO, LOGRADOURO, BAIRRO, CIDADE, COMPLEMENTO, OBSERVACAO)');
-    qryfuncionario.SQL.Add('values ( :pNOME, :pCPF, :pEMAIL, :pTELEFONE, :pDT_NASCIMENTO, :pESTADO, :pLOGRADOURO, :pBAIRRO, :pCIDADE, :pCOMPLEMENTO, :pOBSERVACAO)');
+    qryUsuario.Close;
+    qryUsuario.SQL.Clear;
+    qryUsuario.SQL.Add('INSERT INTO USUARIO');
+    qryUsuario.SQL.Add('(NOME, CPF, EMAIL, TELEFONE, DT_NASCIMENTO, ESTADO, LOGRADOURO, BAIRRO, CIDADE, COMPLEMENTO, OBSERVACAO, ' +
+                           'LOGIN, SENHA, DT_CRIACAO )');
+    qryUsuario.SQL.Add('values ( :pNOME, :pCPF, :pEMAIL, :pTELEFONE, :pDT_NASCIMENTO, :pESTADO, :pLOGRADOURO, :pBAIRRO,' +
+          ':pCIDADE, :pCOMPLEMENTO, :pOBSERVACAO, :pLOGIN, :pSENHA, :pDT_CRIACAO)');
 
     // Exemplo para inserir do tipo int
     //Query1.ParamByName('pCodigo').AsInteger := StrToInt(edtCodigo.Text);
 
-    qryfuncionario.ParamByName('pNOME').AsString := edtNome.Text;
-    qryfuncionario.ParamByName('pCPF').AsString := edtCpf.Text;
-    qryfuncionario.ParamByName('pEMAIL').AsString := edtEmail.Text;
-    qryfuncionario.ParamByName('pTELEFONE').AsString := edtTelefone.Text;
-    qryfuncionario.ParamByName('pDT_NASCIMENTO').AsDate := dtpDataNascimento.Date;
-    qryfuncionario.ParamByName('pESTADO').AsString := cbxEstado.Text;
-    qryfuncionario.ParamByName('pLOGRADOURO').AsString := edtEndereco.Text;
-    qryfuncionario.ParamByName('pBAIRRO').AsString := edtBairro.Text;
-    qryfuncionario.ParamByName('pCIDADE').AsString := edtCidade.Text;
-    qryfuncionario.ParamByName('pCOMPLEMENTO').AsString := edtComplemento.Text;
-    qryfuncionario.ParamByName('pOBSERVACAO').AsString := mmObservacao.Text;
+//    qryUsuario.Prepare();
+
+    qryUsuario.ParamByName('pNOME').AsString := edtNome.Text;
+    qryUsuario.ParamByName('pCPF').AsString := edtCpf.Text;
+    qryUsuario.ParamByName('pEMAIL').AsString := edtEmail.Text;
+    qryUsuario.ParamByName('pTELEFONE').AsString := edtTelefone.Text;
+    qryUsuario.ParamByName('pDT_NASCIMENTO').AsDate := dtpDataNascimento.Date;
+    qryUsuario.ParamByName('pESTADO').AsString := cbxEstado.Text;
+    qryUsuario.ParamByName('pLOGRADOURO').AsString := edtEndereco.Text;
+    qryUsuario.ParamByName('pBAIRRO').AsString := edtBairro.Text;
+    qryUsuario.ParamByName('pCIDADE').AsString := edtCidade.Text;
+    qryUsuario.ParamByName('pCOMPLEMENTO').AsString := edtComplemento.Text;
+    qryUsuario.ParamByName('pOBSERVACAO').AsString := mmObservacao.Text;
+    qryUsuario.ParamByName('pLOGIN').AsString := edtLogin.Text;
+    qryUsuario.ParamByName('pSENHA').AsString := SenhaCriptografada;
+    qryUsuario.ParamByName('pDT_CRIACAO').AsDate := now;
 
 
+    qryUsuario.ExecSQL;
 
-    qryfuncionario.ExecSQL;
 
-    validarDados();
 
     ShowMessage('Os dados foram inseridos com sucesso');
 
@@ -276,67 +265,100 @@ begin
     ShowMessage( E.Message )
   end;
 
+  ModalResult := mrOk;
+
 
 
 end;
 
-procedure TCadastroFuncionario.gravarDadosUsuario;
-var
-  SenhaCriptografada: String;
+//procedure TCadastroFuncionario.gravarDadosUsuario;
+//var
+//  SenhaCriptografada: String;
+//begin
+//  SenhaCriptografada := Criptografar(edtSenha.Text);
+//
+//  try
+//
+//    qryUsuario.Close;
+//    qryUsuario.SQL.Clear;
+//
+//    qryUsuario.SQL.Add(' INSERT INTO USUARIO ');
+//    qryUsuario.SQL.Add('( LOGIN, SENHA, DT_CRIACAO )');
+//    qryUsuario.SQL.Add(' VALUES( :pLOGIN, :pSenha, :pDT_CRIACAO) ');
+//
+//    qryUsuario.ParamByName('pLOGIN').AsString := edtLogin.Text;
+//    qryUsuario.ParamByName('pSENHA').AsString := SenhaCriptografada;
+//    qryUsuario.ParamByName('pDT_CRIACAO').AsDate := now;
+//
+//    qryUsuario.ExecSQL;
+//
+//    ShowMessage('Usuário gravado com sucesso');
+//
+//
+//  except
+//    on E: Exception do
+//      ShowMessage( E.Message );
+//
+//  end;
+//end;
+
+Function TCadastroFuncionario.Validar: Boolean;
+const
+  MIN_LENGHT: Integer = 3;
 begin
-  SenhaCriptografada := Criptografar(edtSenha.Text);
 
-  try
-
-    qryUsuario.Close;
-    qryUsuario.SQL.Clear;
-
-    qryUsuario.SQL.Add(' INSERT INTO USUARIO ');
-    qryUsuario.SQL.Add('( LOGIN, SENHA, DT_CRIACAO )');
-    qryUsuario.SQL.Add(' VALUES( :pLOGIN, :pSenha, :pDT_CRIACAO) ');
-
-    qryUsuario.ParamByName('pLOGIN').AsString := edtLogin.Text;
-    qryUsuario.ParamByName('pSENHA').AsString := SenhaCriptografada;
-    qryUsuario.ParamByName('pDT_CRIACAO').AsDate := now;
-
-    qryUsuario.ExecSQL;
-
-    ShowMessage('Usuário gravado com sucesso');
-
-
-  except
-    on E: Exception do
-      ShowMessage( E.Message );
-
+  if (Length(Trim(edtNome.Text)) < MIN_LENGHT) then
+  begin
+    ShowMessage('O campo de nome precisa de, pelo menos, ' + IntToStr(MIN_LENGHT) + '   digitos. Verifique.');
+    edtNome.SetFocus;
+    Result := False;
+    Exit;
   end;
-end;
 
-procedure TCadastroFuncionario.validarCamposObgUsuario;
-begin
-//   if ( edtLogin.Text = EmptyStr  ) then
-//    ShowMessage( 'Insira o login para gravar' );
-//    edtLogin.SetFocus;
-//    abort;
+
+    if (Length(Trim(edtLogin.Text)) < MIN_LENGHT) then
+    begin
+     ShowMessage('O campo de Login precisa de, pelo menos, ' + IntToStr(MIN_LENGHT) +
+      ' digitos. Verifique.');
+     pgCadastro.ActivePage := pgUsuario;
+     edtLogin.SetFocus;
+     Result := False;
+     Exit;
+    end;
+
+
+  if (Length(edtSenha.Text) < MIN_LENGHT) then
+  begin
+    ShowMessage('O campo de Senha precisa de, pelo menos, ' + IntToStr(MIN_LENGHT) +
+      ' digitos. Verifique.');
+    pgCadastro.ActivePage := pgUsuario;
+    edtSenha.SetFocus;
+    Result := False;
+    Exit;
+  end;
+
+
+  if (edtSenha.Text <> edtConfirmacaoSenha.Text) then
+  begin
+    ShowMessage('As senhas não coincidem. Verifique.');
+    pgCadastro.ActivePage := pgUsuario;
+    edtConfirmacaoSenha.SetFocus;
+    Result := False;
+    Exit;
+  end;
+
+//  if (cbxEstado.Text = ' ') then
+//    ShowMessage('Preencha o estado e tente novamente');
+//    Result := False;
+//    Exit;
 //
-//    if ( edtSenha.Text = EmptyStr  ) then
-//    ShowMessage( 'Insira a senha para gravar' );
-//    edtLogin.SetFocus;
-//    abort;
-//
-//     if ( edtConfirmarSenha.Text = EmptyStr  ) then
-//    ShowMessage( 'Insira a senha para gravar' );
-//    edtLogin.SetFocus;
-//    abort;
+//  if (dtpDataNascimento.Text = ' ') then
+//    ShowMessage('Preencha a data e tente novamente');
+//    Result := False;
+//    Exit;
+
 end;
 
-procedure TCadastroFuncionario.validarDados;
-begin
-  if (cbxEstado.Text = ' ') then
-    ShowMessage('Preencha o estado e tente novamente');
-
-  if (dtpDataNascimento.Text = ' ') then
-    ShowMessage('Preencha a data e tente novamente');
-end;
 
 function TCadastroFuncionario.logarUsuario(aUsuario, aSenha: String): Boolean;
 var
@@ -373,6 +395,16 @@ begin
   end;
 
 
+end;
+
+class function TCadastroFuncionario.Novo(pOwner :TForm; pDataSet :TDataset; pIDCliente: integer) : TmodalResult;
+var
+  lcadastro : TCadastroFuncionario;
+begin
+   lcadastro := TCadastroFuncionario.Create(nil);
+   lcadastro.FModo := 'novo';
+   lcadastro.ShowModal();
+   FreeAndNil(lcadastro);
 end;
 
 end.

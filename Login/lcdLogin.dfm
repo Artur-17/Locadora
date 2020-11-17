@@ -290,7 +290,7 @@ object Login: TLogin
       74455874646174653A6D6F6469667900323032302D31302D32385432323A3035
       3A34382B30303A30306F3710BF0000001974455874536F667477617265007777
       772E696E6B73636170652E6F72679BEE3C1A0000000049454E44AE426082}
-    TabOrder = 0
+    TabOrder = 2
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
@@ -305,18 +305,18 @@ object Login: TLogin
     Width = 177
     Height = 23
     MaxLength = 30
-    TabOrder = 1
-    Text = 'admin'
+    TabOrder = 0
+    Text = 'ADMIN'
   end
   object edtSenha: TEdit
     Left = 176
-    Top = 90
+    Top = 92
     Width = 177
     Height = 23
     MaxLength = 10
     PasswordChar = '*'
-    TabOrder = 2
-    Text = 'admin'
+    TabOrder = 1
+    Text = 'ADMIN'
   end
   object btnFechar: TcxButton
     Left = 278

@@ -12,6 +12,7 @@ object LocalizarUsuario: TLocalizarUsuario
   Font.Style = []
   OldCreateOrder = False
   WindowState = wsMaximized
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pnlTop: TPanel
@@ -30,8 +31,6 @@ object LocalizarUsuario: TLocalizarUsuario
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitLeft = -8
-    ExplicitTop = 8
   end
   object pnlClient: TPanel
     Left = 0
@@ -40,6 +39,7 @@ object LocalizarUsuario: TLocalizarUsuario
     Height = 56
     Align = alTop
     TabOrder = 1
+    ExplicitTop = 47
     DesignSize = (
       1207
       56)
@@ -73,9 +73,10 @@ object LocalizarUsuario: TLocalizarUsuario
         F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
         CCCEC728114BCD0000000049454E44AE426082}
       TabOrder = 1
+      OnClick = btnPesquisarClick
     end
     object edtPesquisa: TEdit
-      Left = 8
+      Left = 16
       Top = 15
       Width = 1009
       Height = 21
@@ -184,6 +185,7 @@ object LocalizarUsuario: TLocalizarUsuario
         7BF69FCB09F22F72A17ADF5E96639B03BB5F6438B4E43CE6ECC0040FDC71C211
         67D5AF47F101B4A2582947CFEBF80000000049454E44AE426082}
       TabOrder = 1
+      OnClick = btnAlterarClick
     end
     object btnExcluir: TcxButton
       Left = 224

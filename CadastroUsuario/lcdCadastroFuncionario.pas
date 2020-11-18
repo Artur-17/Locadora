@@ -81,9 +81,12 @@ type
     procedure cxButton1Click(Sender: TObject);
   private
     { Private declarations }
+    FDataSet: TDataSet;
+    FIDCliente: integer;
     FModo : string;
     procedure gravarDadosFuncionario();
     procedure carregarEstados();
+    procedure PreencherDados();
 //    procedure gravarDadosUsuario();
     function Validar(): Boolean;
 
@@ -96,6 +99,8 @@ type
 
      class function Novo(pOwner: TForm; pDataSet: TDataset;
       pIDCliente: integer): TmodalResult; static;
+
+     class function Alterar(pOwner: TForm; pDataSet: TDataset;  pIDCliente: integer): TmodalResult;
   end;
 
 var
@@ -217,47 +222,54 @@ end;
 procedure TCadastroFuncionario.gravarDadosFuncionario();
 var
   SenhaCriptografada: String;
+  Nome: String;
 begin
   if (not Validar()) then
     Exit;
 
   SenhaCriptografada := Criptografar(edtSenha.Text);
-
+  Nome := UpperCase(edtNome.Text);
   try
-    qryUsuario.Close;
-    qryUsuario.SQL.Clear;
-    qryUsuario.SQL.Add('INSERT INTO USUARIO');
-    qryUsuario.SQL.Add('(NOME, CPF, EMAIL, TELEFONE, DT_NASCIMENTO, ESTADO, LOGRADOURO, BAIRRO, CIDADE, COMPLEMENTO, OBSERVACAO, ' +
-                           'LOGIN, SENHA, DT_CRIACAO )');
-    qryUsuario.SQL.Add('values ( :pNOME, :pCPF, :pEMAIL, :pTELEFONE, :pDT_NASCIMENTO, :pESTADO, :pLOGRADOURO, :pBAIRRO,' +
-          ':pCIDADE, :pCOMPLEMENTO, :pOBSERVACAO, :pLOGIN, :pSENHA, :pDT_CRIACAO)');
 
-    // Exemplo para inserir do tipo int
-    //Query1.ParamByName('pCodigo').AsInteger := StrToInt(edtCodigo.Text);
+    if FModo = 'novo' then
+       begin
+         qryUsuario.SQL.Add('INSERT INTO USUARIO');
+         qryUsuario.SQL.Add('(NOME, CPF, EMAIL, TELEFONE, DT_NASCIMENTO, ESTADO, LOGRADOURO, BAIRRO, CIDADE, COMPLEMENTO, OBSERVACAO, LOGIN, SENHA)');
+         qryUsuario.SQL.Add('values ( :pNOME, :pCPF, :pEMAIL, :pTELEFONE, :pDT_NASCIMENTO, :pESTADO, :pLOGRADOURO, :pBAIRRO, :pCIDADE, :pCOMPLEMENTO, :pOBSERVACAO, :pLOGIN, :pSENHA)')
+       end
+       else
+       begin
+        qryUsuario.SQL.Add('UPDATE OR INSERT INTO USUARIO');
+        qryUsuario.SQL.Add('(ID, NOME, CPF, EMAIL, TELEFONE, DT_NASCIMENTO, ESTADO, LOGRADOURO, BAIRRO, CIDADE, COMPLEMENTO, OBSERVACAO, LOGIN, SENHA)');
+        qryUsuario.SQL.Add('values (:ID, :pNOME, :pCPF, :pEMAIL, :pTELEFONE, :pDT_NASCIMENTO, :pESTADO, :pLOGRADOURO, :pBAIRRO, :pCIDADE, :pCOMPLEMENTO, :pOBSERVACAO, :pLOGIN, :pSENHA))');
+        qryUsuario.SQL.Add('MATCHING (ID);');
 
-//    qryUsuario.Prepare();
+        qryUsuario.ParamByName('ID').AsInteger := FIDCliente;
+       end;
 
-    qryUsuario.ParamByName('pNOME').AsString := edtNome.Text;
-    qryUsuario.ParamByName('pCPF').AsString := edtCpf.Text;
-    qryUsuario.ParamByName('pEMAIL').AsString := edtEmail.Text;
-    qryUsuario.ParamByName('pTELEFONE').AsString := edtTelefone.Text;
-    qryUsuario.ParamByName('pDT_NASCIMENTO').AsDate := dtpDataNascimento.Date;
-    qryUsuario.ParamByName('pESTADO').AsString := cbxEstado.Text;
-    qryUsuario.ParamByName('pLOGRADOURO').AsString := edtEndereco.Text;
-    qryUsuario.ParamByName('pBAIRRO').AsString := edtBairro.Text;
-    qryUsuario.ParamByName('pCIDADE').AsString := edtCidade.Text;
-    qryUsuario.ParamByName('pCOMPLEMENTO').AsString := edtComplemento.Text;
-    qryUsuario.ParamByName('pOBSERVACAO').AsString := mmObservacao.Text;
-    qryUsuario.ParamByName('pLOGIN').AsString := edtLogin.Text;
-    qryUsuario.ParamByName('pSENHA').AsString := SenhaCriptografada;
-    qryUsuario.ParamByName('pDT_CRIACAO').AsDate := now;
+
+      qryUsuario.ParamByName('pNOME').AsString := Nome;
+      qryUsuario.ParamByName('pCPF').AsString := edtCpf.Text;
+      qryUsuario.ParamByName('pEMAIL').AsString := edtEmail.Text;
+      qryUsuario.ParamByName('pTELEFONE').AsString := edtTelefone.Text;
+      qryUsuario.ParamByName('pDT_NASCIMENTO').AsDate := dtpDataNascimento.Date;
+      qryUsuario.ParamByName('pESTADO').AsString := cbxEstado.Text;
+      qryUsuario.ParamByName('pLOGRADOURO').AsString := edtEndereco.Text;
+      qryUsuario.ParamByName('pBAIRRO').AsString := edtBairro.Text;
+      qryUsuario.ParamByName('pCIDADE').AsString := edtCidade.Text;
+      qryUsuario.ParamByName('pCOMPLEMENTO').AsString := edtComplemento.Text;
+      qryUsuario.ParamByName('pOBSERVACAO').AsString := mmObservacao.Text;
+      qryUsuario.ParamByName('pLOGIN').AsString := edtLogin.Text;
+      qryUsuario.ParamByName('pSENHA').AsString := edtSenha.Text;
+
 
 
     qryUsuario.ExecSQL;
 
-
-
     ShowMessage('Os dados foram inseridos com sucesso');
+
+    ModalResult := mrOk;
+
 
   except
     on E: Exception do
@@ -405,6 +417,48 @@ begin
    lcadastro.FModo := 'novo';
    lcadastro.ShowModal();
    FreeAndNil(lcadastro);
+end;
+
+class function TCadastroFuncionario.Alterar(pOwner :TForm; pDataSet :TDataset; pIDCliente: integer) : TmodalResult;
+var
+  lCadastroCliente : TCadastroFuncionario;
+begin
+  lCadastroCliente := TCadastroFuncionario.Create(pOwner);
+  try
+    lCadastroCliente.FDataSet := pDataSet;
+    lCadastroCliente.PreencherDados;
+    lCadastroCliente.FIDCliente := pIDCliente;
+    lCadastroCliente.FModo := 'alterar';
+
+    Result := lCadastroCliente.ShowModal
+  finally
+    FreeAndNil(lCadastroCliente);
+  end;
+end;
+
+procedure TCadastroFuncionario.PreencherDados;
+begin
+  Try
+    edtNome.Text := FDataSet.FieldByName('NOME').AsString;
+    edtCpf.Text := FDataSet.FieldByName('CPF').AsString;
+    edtEmail.Text := FDataSet.FieldByName('EMAIL').AsString;
+    edtTelefone.Text := FDataSet.FieldByName('TELEFONE').AsString;
+    edtEndereco.Text := FDataSet.FieldByName('LOGRADOURO').AsString;
+    edtBairro.Text := FDataSet.FieldByName('BAIRRO').AsString;
+    edtCidade.Text := FDataSet.FieldByName('CIDADE').AsString;
+    edtComplemento.Text := FDataSet.FieldByName('COMPLEMENTO').AsString;
+    cbxEstado.Text := FDataSet.FieldByName('ESTADO').AsString;
+    mmObservacao.Text := FDataSet.FieldByName('OBSERVACAO').AsString;
+    dtpDataNascimento.Date := FDataSet.FieldByName('DT_NASCIMENTO').AsDateTime;
+    edtLogin.Text := FDataSet.FieldByName('LOGIN').AsString;
+    edtSenha.Text := FDataSet.FieldByName('SENHA').AsString;
+    edtConfirmacaoSenha.Text := FDataSet.FieldByName('SENHA').AsString;
+  except
+    on E: Exception do
+      ShowMessage( E.Message );
+  End;
+
+
 end;
 
 end.

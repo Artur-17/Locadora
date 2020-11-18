@@ -403,7 +403,6 @@ object CadastroFuncionario: TCadastroFuncionario
     object pgUsuario: TcxTabSheet
       Caption = 'Usuario'
       ImageIndex = 1
-      ExplicitTop = 36
       object lblLogin: TLabel
         Left = 384
         Top = 64

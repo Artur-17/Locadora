@@ -74,7 +74,7 @@ object LocalizarCliente: TLocalizarCliente
         DF170C2BD9A4AE2FBAC27C42DAF58310E2214174D44B455214E9F27F090060E0
         F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
         CCCEC728114BCD0000000049454E44AE426082}
-      TabOrder = 0
+      TabOrder = 1
       OnClick = btnPesquisarClick
     end
     object edtPesquisa: TEdit
@@ -83,7 +83,7 @@ object LocalizarCliente: TLocalizarCliente
       Width = 1009
       Height = 21
       Anchors = [akLeft, akTop, akRight]
-      TabOrder = 1
+      TabOrder = 0
     end
   end
   object grid: TcxGrid
@@ -93,7 +93,6 @@ object LocalizarCliente: TLocalizarCliente
     Height = 486
     Align = alClient
     TabOrder = 2
-    ExplicitHeight = 482
     object viewcliente: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = dtsCliente
@@ -151,7 +150,6 @@ object LocalizarCliente: TLocalizarCliente
     Height = 41
     Align = alBottom
     TabOrder = 3
-    ExplicitTop = 579
     DesignSize = (
       1207
       41)
@@ -172,7 +170,7 @@ object LocalizarCliente: TLocalizarCliente
         8A2BF61D2159AC1C1A43C8AADE2F86C8ED90A44F9EA3E890CB7A9F8E692E711B
         7BF69FCB09F22F72A17ADF5E96639B03BB5F6438B4E43CE6ECC0040FDC71C211
         67D5AF47F101B4A2582947CFEBF80000000049454E44AE426082}
-      TabOrder = 0
+      TabOrder = 1
       OnClick = btnAlterarClick
     end
     object btnExcluir: TcxButton
@@ -192,7 +190,7 @@ object LocalizarCliente: TLocalizarCliente
         04580BD8031840FC55400014635D0506010811048802892C0531162DAFD20233
         162C8DE2229A01D3E5053267099021D6B56AD58A440600DDC52C2A6CBB80B500
         00000049454E44AE426082}
-      TabOrder = 1
+      TabOrder = 2
       OnClick = btnExcluirClick
     end
     object btnFechar: TcxButton
@@ -212,7 +210,7 @@ object LocalizarCliente: TLocalizarCliente
         E3B1D4AB615B77122519A02AA9FE0D40522FA9C906D83E55D29027A03DF01B60
         E4FADABA3DA07806AFB4E0C4C90206A0C980BD5DE27F0FA9F8992A2016E4C719
         85119E2654D1CAB70000000049454E44AE426082}
-      TabOrder = 2
+      TabOrder = 4
       OnClick = btnFecharClick
     end
     object btnIncluir: TcxButton
@@ -235,7 +233,7 @@ object LocalizarCliente: TLocalizarCliente
         CAEF7C9AD8E071F731C9B4D867A471FDB652B2E77FADFC82A3664BA564CF9C2B
         B7F88ACAADE43A86B8C35CF2C332F6B738698ABF01062775A96EA3EBA7000000
         0049454E44AE426082}
-      TabOrder = 3
+      TabOrder = 0
       OnClick = btnIncluirClick
     end
     object DBNavigator: TDBNavigator
@@ -245,7 +243,7 @@ object LocalizarCliente: TLocalizarCliente
       Height = 25
       DataSource = dtsCliente
       VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
-      TabOrder = 4
+      TabOrder = 3
     end
   end
   object qryCliente: TUniQuery

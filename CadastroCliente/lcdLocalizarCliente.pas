@@ -76,6 +76,7 @@ type
     procedure btnExcluirClick(Sender: TObject);
   private
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure Pesquisar;
 
     { Private declarations }
   public
@@ -117,6 +118,11 @@ begin
 end;
 
 procedure TLocalizarCliente.btnPesquisarClick(Sender: TObject);
+begin
+  Pesquisar;
+end;
+
+procedure TLocalizarCliente.Pesquisar();
 var
   selectOriginal : string;
   lQRY : TuniQuery;

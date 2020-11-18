@@ -77,7 +77,12 @@ type
     viewUsuarioESTADO: TcxGridDBColumn;
     procedure btnFecharClick(Sender: TObject);
     procedure btnIncluirClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure btnPesquisarClick(Sender: TObject);
+    procedure btnAlterarClick(Sender: TObject);
   private
+    procedure FormClose(Sender: TObject);
+    procedure Pesquisar();
     { Private declarations }
   public
     { Public declarations }
@@ -91,6 +96,12 @@ implementation
 
 {$R *.dfm}
 
+procedure TLocalizarUsuario.btnAlterarClick(Sender: TObject);
+begin
+  TCadastroFuncionario.Alterar(Self,qryUsuario, qryUsuario.FieldByName('ID').AsInteger);
+  viewUsuario.DataController.DataSet.Refresh;
+end;
+
 procedure TLocalizarUsuario.btnFecharClick(Sender: TObject);
 begin
   ModalResult := mrCancel;
@@ -102,6 +113,11 @@ begin
   viewUsuario.DataController.DataSet.Refresh;
 end;
 
+procedure TLocalizarUsuario.btnPesquisarClick(Sender: TObject);
+begin
+  Pesquisar;
+end;
+
 class procedure TLocalizarUsuario.Exibir;
 var
   lListaUsuario : TLocalizarUsuario;
@@ -110,6 +126,89 @@ begin
   lListaUsuario.ShowModal();
   FreeAndNil(lListaUsuario);
 
+end;
+
+procedure TLocalizarUsuario.FormShow(Sender: TObject);
+begin
+    try
+    if not Assigned(qryUsuario.Connection)  then
+      qryUsuario.Connection := dtmPrincipal.conexao;
+
+    if not qryUsuario.Connection.Connected then
+      qryUsuario.Connection.Connect();
+
+    if not qryUsuario.Active then
+      qryUsuario.Open;
+  except
+    on E: Exception do
+      ShowMessage( E.Message );
+  end;
+end;
+
+procedure TLocalizarUsuario.FormClose(Sender: TObject);
+begin
+
+   if qryUsuario.Active then
+    qryUsuario.Close;
+
+end;
+
+procedure TLocalizarUsuario.Pesquisar();
+var
+  selectOriginal : string;
+  Nome: string;
+begin
+
+    selectOriginal := 'SELECT * FROM USUARIO' ;
+    Nome := UpperCase(edtPesquisa.Text);
+
+    if (Nome = '') then
+      begin
+        ShowMessage('Insira o nome do Cliente ou Código para pesquisar');
+        edtPesquisa.SetFocus;
+        exit;
+      end;
+
+
+
+
+      if StrToIntDef(Nome, 0) = 0  then
+          //Tem letras
+        try
+          if qryUsuario.Active then
+          begin
+            qryUsuario.Close;
+            qryUsuario.SQL.Clear;
+            qryUsuario.SQL.Add('SELECT * FROM USUARIO');
+            qryUsuario.SQL.Add('WHERE nome LIKE :Texto');
+            qryUsuario.ParamByName('Texto').AsString := '%'+Nome+'%';
+
+            qryUsuario.Open;
+
+
+          end;
+        except
+          on E: Exception do
+            ShowMessage( E.Message );
+        end
+      else
+        //é número
+        try
+          if qryUsuario.Active then
+          begin
+            qryUsuario.Close;
+            qryUsuario.SQL.Clear;
+            qryUsuario.SQL.Add('SELECT * FROM USUARIO');
+            qryUsuario.SQL.Add('Where id LIKE :id');
+            qryUsuario.ParamByName('id').AsString := '%'+edtPesquisa.Text+'%';
+            qryUsuario.Open;
+
+
+          end;
+        except
+          on E: Exception do
+            ShowMessage( E.Message );
+        end
 end;
 
 end.

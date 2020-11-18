@@ -85,6 +85,9 @@
 			<DCCReference Include="CadastroUsuario\lcdLocalizarUsuario.pas">
 				<Form>LocalizarUsuario</Form>
 			</DCCReference>
+			<DCCReference Include="CadastroProduto\lcdLocalizarProduto.pas">
+				<Form>LocalizarProduto</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

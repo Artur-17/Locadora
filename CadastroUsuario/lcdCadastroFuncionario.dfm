@@ -14,7 +14,7 @@ object CadastroFuncionario: TCadastroFuncionario
   OldCreateOrder = False
   Position = poMainFormCenter
   OnClose = FormClose
-  OnKeyDown = FormKeyDown
+  OnKeyUp = FormKeyUp
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 15
@@ -403,6 +403,10 @@ object CadastroFuncionario: TCadastroFuncionario
     object pgUsuario: TcxTabSheet
       Caption = 'Usuario'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object lblLogin: TLabel
         Left = 384
         Top = 64

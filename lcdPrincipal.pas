@@ -23,7 +23,7 @@ uses
   dxSkinWhiteprint, dxSkinXmas2008Blue, Enter,
   lcdLocalizarFilme, lcdCadastroFuncionario, lcdLogin, lcdCadastroCategoriaUsuario,
   lcdCadastroCliente, lcdLocalizarCliente, lcdLocalizarUsuario,
-  dxSkinsForm, Menus;
+  dxSkinsForm, Menus, dxBarCode, cxBarEditItem;
 
 type
   TPrincipal = class(TForm)
@@ -42,6 +42,11 @@ type
     UsuriosFuncionrios1: TMenuItem;
     Funcionrio1: TMenuItem;
     Ca1: TMenuItem;
+    dxBarLargeButton1: TdxBarLargeButton;
+    cxBarEditItem1: TcxBarEditItem;
+    dxbrVenda: TdxBar;
+    dxBarLargeButton2: TdxBarLargeButton;
+    dxBarLargeButton3: TdxBarLargeButton;
     procedure TimerTimer(Sender: TObject);
     procedure btnFilmeClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);

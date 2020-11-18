@@ -13,7 +13,6 @@ object LocalizarCliente: TLocalizarCliente
   KeyPreview = True
   OldCreateOrder = False
   WindowState = wsMaximized
-  OnKeyDown = FormKeyDown
   OnKeyUp = FormKeyUp
   OnShow = FormShow
   PixelsPerInch = 96
@@ -174,7 +173,7 @@ object LocalizarCliente: TLocalizarCliente
       OnClick = btnAlterarClick
     end
     object btnExcluir: TcxButton
-      Left = 224
+      Left = 229
       Top = 6
       Width = 85
       Height = 25
@@ -237,7 +236,7 @@ object LocalizarCliente: TLocalizarCliente
       OnClick = btnIncluirClick
     end
     object DBNavigator: TDBNavigator
-      Left = 320
+      Left = 336
       Top = 6
       Width = 224
       Height = 25

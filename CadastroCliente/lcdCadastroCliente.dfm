@@ -264,6 +264,7 @@ object CadastroCliente: TCadastroCliente
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
+    ExplicitLeft = -8
   end
   object btnFoto: TcxButton
     Left = 672
@@ -288,7 +289,7 @@ object CadastroCliente: TCadastroCliente
       C543372D5CE55E5F2AACA9FDD4D7A53FFA48B358C03CB632DBC322664A73F515
       4A1DE324AF97B01C9992F6ADD7A2CD2ED44858C12606FE78F815FB3D26FED207
       5A6C551E6C27733E0000000049454E44AE426082}
-    TabOrder = 1
+    TabOrder = 6
     OnClick = btnFotoClick
   end
   object edtNome: TEdit
@@ -298,7 +299,7 @@ object CadastroCliente: TCadastroCliente
     Height = 21
     AutoSize = False
     MaxLength = 80
-    TabOrder = 2
+    TabOrder = 1
   end
   object edtCpf: TMaskEdit
     Left = 16
@@ -307,7 +308,7 @@ object CadastroCliente: TCadastroCliente
     Height = 23
     EditMask = '###.###.###-##;0;'
     MaxLength = 14
-    TabOrder = 3
+    TabOrder = 2
   end
   object edtEmail: TEdit
     Left = 141
@@ -315,7 +316,7 @@ object CadastroCliente: TCadastroCliente
     Width = 433
     Height = 23
     MaxLength = 30
-    TabOrder = 4
+    TabOrder = 3
   end
   object edtTelefone: TEdit
     Left = 15
@@ -324,7 +325,7 @@ object CadastroCliente: TCadastroCliente
     Height = 21
     AutoSize = False
     MaxLength = 40
-    TabOrder = 5
+    TabOrder = 4
   end
   object edtEndereco: TEdit
     Left = 229
@@ -333,7 +334,7 @@ object CadastroCliente: TCadastroCliente
     Height = 21
     AutoSize = False
     MaxLength = 80
-    TabOrder = 6
+    TabOrder = 5
   end
   object edtBairro: TEdit
     Left = 15
@@ -431,7 +432,7 @@ object CadastroCliente: TCadastroCliente
       E1361956A1E5975842EDF7CFF8D0C7D84C34E91AD7651F2A97EFF95DF30BEE72
       332B97EF99E394FC889307E61275346D17B9DB982FCBCC3D3E01CE9C9E84BC00
       CBCA0000000049454E44AE426082}
-    TabOrder = 13
+    TabOrder = 14
     OnClick = btnCancelarClick
   end
   object btnGravar: TcxButton
@@ -453,7 +454,7 @@ object CadastroCliente: TCadastroCliente
       2711F1EBB9CF04F0D4730CDCD8C40AEB0E4ED92AD09CB10BF58FF4856D4FDE03
       2695C041F73EFC85E3C0CF76DD637029192FDF89D476AD1A1B827F0000000049
       454E44AE426082}
-    TabOrder = 14
+    TabOrder = 13
     OnClick = btnGravarClick
   end
   object qryCliente: TUniQuery

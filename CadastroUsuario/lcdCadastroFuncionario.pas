@@ -76,9 +76,9 @@ type
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnGravarClick(Sender: TObject);
-    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnLocalizarCategoriaClick(Sender: TObject);
     procedure cxButton1Click(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
     FDataSet: TDataSet;
@@ -191,11 +191,12 @@ begin
     qryUsuario.Close;
 end;
 
-procedure TCadastroFuncionario.FormKeyDown(Sender: TObject; var Key: Word;
+
+procedure TCadastroFuncionario.FormKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if (Key = VK_ESCAPE) then
-    close;
+    if (Key = VK_ESCAPE) then
+    ModalResult := mrCancel;
 end;
 
 procedure TCadastroFuncionario.FormShow(Sender: TObject);

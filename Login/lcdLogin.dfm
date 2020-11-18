@@ -304,6 +304,7 @@ object Login: TLogin
     Top = 42
     Width = 177
     Height = 23
+    CharCase = ecUpperCase
     MaxLength = 30
     TabOrder = 0
     Text = 'ADMIN'
@@ -313,6 +314,7 @@ object Login: TLogin
     Top = 92
     Width = 177
     Height = 23
+    CharCase = ecUpperCase
     MaxLength = 10
     PasswordChar = '*'
     TabOrder = 1

@@ -67,7 +67,6 @@ type
     viewclienteCOMPLEMENTO: TcxGridDBColumn;
     viewclienteOBSERVACAO: TcxGridDBColumn;
     procedure btnFecharClick(Sender: TObject);
-    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnPesquisarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnIncluirClick(Sender: TObject);
@@ -125,29 +124,29 @@ end;
 procedure TLocalizarCliente.Pesquisar();
 var
   selectOriginal : string;
-  lQRY : TuniQuery;
+  Nome: String;
 begin
 
-    lQRY := qryCliente;
-    selectOriginal := 'SELECT * FROM CLIENTE' ;
+    selectOriginal := 'SELECT * FROM CLIENTE';
+    Nome := UpperCase(edtPesquisa.Text);
 
-    if (edtPesquisa.Text = '') then
+    if (Nome = '') then
       begin
         ShowMessage('Insira o nome do Cliente ou Código para pesquisar');
         edtPesquisa.SetFocus;
       end;
 
-      if StrToIntDef(edtPesquisa.Text, 0) = 0  then
+      if StrToIntDef(Nome, 0) = 0  then
           //Tem letras
         try
-          if lQRY.Active then
+          if qryCliente.Active then
           begin
-            lQRY.Close;
-            lQRY.SQL.Clear;
-            lQRY.SQL.Add('Select * from cliente');
-            lQRY.SQL.Add('Where nome LIKE :Texto');
-            lQRY.ParamByName('Texto').AsString := '%'+edtPesquisa.Text+'%';
-            lQRY.Open;
+            qryCliente.Close;
+            qryCliente.SQL.Clear;
+            qryCliente.SQL.Add('Select * from cliente');
+            qryCliente.SQL.Add('Where nome LIKE :Texto');
+            qryCliente.ParamByName('Texto').AsString := '%'+Nome+'%';
+            qryCliente.Open;
 
 
           end;
@@ -158,14 +157,14 @@ begin
       else
         //é número
         try
-          if lQRY.Active then
+          if qryCliente.Active then
           begin
-            lQRY.Close;
-            lQRY.SQL.Clear;
-            lQRY.SQL.Add('Select * from cliente');
-            lQRY.SQL.Add('Where id LIKE :id');
-            lQRY.ParamByName('id').AsString := '%'+edtPesquisa.Text+'%';
-            lQRY.Open;
+            qryCliente.Close;
+            qryCliente.SQL.Clear;
+            qryCliente.SQL.Add('Select * from cliente');
+            qryCliente.SQL.Add('Where id LIKE :id');
+            qryCliente.ParamByName('id').AsString := '%'+edtPesquisa.Text+'%';
+            qryCliente.Open;
 
 
           end;
@@ -184,18 +183,28 @@ begin
   FreeAndNil(lcadastro);
 end;
 
-procedure TLocalizarCliente.FormKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
-  if (Key = VK_ESCAPE) then
-    Close;
-end;
 
 procedure TLocalizarCliente.FormKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
+   if (Key = VK_ESCAPE) then
+    ModalResult := mrCancel;
+
   if (key = VK_F2) then
     TCadastroCliente.Novo(Self, qrycliente, qryCliente.FieldByName('ID').AsInteger);
+
+  if (Key = VK_F4) then
+     if Application.MessageBox('AVISO: Deseja realmente excluir esse registro ?','ATENÇÃO ',MB_YESNO + MB_ICONWARNING)=MRYES then
+      begin
+        qryCliente.Delete;
+      end;
+
+  if (Key = VK_F5) then
+    begin
+     TCadastroCliente.Alterar(Self,qryCliente, qryCliente.FieldByName('ID').AsInteger);
+     viewcliente.DataController.DataSet.Refresh;
+    end;
+
 end;
 
 procedure TLocalizarCliente.FormShow(Sender: TObject);

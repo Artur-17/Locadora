@@ -130,7 +130,12 @@ begin
 end;
 
 procedure TCadastroCliente.GravarDadosCliente;
+var
+  Nome : String;
 begin
+   Nome := UpperCase(edtNome.Text);
+
+
    try
     qryCliente.Close;
     qryCliente.SQL.Clear;
@@ -157,8 +162,6 @@ begin
 //    qryCliente.ParamByName('pOBSERVACAO').AsString := mmObservacao.Text;
 
 
-
-
        if FModo = 'novo' then
        begin
          qryCliente.SQL.Add('INSERT INTO CLIENTE');
@@ -176,7 +179,7 @@ begin
        end;
 
 
-      qryCliente.ParamByName('pNOME').AsString := edtNome.Text;
+      qryCliente.ParamByName('pNOME').AsString := Nome;
       qryCliente.ParamByName('pCPF').AsString := edtCpf.Text;
       qryCliente.ParamByName('pEMAIL').AsString := edtEmail.Text;
       qryCliente.ParamByName('pTELEFONE').AsString := edtTelefone.Text;

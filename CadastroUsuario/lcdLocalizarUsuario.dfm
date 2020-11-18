@@ -10,8 +10,10 @@ object LocalizarUsuario: TLocalizarUsuario
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   WindowState = wsMaximized
+  OnKeyUp = FormKeyUp
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -39,13 +41,12 @@ object LocalizarUsuario: TLocalizarUsuario
     Height = 56
     Align = alTop
     TabOrder = 1
-    ExplicitTop = 47
     DesignSize = (
       1207
       56)
     object btnPesquisar: TcxButton
       Left = 1046
-      Top = 15
+      Top = 6
       Width = 145
       Height = 25
       Anchors = [akTop, akRight]
@@ -72,7 +73,7 @@ object LocalizarUsuario: TLocalizarUsuario
         DF170C2BD9A4AE2FBAC27C42DAF58310E2214174D44B455214E9F27F090060E0
         F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
         CCCEC728114BCD0000000049454E44AE426082}
-      TabOrder = 1
+      TabOrder = 0
       OnClick = btnPesquisarClick
     end
     object edtPesquisa: TEdit
@@ -81,7 +82,7 @@ object LocalizarUsuario: TLocalizarUsuario
       Width = 1009
       Height = 21
       Anchors = [akLeft, akTop, akRight]
-      TabOrder = 0
+      TabOrder = 1
     end
   end
   object gridUsuario: TcxGrid
@@ -205,6 +206,7 @@ object LocalizarUsuario: TLocalizarUsuario
         162C8DE2229A01D3E5053267099021D6B56AD58A440600DDC52C2A6CBB80B500
         00000049454E44AE426082}
       TabOrder = 2
+      OnClick = btnExcluirClick
     end
     object btnFechar: TcxButton
       Left = 1059

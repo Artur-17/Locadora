@@ -42,5 +42,7 @@
     <Transaction>2020/11/16 21:34:07.479.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroUsuario.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdCadastroFuncionario.dfm</Transaction>
     <Transaction>2020/11/16 21:35:57.708.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdLocalizarUsuario.pas</Transaction>
     <Transaction>2020/11/16 21:35:57.708.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroUsuario\lcdLocalizarUsuario.dfm</Transaction>
+    <Transaction>2020/11/18 19:50:07.439.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroProduto\lcdLocalizarProduto.pas</Transaction>
+    <Transaction>2020/11/18 19:50:07.439.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroProduto\lcdLocalizarProduto.dfm</Transaction>
   </Transactions>
 </BorlandProject>

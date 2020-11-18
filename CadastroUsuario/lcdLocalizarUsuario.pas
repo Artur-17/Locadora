@@ -80,6 +80,8 @@ type
     procedure FormShow(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     procedure FormClose(Sender: TObject);
     procedure Pesquisar();
@@ -100,6 +102,14 @@ procedure TLocalizarUsuario.btnAlterarClick(Sender: TObject);
 begin
   TCadastroFuncionario.Alterar(Self,qryUsuario, qryUsuario.FieldByName('ID').AsInteger);
   viewUsuario.DataController.DataSet.Refresh;
+end;
+
+procedure TLocalizarUsuario.btnExcluirClick(Sender: TObject);
+begin
+  if Application.MessageBox('AVISO: Deseja realmente excluir esse registro ?','ATENÇÃO ',MB_YESNO + MB_ICONWARNING)=MRYES then
+  begin
+    qryUsuario.Delete;
+  end;
 end;
 
 procedure TLocalizarUsuario.btnFecharClick(Sender: TObject);
@@ -150,6 +160,34 @@ begin
 
    if qryUsuario.Active then
     qryUsuario.Close;
+
+end;
+
+procedure TLocalizarUsuario.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_ESCAPE) then
+    ModalResult := mrCancel;
+
+  if (Key = VK_F2) then
+    begin
+      TCadastroFuncionario.Novo(Self, qryUsuario, qryUsuario.FieldByName('ID').AsInteger);
+      viewUsuario.DataController.DataSet.Refresh;
+    end;
+
+  if (Key = VK_F4) then
+    begin
+      if Application.MessageBox('AVISO: Deseja realmente excluir esse registro ?','ATENÇÃO ',MB_YESNO + MB_ICONWARNING)=MRYES then
+    begin
+      qryUsuario.Delete;
+    end;
+    end;
+
+  if (Key = VK_F5) then
+    begin
+      TCadastroFuncionario.Alterar(Self,qryUsuario, qryUsuario.FieldByName('ID').AsInteger);
+      viewUsuario.DataController.DataSet.Refresh;
+    end;
 
 end;
 

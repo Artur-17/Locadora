@@ -46,7 +46,7 @@ object LocalizarCliente: TLocalizarCliente
       56)
     object btnPesquisar: TcxButton
       Left = 1046
-      Top = 15
+      Top = 13
       Width = 145
       Height = 25
       Anchors = [akTop, akRight]
@@ -73,7 +73,7 @@ object LocalizarCliente: TLocalizarCliente
         DF170C2BD9A4AE2FBAC27C42DAF58310E2214174D44B455214E9F27F090060E0
         F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
         CCCEC728114BCD0000000049454E44AE426082}
-      TabOrder = 1
+      TabOrder = 0
       OnClick = btnPesquisarClick
     end
     object edtPesquisa: TEdit
@@ -82,7 +82,7 @@ object LocalizarCliente: TLocalizarCliente
       Width = 1009
       Height = 21
       Anchors = [akLeft, akTop, akRight]
-      TabOrder = 0
+      TabOrder = 1
     end
   end
   object grid: TcxGrid
@@ -236,7 +236,7 @@ object LocalizarCliente: TLocalizarCliente
       OnClick = btnIncluirClick
     end
     object DBNavigator: TDBNavigator
-      Left = 336
+      Left = 488
       Top = 6
       Width = 224
       Height = 25

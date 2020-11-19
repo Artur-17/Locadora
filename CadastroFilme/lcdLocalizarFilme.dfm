@@ -2,8 +2,8 @@ object LocalizarFilme: TLocalizarFilme
   Left = 0
   Top = 0
   Caption = 'Localizar filme'
-  ClientHeight = 692
-  ClientWidth = 968
+  ClientHeight = 624
+  ClientWidth = 1207
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,6 +14,7 @@ object LocalizarFilme: TLocalizarFilme
   OldCreateOrder = False
   Position = poMainFormCenter
   Scaled = False
+  WindowState = wsMaximized
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
@@ -22,23 +23,26 @@ object LocalizarFilme: TLocalizarFilme
   TextHeight = 13
   object pnlbottom: TPanel
     Left = 0
-    Top = 636
-    Width = 968
-    Height = 56
+    Top = 584
+    Width = 1207
+    Height = 40
     Align = alBottom
-    TabOrder = 0
+    TabOrder = 3
+    DesignSize = (
+      1207
+      40)
     object btnNavigator: TDBNavigator
-      Left = 504
-      Top = 16
+      Left = 494
+      Top = 6
       Width = 224
       Height = 25
       DataSource = dtsFilme
       VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
-      TabOrder = 0
+      TabOrder = 1
     end
     object btnIncluir: TcxButton
-      Left = 16
-      Top = 16
+      Left = 8
+      Top = 6
       Width = 89
       Height = 25
       Caption = 'Incluir (F2)'
@@ -59,11 +63,11 @@ object LocalizarFilme: TLocalizarFilme
         CAEF7C9AD8E071F731C9B4D867A471FDB652B2E77FADFC82A3664BA564CF9C2B
         B7F88ACAADE43A86B8C35CF2C332F6B738698ABF01062775A96EA3EBA7000000
         0049454E44AE426082}
-      TabOrder = 1
+      TabOrder = 0
     end
     object btnAlterar: TcxButton
-      Left = 240
-      Top = 16
+      Left = 238
+      Top = 7
       Width = 89
       Height = 25
       Caption = 'Alterar (F5)'
@@ -81,11 +85,11 @@ object LocalizarFilme: TLocalizarFilme
         8A2BF61D2159AC1C1A43C8AADE2F86C8ED90A44F9EA3E890CB7A9F8E692E711B
         7BF69FCB09F22F72A17ADF5E96639B03BB5F6438B4E43CE6ECC0040FDC71C211
         67D5AF47F101B4A2582947CFEBF80000000049454E44AE426082}
-      TabOrder = 2
+      TabOrder = 3
     end
     object btnExcluir: TcxButton
-      Left = 128
-      Top = 16
+      Left = 126
+      Top = 7
       Width = 89
       Height = 25
       Caption = 'Excluir (F4)'
@@ -103,13 +107,14 @@ object LocalizarFilme: TLocalizarFilme
         04580BD8031840FC55400014635D0506010811048802892C0531162DAFD20233
         162C8DE2229A01D3E5053267099021D6B56AD58A440600DDC52C2A6CBB80B500
         00000049454E44AE426082}
-      TabOrder = 3
+      TabOrder = 2
     end
     object btnFechar: TcxButton
-      Left = 855
-      Top = 16
+      Left = 1093
+      Top = 7
       Width = 105
       Height = 25
+      Anchors = [akTop, akRight]
       Caption = 'Fechar (ESC)'
       LookAndFeel.Kind = lfUltraFlat
       LookAndFeel.NativeStyle = False
@@ -131,7 +136,7 @@ object LocalizarFilme: TLocalizarFilme
   object pnlTop: TPanel
     Left = 0
     Top = 0
-    Width = 968
+    Width = 1207
     Height = 41
     Align = alTop
     Caption = 'LOCALIZAR FILME'
@@ -143,12 +148,13 @@ object LocalizarFilme: TLocalizarFilme
     Font.Style = [fsBold]
     ParentBackground = False
     ParentFont = False
-    TabOrder = 1
+    TabOrder = 0
+    ExplicitWidth = 968
   end
   object pnlfields: TPanel
     Left = 0
     Top = 41
-    Width = 968
+    Width = 1207
     Height = 46
     ParentCustomHint = False
     Align = alTop
@@ -169,148 +175,84 @@ object LocalizarFilme: TLocalizarFilme
     ParentShowHint = False
     ShowCaption = False
     ShowHint = False
-    TabOrder = 2
-    object Codigo: TRadioButton
-      Left = 785
-      Top = 6
-      Width = 113
-      Height = 17
-      Caption = 'Codigo'
-      TabOrder = 0
-    end
+    TabOrder = 1
+    ExplicitTop = 35
+    DesignSize = (
+      1207
+      46)
     object edtPesquisar: TEdit
       Left = 8
-      Top = 13
-      Width = 657
+      Top = 11
+      Width = 977
       Height = 21
+      Anchors = [akLeft, akTop, akRight]
       TabOrder = 1
     end
-    object Nome: TRadioButton
-      Left = 785
-      Top = 22
-      Width = 113
-      Height = 17
-      Caption = 'Nome'
-      TabOrder = 2
-    end
     object btnPesquisar: TcxButton
-      Left = 685
+      Left = 1022
       Top = 9
-      Width = 75
+      Width = 152
       Height = 25
+      Anchors = [akTop, akRight]
       Caption = 'Pesquisar'
-      TabOrder = 3
+      OptionsImage.Glyph.SourceDPI = 96
+      OptionsImage.Glyph.Data = {
+        89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+        610000000473424954080808087C086488000000097048597300000076000000
+        76014E7B26080000001974455874536F667477617265007777772E696E6B7363
+        6170652E6F72679BEE3C1A000001F049444154388D95904B6813511486FF7B67
+        8669568AE842504968A52ADAC40751AB2DA90651142CE2BA0B1197C10141A420
+        155404A142892062DCE84AEA038AD4D588A843D4843235204E044D8A554884BC
+        4C629CB9C785A954D349EBB7BADCFFDCEF9C73199A0C68D1A344A401D8D1BC7A
+        438C469F5D8B4CA00D0C0042DAD815103B1BE8F6A267FD5A00806965615A19D8
+        F51F775EDC3833E42A68767E746230847DC1CD7F85C6741AD1BB13B0EBF50BC6
+        ADE19185049C88B440B7B7E53100ECDCD285C1037B41C289B84DC0016C9F1BBB
+        25640CDB3675C2B1EDE5ED04AED8820050BB12700009D3CAB6044440CD118827
+        53E0B25C701510A351D3CAC0984EC32102353B977E3A98FD9AC783C73A001A77
+        134899F8A4B526B0BFF3F5DBB49FB8048FA703854A15FAF304A2B17BE05CCA95
+        F3B3C1151BFCB7BFBD9F2AFF2B607387DE939746483811C7F9FD615C920B008D
+        97739F875675F90DCFB2956671E643CC880DA71614B8B1F1D8A9D5BE9E70A451
+        2DF695735F7A6545B9F8F2E6B9F37F56584C907F97ACACF3EF4939425C955555
+        6ED4AAFDDE60589A49EA4F972400808FAF9E7CF7EE3E926084E3B2AA2A8D5AAD
+        DF170C2BD9A4AE2FBAC27C42DAF58310E2214174D44B455214E9F27F090060E0
+        F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
+        CCCEC728114BCD0000000049454E44AE426082}
+      TabOrder = 0
     end
   end
-  object gdrFilme: TcxGrid
+  object gridFilme: TcxGrid
     Left = 0
     Top = 87
-    Width = 968
-    Height = 549
+    Width = 1207
+    Height = 497
     Align = alClient
-    TabOrder = 3
-    object gdrFilmeDBTableView1: TcxGridDBTableView
+    TabOrder = 2
+    ExplicitLeft = 592
+    ExplicitTop = 256
+    ExplicitWidth = 250
+    ExplicitHeight = 200
+    object gridFilmeDBTableView1: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = dtsFilme
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
-      object gdrFilmeDBTableView1ID: TcxGridDBColumn
-        DataBinding.FieldName = 'ID'
-      end
-      object gdrFilmeDBTableView1TITULO: TcxGridDBColumn
-        DataBinding.FieldName = 'TITULO'
-        Width = 92
-      end
-      object gdrFilmeDBTableView1SINOPSE: TcxGridDBColumn
-        DataBinding.FieldName = 'SINOPSE'
-        Width = 119
-      end
-      object gdrFilmeDBTableView1DT_LANCAMENTO: TcxGridDBColumn
-        DataBinding.FieldName = 'DT_LANCAMENTO'
-        Width = 121
-      end
-      object gdrFilmeDBTableView1NM_DIRETOR: TcxGridDBColumn
-        DataBinding.FieldName = 'NM_DIRETOR'
-        Width = 78
-      end
-      object gdrFilmeDBTableView1NM_ESTUDIO: TcxGridDBColumn
-        DataBinding.FieldName = 'NM_ESTUDIO'
-        Width = 82
-      end
-      object gdrFilmeDBTableView1GENERO: TcxGridDBColumn
-        DataBinding.FieldName = 'GENERO'
-      end
-      object gdrFilmeDBTableView1VALOR: TcxGridDBColumn
-        DataBinding.FieldName = 'VALOR'
-      end
-      object gdrFilmeDBTableView1JUROS: TcxGridDBColumn
-        DataBinding.FieldName = 'JUROS'
-      end
-      object gdrFilmeDBTableView1QUANTIDADE: TcxGridDBColumn
-        DataBinding.FieldName = 'QUANTIDADE'
-      end
     end
-    object gdrFilmeLevel1: TcxGridLevel
-      GridView = gdrFilmeDBTableView1
+    object gridFilmeLevel1: TcxGridLevel
+      GridView = gridFilmeDBTableView1
     end
   end
   object qryFilme: TUniQuery
     Connection = dtmPrincipal.conexao
     SQL.Strings = (
-      'select * from filme')
-    Left = 848
-    Top = 48
-    object qryFilmeID: TIntegerField
-      DisplayLabel = 'C'#243'digo'
-      FieldName = 'ID'
-      Required = True
-    end
-    object qryFilmeTITULO: TStringField
-      DisplayLabel = 'T'#237'tulo'
-      FieldName = 'TITULO'
-      Size = 30
-    end
-    object qryFilmeSINOPSE: TStringField
-      DisplayLabel = 'Sinopse'
-      FieldName = 'SINOPSE'
-      Size = 30
-    end
-    object qryFilmeDT_LANCAMENTO: TDateField
-      DisplayLabel = 'Data de Lan'#231'amento'
-      FieldName = 'DT_LANCAMENTO'
-    end
-    object qryFilmeNM_DIRETOR: TStringField
-      DisplayLabel = 'Diretor'
-      FieldName = 'NM_DIRETOR'
-      Size = 30
-    end
-    object qryFilmeNM_ESTUDIO: TStringField
-      DisplayLabel = 'Est'#250'dio'
-      FieldName = 'NM_ESTUDIO'
-      Size = 30
-    end
-    object qryFilmeGENERO: TStringField
-      DisplayLabel = 'Genero'
-      FieldName = 'GENERO'
-      Size = 30
-    end
-    object qryFilmeVALOR: TFloatField
-      DisplayLabel = 'Valor'
-      FieldName = 'VALOR'
-    end
-    object qryFilmeJUROS: TFloatField
-      DisplayLabel = 'Juros'
-      FieldName = 'JUROS'
-    end
-    object qryFilmeQUANTIDADE: TIntegerField
-      DisplayLabel = 'Quantidade'
-      FieldName = 'QUANTIDADE'
-    end
+      'select * from produto')
+    Active = True
+    Left = 792
+    Top = 248
   end
   object dtsFilme: TDataSource
     DataSet = qryFilme
-    Left = 896
-    Top = 48
+    Left = 840
+    Top = 248
   end
 end

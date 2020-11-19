@@ -252,7 +252,7 @@ object LocalizarUsuario: TLocalizarUsuario
       OnClick = btnIncluirClick
     end
     object DBNavigator: TDBNavigator
-      Left = 320
+      Left = 488
       Top = 6
       Width = 224
       Height = 25

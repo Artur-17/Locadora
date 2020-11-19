@@ -68,9 +68,9 @@ end;
 
 class procedure TCadastroProduto.Exibir;
 var
-  lCadastroProduto: TLocalizarProduto;
+  lCadastroProduto: TCadastroProduto;
 begin
-  lCadastroProduto := TLocalizarProduto.Create(nil);
+  lCadastroProduto := TCadastroProduto.Create(nil);
   lCadastroProduto.ShowModal;
   FreeAndNil(lCadastroProduto);
 

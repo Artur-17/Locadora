@@ -9,7 +9,7 @@ uses
   cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
   dxDateRanges, DB, cxDBData, DBCtrls, StdCtrls, cxGridLevel, cxClasses,
   cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
-  cxGrid, lcdDataModule, MemDS, DBAccess, Uni, dxSkinBlack, dxSkinBlue,
+  cxGrid, MemDS, DBAccess, Uni, dxSkinBlack, dxSkinBlue,
   dxSkinBlueprint, dxSkinCaramel, dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide,
   dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinFoggy,
   dxSkinGlassOceans, dxSkinHighContrast, dxSkiniMaginary, dxSkinLilian,
@@ -23,47 +23,27 @@ uses
   dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
   dxSkinTheAsphaltWorld, dxSkinValentine, dxSkinVisualStudio2013Blue,
   dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinVS2010,
-  dxSkinWhiteprint, dxSkinXmas2008Blue, Menus, cxButtons;
+  dxSkinWhiteprint, dxSkinXmas2008Blue, Menus, cxButtons,
+  lcdDataModule, lcdCadastroFilme;
+
 
 type
   TLocalizarFilme = class(TForm)
     edtPesquisar: TEdit;
-    Nome: TRadioButton;
-    Codigo: TRadioButton;
     pnlbottom: TPanel;
     btnNavigator: TDBNavigator;
     pnlTop: TPanel;
     pnlfields: TPanel;
-    gdrFilmeDBTableView1: TcxGridDBTableView;
-    gdrFilmeLevel1: TcxGridLevel;
-    gdrFilme: TcxGrid;
     qryFilme: TUniQuery;
     dtsFilme: TDataSource;
-    qryFilmeID: TIntegerField;
-    qryFilmeTITULO: TStringField;
-    qryFilmeSINOPSE: TStringField;
-    qryFilmeDT_LANCAMENTO: TDateField;
-    qryFilmeNM_DIRETOR: TStringField;
-    qryFilmeNM_ESTUDIO: TStringField;
-    qryFilmeGENERO: TStringField;
-    qryFilmeVALOR: TFloatField;
-    qryFilmeJUROS: TFloatField;
-    qryFilmeQUANTIDADE: TIntegerField;
-    gdrFilmeDBTableView1ID: TcxGridDBColumn;
-    gdrFilmeDBTableView1TITULO: TcxGridDBColumn;
-    gdrFilmeDBTableView1SINOPSE: TcxGridDBColumn;
-    gdrFilmeDBTableView1DT_LANCAMENTO: TcxGridDBColumn;
-    gdrFilmeDBTableView1NM_DIRETOR: TcxGridDBColumn;
-    gdrFilmeDBTableView1NM_ESTUDIO: TcxGridDBColumn;
-    gdrFilmeDBTableView1GENERO: TcxGridDBColumn;
-    gdrFilmeDBTableView1VALOR: TcxGridDBColumn;
-    gdrFilmeDBTableView1JUROS: TcxGridDBColumn;
-    gdrFilmeDBTableView1QUANTIDADE: TcxGridDBColumn;
     btnIncluir: TcxButton;
     btnPesquisar: TcxButton;
     btnAlterar: TcxButton;
     btnExcluir: TcxButton;
     btnFechar: TcxButton;
+    gridFilmeDBTableView1: TcxGridDBTableView;
+    gridFilmeLevel1: TcxGridLevel;
+    gridFilme: TcxGrid;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -128,7 +108,6 @@ begin
 
   if not qryFilme.Connection.Connected then
     qryFilme.Connection.Connect();
-
 
   if not qryFilme.Active then
     qryFilme.Open;

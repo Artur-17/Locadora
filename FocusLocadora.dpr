@@ -16,7 +16,7 @@ uses
   lcdCaminhoBancoDados in 'CaminhoBancoDados\lcdCaminhoBancoDados.pas' {CaminhoBancoDados},
   lcdLocalizarCliente in 'CadastroCliente\lcdLocalizarCliente.pas' {LocalizarCliente},
   lcdLocalizarUsuario in 'CadastroUsuario\lcdLocalizarUsuario.pas' {LocalizarUsuario},
-  lcdLocalizarProduto in 'CadastroProduto\lcdLocalizarProduto.pas' {LocalizarProduto};
+  lcdCadastroFilme in 'CadastroFilme\lcdCadastroFilme.pas' {CadastroProduto};
 
 {$R *.res}
 
@@ -25,9 +25,5 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TPrincipal, Principal);
   Application.CreateForm(TdtmPrincipal, dtmPrincipal);
-  Application.CreateForm(TCaminhoBancoDados, CaminhoBancoDados);
-  Application.CreateForm(TLocalizarCliente, LocalizarCliente);
-  Application.CreateForm(TLocalizarUsuario, LocalizarUsuario);
-  Application.CreateForm(TLocalizarProduto, LocalizarProduto);
   Application.Run;
 end.

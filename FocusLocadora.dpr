@@ -16,7 +16,7 @@ uses
   lcdCaminhoBancoDados in 'CaminhoBancoDados\lcdCaminhoBancoDados.pas' {CaminhoBancoDados},
   lcdLocalizarCliente in 'CadastroCliente\lcdLocalizarCliente.pas' {LocalizarCliente},
   lcdLocalizarUsuario in 'CadastroUsuario\lcdLocalizarUsuario.pas' {LocalizarUsuario},
-  lcdCadastroFilme in 'CadastroFilme\lcdCadastroFilme.pas' {CadastroProduto};
+  lcdCadastroFilme in 'CadastroFilme\lcdCadastroFilme.pas' {CadastroFilme};
 
 {$R *.res}
 

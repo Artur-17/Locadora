@@ -20,10 +20,13 @@ uses
   dxSkinTheAsphaltWorld, dxSkinsDefaultPainters, dxSkinValentine,
   dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
   dxSkinVisualStudio2013Light, dxSkinVS2010, dxSkinWhiteprint,
-  dxSkinXmas2008Blue, cxButtons, Mask, dxGDIPlusClasses;
+  dxSkinXmas2008Blue, cxButtons, Mask, dxGDIPlusClasses, Uni, DB, MemDS,
+  DBAccess, lcdDataModule, cxControls, cxContainer, cxEdit, ComCtrls, dxCore,
+  cxDateUtils, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar,
+  cxCurrencyEdit;
 
 type
-  TCadastroProduto = class(TForm)
+  TCadastroFilme = class(TForm)
     pnlTop: TPanel;
     edtCodBarras: TEdit;
     lblCodBarras: TLabel;
@@ -39,48 +42,176 @@ type
     lblSinopse: TLabel;
     lblValor: TLabel;
     lblQuantidade: TLabel;
-    edtValor: TMaskEdit;
     edtQuantidade: TEdit;
     btnGravar: TcxButton;
     btnCancelar: TcxButton;
     imgProduto: TImage;
     btnFoto: TcxButton;
+    qryFilme: TUniQuery;
+    qryFilmeID: TIntegerField;
+    qryFilmeTITULO: TStringField;
+    qryFilmeSINOPSE: TStringField;
+    qryFilmeDT_LANCAMENTO: TDateField;
+    qryFilmeNM_DIRETOR: TStringField;
+    qryFilmeNM_ESTUDIO: TStringField;
+    qryFilmeGENERO: TStringField;
+    qryFilmeVALOR: TFloatField;
+    qryFilmeJUROS: TFloatField;
+    qryFilmeQUANTIDADE: TIntegerField;
+    qryFilmeCOD_BARRAS: TIntegerField;
+    dtpDataLancamento: TcxDateEdit;
+    lblDataLancamento: TLabel;
+    edtValor: TcxCurrencyEdit;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure btnGravarClick(Sender: TObject);
   private
     { Private declarations }
+    FModo : string;
+    FDataSet: TDataSet;
+    FIDCliente: integer;
+    procedure PreencherDados;
+    procedure GravarDadosFilme();
   public
     { Public declarations }
     class procedure Exibir();
+
+    class function Novo(pOwner: TForm; pDataSet: TDataset;  pIDCliente: integer): TmodalResult;
+    class function Alterar(pOwner: TForm; pDataSet: TDataset;  pIDCliente: integer): TmodalResult;
   end;
 
 var
-  CadastroProduto: TCadastroProduto;
+  CadastroFilme: TCadastroFilme;
 
 implementation
 
 {$R *.dfm}
 
-procedure TCadastroProduto.btnCancelarClick(Sender: TObject);
+class function TCadastroFilme.Alterar(pOwner: TForm; pDataSet: TDataset;
+  pIDCliente: integer): TmodalResult;
+var
+  lCadastroFilme : TCadastroFilme;
+begin
+  lCadastroFilme := TCadastroFilme.Create(pOwner);
+  try
+    lCadastroFilme.FDataSet := pDataSet;
+    lCadastroFilme.PreencherDados;
+    lCadastroFilme.FIDCliente := pIDCliente;
+    lCadastroFilme.FModo := 'alterar';
+
+    Result := lCadastroFilme.ShowModal
+  finally
+    FreeAndNil(lCadastroFilme);
+  end;
+end;
+
+procedure TCadastroFilme.PreencherDados;
+begin
+  Try
+    edtTitulo.Text := FDataSet.FieldByName('TITULO').AsString;
+    edtCodBarras.Text := FDataSet.FieldByName('COD_BARRAS').AsString;
+    edtNomeDiretor.Text := FDataSet.FieldByName('NM_DIRETOR').AsString;
+    edtNomeEstudio.Text := FDataSet.FieldByName('NM_ESTUDIO').AsString;
+    cbbGenero.Text := FDataSet.FieldByName('GENERO').AsString;
+    edtValor.Text := FDataSet.FieldByName('VALOR').AsString;
+    edtQuantidade.Text := FDataSet.FieldByName('QUANTIDADE').AsString;
+    mmSinopse.Text := FDataSet.FieldByName('SINOPSE').AsString;
+
+
+  except
+    on E: Exception do
+      ShowMessage( E.Message );
+  End;
+
+
+end;
+
+procedure TCadastroFilme.btnCancelarClick(Sender: TObject);
 begin
   ModalResult := mrCancel;
 end;
 
-class procedure TCadastroProduto.Exibir;
-var
-  lCadastroProduto: TCadastroProduto;
+procedure TCadastroFilme.btnGravarClick(Sender: TObject);
 begin
-  lCadastroProduto := TCadastroProduto.Create(nil);
-  lCadastroProduto.ShowModal;
-  FreeAndNil(lCadastroProduto);
+  GravarDadosFilme();
+end;
+
+class procedure TCadastroFilme.Exibir;
+var
+  lCadastroFilme: TCadastroFilme;
+begin
+  lCadastroFilme := TCadastroFilme.Create(nil);
+  lCadastroFilme.ShowModal;
+  FreeAndNil(lCadastroFilme);
 
 end;
 
-procedure TCadastroProduto.FormKeyUp(Sender: TObject; var Key: Word;
+class function TCadastroFilme.Novo(pOwner :TForm; pDataSet :TDataset; pIDCliente: integer) : TmodalResult;
+var
+  lcadastro : TCadastroFilme;
+begin
+   lcadastro := TCadastroFilme.Create(nil);
+   lcadastro.FModo := 'novo';
+   lcadastro.ShowModal();
+   FreeAndNil(lcadastro);
+end;
+
+procedure TCadastroFilme.FormKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if (Key = VK_ESCAPE) then
     ModalResult := mrCancel;
+end;
+
+procedure TCadastroFilme.GravarDadosFilme;
+var
+  Titulo: String;
+begin
+  Titulo := UpperCase(edtTitulo.Text);
+
+
+   try
+    qryFilme.Close;
+    qryFilme.SQL.Clear;
+
+       if FModo = 'novo' then
+       begin
+         qryFilme.SQL.Add('INSERT INTO FILME');
+         qryFilme.SQL.Add('(TITULO, SINOPSE, DT_LANCAMENTO, NM_DIRETOR, NM_ESTUDIO, GENERO, VALOR, QUANTIDADE, COD_BARRAS)');
+         qryFilme.SQL.Add('values ( :TITULO, :SINOPSE, :DT_LANCAMENTO, :NM_DIRETOR, :NM_ESTUDIO, :GENERO, :VALOR, :QUANTIDADE, :COD_BARRAS)')
+       end
+       else
+       begin
+        qryFilme.SQL.Add('UPDATE OR INSERT INTO FILME');
+        qryFilme.SQL.Add('(ID, TITULO, SINOPSE, DT_LANCAMENTO, NM_DIRETOR, NM_ESTUDIO, GENERO, VALOR, QUANTIDADE, COD_BARRAS)');
+        qryFilme.SQL.Add('values (:ID, :TITULO, :SINOPSE, :DT_LANCAMENTO, :NM_DIRETOR, :NM_ESTUDIO, :GENERO, :VALOR, :QUANTIDADE, :COD_BARRAS)');
+        qryFilme.SQL.Add('MATCHING (ID);');
+
+        qryFilme.ParamByName('ID').AsInteger := FIDCliente;
+       end;
+
+
+      qryFilme.ParamByName('TITULO').AsString := Titulo;
+      qryFilme.ParamByName('SINOPSE').AsString := mmSinopse.Text;
+      qryFilme.ParamByName('DT_LANCAMENTO').AsDate := dtpDataLancamento.Date;
+      qryFilme.ParamByName('NM_DIRETOR').AsString := edtNomeDiretor.Text;
+      qryFilme.ParamByName('NM_ESTUDIO').AsString := edtNomeEstudio.Text;
+      qryFilme.ParamByName('VALOR').AsString := edtValor.Text;
+      qryFilme.ParamByName('QUANTIDADE').AsString := edtQuantidade.Text;
+      qryFilme.ParamByName('COD_BARRAS').AsString := edtCodBarras.Text;
+
+      qryFilme.ExecSQL;
+
+      ShowMessage('Os dados foram inseridos com sucesso');
+      ModalResult := mrOk;
+
+
+  except
+    on E: Exception do
+
+    ShowMessage( E.Message )
+  end;
+
 end;
 
 end.

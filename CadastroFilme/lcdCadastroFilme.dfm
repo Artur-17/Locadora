@@ -1,17 +1,22 @@
-object CadastroProduto: TCadastroProduto
+object CadastroFilme: TCadastroFilme
   Left = 0
   Top = 0
   Caption = 'Cadastro de Produtos'
-  ClientHeight = 369
-  ClientWidth = 828
+  ClientHeight = 424
+  ClientWidth = 805
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
+  Position = poScreenCenter
   OnKeyUp = FormKeyUp
+  DesignSize = (
+    805
+    424)
   PixelsPerInch = 96
   TextHeight = 15
   object lblCodBarras: TLabel
@@ -71,10 +76,11 @@ object CadastroProduto: TCadastroProduto
     Caption = 'Quantidade'
   end
   object imgProduto: TImage
-    Left = 672
+    Left = 657
     Top = 64
     Width = 128
     Height = 128
+    Anchors = [akTop, akRight]
     Picture.Data = {
       0B546478504E47496D61676589504E470D0A1A0A0000000D4948445200000080
       000000800806000000C33E61CB0000000473424954080808087C086488000000
@@ -258,11 +264,19 @@ object CadastroProduto: TCadastroProduto
       30B0FD4CC4DAEF6DDC5BA476784AE37B02DCE48367E704313FC3338382FCB257
       9AF7BB7DD8D2B7059F15A09F1BF46F0DF371FA05F071FA05F071FA05F071FA05
       F071FA05F071FA05F071FE1F7FEA8675E25D59FE0000000049454E44AE426082}
+    ExplicitLeft = 672
+  end
+  object lblDataLancamento: TLabel
+    Left = 488
+    Top = 212
+    Width = 112
+    Height = 15
+    Caption = 'Data de Lan'#231'amento '
   end
   object pnlTop: TPanel
     Left = 0
     Top = 0
-    Width = 828
+    Width = 805
     Height = 41
     Align = alTop
     Caption = 'CADASTRO DE FILMES'
@@ -275,8 +289,7 @@ object CadastroProduto: TCadastroProduto
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitLeft = -8
-    ExplicitWidth = 806
+    ExplicitWidth = 828
   end
   object edtCodBarras: TEdit
     Left = 8
@@ -290,6 +303,7 @@ object CadastroProduto: TCadastroProduto
     Top = 64
     Width = 465
     Height = 23
+    CharCase = ecUpperCase
     TabOrder = 2
   end
   object edtNomeDiretor: TEdit
@@ -309,7 +323,7 @@ object CadastroProduto: TCadastroProduto
   object cbbGenero: TComboBox
     Left = 320
     Top = 233
-    Width = 305
+    Width = 129
     Height = 22
     Style = csOwnerDrawFixed
     TabOrder = 7
@@ -351,28 +365,19 @@ object CadastroProduto: TCadastroProduto
     MaxLength = 300
     TabOrder = 3
   end
-  object edtValor: TMaskEdit
-    Left = 8
-    Top = 296
-    Width = 115
-    Height = 23
-    EditMask = 'R$;1;_'
-    MaxLength = 2
-    TabOrder = 8
-    Text = 'R$'
-  end
   object edtQuantidade: TEdit
     Left = 152
     Top = 296
-    Width = 85
+    Width = 97
     Height = 23
-    TabOrder = 9
+    TabOrder = 10
   end
   object btnGravar: TcxButton
-    Left = 569
-    Top = 336
+    Left = 546
+    Top = 391
     Width = 104
     Height = 25
+    Anchors = [akRight, akBottom]
     Caption = 'Gravar(F10)'
     OptionsImage.Glyph.SourceDPI = 96
     OptionsImage.Glyph.Data = {
@@ -387,13 +392,17 @@ object CadastroProduto: TCadastroProduto
       2711F1EBB9CF04F0D4730CDCD8C40AEB0E4ED92AD09CB10BF58FF4856D4FDE03
       2695C041F73EFC85E3C0CF76DD637029192FDF89D476AD1A1B827F0000000049
       454E44AE426082}
-    TabOrder = 10
+    TabOrder = 11
+    OnClick = btnGravarClick
+    ExplicitLeft = 569
+    ExplicitTop = 380
   end
   object btnCancelar: TcxButton
-    Left = 693
-    Top = 336
+    Left = 670
+    Top = 391
     Width = 107
     Height = 25
+    Anchors = [akRight, akBottom]
     Caption = 'Cancelar(ESC)'
     OptionsImage.Glyph.SourceDPI = 96
     OptionsImage.Glyph.Data = {
@@ -408,15 +417,84 @@ object CadastroProduto: TCadastroProduto
       E1361956A1E5975842EDF7CFF8D0C7D84C34E91AD7651F2A97EFF95DF30BEE72
       332B97EF99E394FC889307E61275346D17B9DB982FCBCC3D3E01CE9C9E84BC00
       CBCA0000000049454E44AE426082}
-    TabOrder = 11
+    TabOrder = 12
     OnClick = btnCancelarClick
+    ExplicitLeft = 693
+    ExplicitTop = 380
   end
   object btnFoto: TcxButton
-    Left = 672
+    Left = 657
     Top = 208
     Width = 128
     Height = 25
+    Anchors = [akTop, akRight]
     Caption = 'Foto'
     TabOrder = 6
+    ExplicitLeft = 672
+  end
+  object dtpDataLancamento: TcxDateEdit
+    Left = 488
+    Top = 233
+    EditValue = 36482d
+    TabOrder = 8
+    Width = 137
+  end
+  object edtValor: TcxCurrencyEdit
+    Left = 8
+    Top = 296
+    Properties.DecimalPlaces = 5
+    Properties.DisplayFormat = 'R$ ,0.00;-R$ ,0.00'
+    Style.LookAndFeel.NativeStyle = True
+    StyleDisabled.LookAndFeel.NativeStyle = True
+    StyleFocused.LookAndFeel.NativeStyle = True
+    StyleHot.LookAndFeel.NativeStyle = True
+    TabOrder = 9
+    Width = 90
+  end
+  object qryFilme: TUniQuery
+    Connection = dtmPrincipal.conexao
+    SQL.Strings = (
+      'SELECT * FROM FILME')
+    Left = 456
+    Top = 376
+    object qryFilmeID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object qryFilmeTITULO: TStringField
+      FieldName = 'TITULO'
+      Size = 80
+    end
+    object qryFilmeSINOPSE: TStringField
+      FieldName = 'SINOPSE'
+      Size = 300
+    end
+    object qryFilmeDT_LANCAMENTO: TDateField
+      FieldName = 'DT_LANCAMENTO'
+    end
+    object qryFilmeNM_DIRETOR: TStringField
+      FieldName = 'NM_DIRETOR'
+      Size = 30
+    end
+    object qryFilmeNM_ESTUDIO: TStringField
+      FieldName = 'NM_ESTUDIO'
+      Size = 30
+    end
+    object qryFilmeGENERO: TStringField
+      FieldName = 'GENERO'
+      Size = 30
+    end
+    object qryFilmeVALOR: TFloatField
+      FieldName = 'VALOR'
+    end
+    object qryFilmeJUROS: TFloatField
+      FieldName = 'JUROS'
+    end
+    object qryFilmeQUANTIDADE: TIntegerField
+      FieldName = 'QUANTIDADE'
+    end
+    object qryFilmeCOD_BARRAS: TIntegerField
+      FieldName = 'COD_BARRAS'
+    end
   end
 end

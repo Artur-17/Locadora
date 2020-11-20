@@ -18,6 +18,7 @@ object LocalizarFilme: TLocalizarFilme
   OnClose = FormClose
   OnCreate = FormCreate
   OnKeyDown = FormKeyDown
+  OnKeyUp = FormKeyUp
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -38,7 +39,7 @@ object LocalizarFilme: TLocalizarFilme
       Height = 25
       DataSource = dtsFilme
       VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
-      TabOrder = 1
+      TabOrder = 3
     end
     object btnIncluir: TcxButton
       Left = 8
@@ -64,10 +65,11 @@ object LocalizarFilme: TLocalizarFilme
         B7F88ACAADE43A86B8C35CF2C332F6B738698ABF01062775A96EA3EBA7000000
         0049454E44AE426082}
       TabOrder = 0
+      OnClick = btnIncluirClick
     end
     object btnAlterar: TcxButton
-      Left = 238
-      Top = 7
+      Left = 118
+      Top = 6
       Width = 89
       Height = 25
       Caption = 'Alterar (F5)'
@@ -85,11 +87,12 @@ object LocalizarFilme: TLocalizarFilme
         8A2BF61D2159AC1C1A43C8AADE2F86C8ED90A44F9EA3E890CB7A9F8E692E711B
         7BF69FCB09F22F72A17ADF5E96639B03BB5F6438B4E43CE6ECC0040FDC71C211
         67D5AF47F101B4A2582947CFEBF80000000049454E44AE426082}
-      TabOrder = 3
+      TabOrder = 1
+      OnClick = btnAlterarClick
     end
     object btnExcluir: TcxButton
-      Left = 126
-      Top = 7
+      Left = 237
+      Top = 6
       Width = 89
       Height = 25
       Caption = 'Excluir (F4)'
@@ -108,6 +111,7 @@ object LocalizarFilme: TLocalizarFilme
         162C8DE2229A01D3E5053267099021D6B56AD58A440600DDC52C2A6CBB80B500
         00000049454E44AE426082}
       TabOrder = 2
+      OnClick = btnExcluirClick
     end
     object btnFechar: TcxButton
       Left = 1093
@@ -149,7 +153,6 @@ object LocalizarFilme: TLocalizarFilme
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 968
   end
   object pnlfields: TPanel
     Left = 0
@@ -176,7 +179,6 @@ object LocalizarFilme: TLocalizarFilme
     ShowCaption = False
     ShowHint = False
     TabOrder = 1
-    ExplicitTop = 35
     DesignSize = (
       1207
       46)
@@ -227,26 +229,21 @@ object LocalizarFilme: TLocalizarFilme
     Height = 497
     Align = alClient
     TabOrder = 2
-    ExplicitLeft = 592
-    ExplicitTop = 256
-    ExplicitWidth = 250
-    ExplicitHeight = 200
-    object gridFilmeDBTableView1: TcxGridDBTableView
+    object viewFilme: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = dtsFilme
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
     end
-    object gridFilmeLevel1: TcxGridLevel
-      GridView = gridFilmeDBTableView1
+    object levelFilme: TcxGridLevel
+      GridView = viewFilme
     end
   end
   object qryFilme: TUniQuery
     Connection = dtmPrincipal.conexao
     SQL.Strings = (
-      'select * from produto')
-    Active = True
+      'select * from USUARIO')
     Left = 792
     Top = 248
   end

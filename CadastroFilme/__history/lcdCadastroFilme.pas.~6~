@@ -1,0 +1,144 @@
+unit lcdCadastroFilme;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, dxSkinsCore, dxSkinBlack, dxSkinBlue,
+  dxSkinBlueprint, dxSkinCaramel, dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinFoggy,
+  dxSkinGlassOceans, dxSkinHighContrast, dxSkiniMaginary, dxSkinLilian,
+  dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinPumpkin, dxSkinSeven, dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus,
+  dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
+  dxSkinTheAsphaltWorld, dxSkinsDefaultPainters, dxSkinValentine,
+  dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light, dxSkinVS2010, dxSkinWhiteprint,
+  dxSkinXmas2008Blue, cxButtons, Mask, dxGDIPlusClasses, Uni, DB, MemDS,
+  DBAccess;
+
+type
+  TCadastroFilme = class(TForm)
+    pnlTop: TPanel;
+    edtCodBarras: TEdit;
+    lblCodBarras: TLabel;
+    edtTitulo: TEdit;
+    lblTitulo: TLabel;
+    lblNomeDiretor: TLabel;
+    edtNomeDiretor: TEdit;
+    edtNomeEstudio: TEdit;
+    lblNomeEstudio: TLabel;
+    lblGenero: TLabel;
+    cbbGenero: TComboBox;
+    mmSinopse: TMemo;
+    lblSinopse: TLabel;
+    lblValor: TLabel;
+    lblQuantidade: TLabel;
+    edtValor: TMaskEdit;
+    edtQuantidade: TEdit;
+    btnGravar: TcxButton;
+    btnCancelar: TcxButton;
+    imgProduto: TImage;
+    btnFoto: TcxButton;
+    qryFilme: TUniQuery;
+    procedure btnCancelarClick(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+  private
+    { Private declarations }
+    FModo : string;
+    FDataSet: TDataSet;
+    FIDCliente: integer;
+    procedure PreencherDados;
+  public
+    { Public declarations }
+    class procedure Exibir();
+
+    class function Novo(pOwner: TForm; pDataSet: TDataset;  pIDCliente: integer): TmodalResult;
+    class function Alterar(pOwner: TForm; pDataSet: TDataset;  pIDCliente: integer): TmodalResult;
+  end;
+
+var
+  CadastroFilme: TCadastroFilme;
+
+implementation
+
+{$R *.dfm}
+
+class function TCadastroFilme.Alterar(pOwner: TForm; pDataSet: TDataset;
+  pIDCliente: integer): TmodalResult;
+var
+  lCadastroFilme : TCadastroFilme;
+begin
+  lCadastroFilme := TCadastroFilme.Create(pOwner);
+  try
+    lCadastroFilme.FDataSet := pDataSet;
+    lCadastroFilme.PreencherDados;
+    lCadastroFilme.FIDCliente := pIDCliente;
+    lCadastroFilme.FModo := 'alterar';
+
+    Result := lCadastroFilme.ShowModal
+  finally
+    FreeAndNil(lCadastroFilme);
+  end;
+end;
+
+procedure TCadastroFilme.PreencherDados;
+begin
+  Try
+    edtTitulo.Text := FDataSet.FieldByName('TITULO').AsString;
+    edtCodBarras.Text := FDataSet.FieldByName('COD_BARRAS').AsString;
+    edtNomeDiretor.Text := FDataSet.FieldByName('NM_DIRETOR').AsString;
+    edtNomeEstudio.Text := FDataSet.FieldByName('NM_ESTUDIO').AsString;
+    cbbGenero.Text := FDataSet.FieldByName('GENERO').AsString;
+    edtValor.Text := FDataSet.FieldByName('VALOR').AsString;
+    edtQuantidade.Text := FDataSet.FieldByName('QUANTIDADE').AsString;
+    mmSinopse.Text := FDataSet.FieldByName('SINOPSE').AsString;
+
+
+  except
+    on E: Exception do
+      ShowMessage( E.Message );
+  End;
+
+
+end;
+
+procedure TCadastroFilme.btnCancelarClick(Sender: TObject);
+begin
+  ModalResult := mrCancel;
+end;
+
+class procedure TCadastroFilme.Exibir;
+var
+  lCadastroFilme: TCadastroFilme;
+begin
+  lCadastroFilme := TCadastroFilme.Create(nil);
+  lCadastroFilme.ShowModal;
+  FreeAndNil(lCadastroFilme);
+
+end;
+
+class function TCadastroFilme.Novo(pOwner :TForm; pDataSet :TDataset; pIDCliente: integer) : TmodalResult;
+var
+  lcadastro : TCadastroFilme;
+begin
+   lcadastro := TCadastroFilme.Create(nil);
+   lcadastro.FModo := 'novo';
+   lcadastro.ShowModal();
+   FreeAndNil(lcadastro);
+end;
+
+procedure TCadastroFilme.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_ESCAPE) then
+    ModalResult := mrCancel;
+end;
+
+end.

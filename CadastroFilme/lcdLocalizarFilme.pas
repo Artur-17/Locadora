@@ -41,14 +41,18 @@ type
     btnAlterar: TcxButton;
     btnExcluir: TcxButton;
     btnFechar: TcxButton;
-    gridFilmeDBTableView1: TcxGridDBTableView;
-    gridFilmeLevel1: TcxGridLevel;
+    viewFilme: TcxGridDBTableView;
+    levelFilme: TcxGridLevel;
     gridFilme: TcxGrid;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnFecharClick(Sender: TObject);
+    procedure btnIncluirClick(Sender: TObject);
+    procedure btnAlterarClick(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure btnExcluirClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -66,11 +70,31 @@ implementation
 
 { TuLocalizarFilme }
 
-procedure TLocalizarFilme.btnFecharClick(Sender: TObject);
+procedure TLocalizarFilme.btnAlterarClick(Sender: TObject);
 begin
-  Close;
+  TCadastroFilme.Alterar(Self, qryFilme, qryFilme.FieldByName('ID').AsInteger);
+  viewFilme.DataController.DataSet.Refresh;
 end;
 
+procedure TLocalizarFilme.btnExcluirClick(Sender: TObject);
+begin
+   if Application.MessageBox('AVISO: Deseja realmente excluir esse registro ?','ATENÇÃO ',MB_YESNO + MB_ICONWARNING)=MRYES then
+   begin
+    qryFilme.Delete;
+   end;
+end;
+
+procedure TLocalizarFilme.btnFecharClick(Sender: TObject);
+begin
+  ModalResult := mrCancel;
+end;
+
+
+procedure TLocalizarFilme.btnIncluirClick(Sender: TObject);
+begin
+  TCadastroFilme.Novo(Self, qryFilme, qryFilme.FieldByName('ID').AsInteger);
+  viewfilme.DataController.DataSet.Refresh;
+end;
 
 class procedure TLocalizarFilme.exibirLocalizarFilme;
 var
@@ -98,6 +122,31 @@ procedure TLocalizarFilme.FormKeyDown(Sender: TObject; var Key: Word;
 begin
   if (Key = VK_ESCAPE) then
   Close;
+
+end;
+
+procedure TLocalizarFilme.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_F2) then
+     begin
+      TCadastroFilme.Novo(Self, qryFilme, qryFilme.FieldByName('ID').AsInteger);
+      viewfilme.DataController.DataSet.Refresh;
+     end;
+
+  if (Key = VK_F5) then
+    begin
+      TCadastroFilme.Alterar(Self, qryFilme, qryFilme.FieldByName('ID').AsInteger);
+      viewFilme.DataController.DataSet.Refresh;
+    end;
+
+  if (Key = VK_F4) then
+    begin
+        if Application.MessageBox('AVISO: Deseja realmente excluir esse registro ?','ATENÇÃO ',MB_YESNO + MB_ICONWARNING)=MRYES then
+      begin
+        qryFilme.Delete;
+      end;
+    end;
 
 end;
 

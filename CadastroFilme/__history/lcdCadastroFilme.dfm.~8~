@@ -62,7 +62,7 @@ object CadastroFilme: TCadastroFilme
     Caption = 'Sinopse'
   end
   object lblValor: TLabel
-    Left = 21
+    Left = 8
     Top = 275
     Width = 26
     Height = 15
@@ -273,13 +273,6 @@ object CadastroFilme: TCadastroFilme
     Height = 15
     Caption = 'Data de Lan'#231'amento '
   end
-  object Label1: TLabel
-    Left = 8
-    Top = 299
-    Width = 13
-    Height = 15
-    Caption = 'R$'
-  end
   object pnlTop: TPanel
     Left = 0
     Top = 0
@@ -296,13 +289,13 @@ object CadastroFilme: TCadastroFilme
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
+    ExplicitWidth = 828
   end
   object edtCodBarras: TEdit
     Left = 8
     Top = 64
     Width = 137
     Height = 23
-    MaxLength = 14
     TabOrder = 1
   end
   object edtTitulo: TEdit
@@ -401,6 +394,8 @@ object CadastroFilme: TCadastroFilme
       454E44AE426082}
     TabOrder = 11
     OnClick = btnGravarClick
+    ExplicitLeft = 569
+    ExplicitTop = 380
   end
   object btnCancelar: TcxButton
     Left = 670
@@ -424,6 +419,8 @@ object CadastroFilme: TCadastroFilme
       CBCA0000000049454E44AE426082}
     TabOrder = 12
     OnClick = btnCancelarClick
+    ExplicitLeft = 693
+    ExplicitTop = 380
   end
   object btnFoto: TcxButton
     Left = 657
@@ -433,6 +430,7 @@ object CadastroFilme: TCadastroFilme
     Anchors = [akTop, akRight]
     Caption = 'Foto'
     TabOrder = 6
+    ExplicitLeft = 672
   end
   object dtpDataLancamento: TcxDateEdit
     Left = 488
@@ -441,12 +439,17 @@ object CadastroFilme: TCadastroFilme
     TabOrder = 8
     Width = 137
   end
-  object edtValor: TEdit
-    Left = 21
+  object edtValor: TcxCurrencyEdit
+    Left = 8
     Top = 296
-    Width = 81
-    Height = 23
+    Properties.DecimalPlaces = 5
+    Properties.DisplayFormat = 'R$ ,0.00;-R$ ,0.00'
+    Style.LookAndFeel.NativeStyle = True
+    StyleDisabled.LookAndFeel.NativeStyle = True
+    StyleFocused.LookAndFeel.NativeStyle = True
+    StyleHot.LookAndFeel.NativeStyle = True
     TabOrder = 9
+    Width = 90
   end
   object qryFilme: TUniQuery
     Connection = dtmPrincipal.conexao

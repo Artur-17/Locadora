@@ -31,7 +31,6 @@ type
   TLocalizarUsuario = class(TForm)
     pnlTop: TPanel;
     pnlClient: TPanel;
-    btnPesquisar: TcxButton;
     edtPesquisa: TEdit;
     gridUsuario: TcxGrid;
     viewUsuario: TcxGridDBTableView;
@@ -75,6 +74,7 @@ type
     viewUsuarioCIDADE: TcxGridDBColumn;
     viewUsuarioCOMPLEMENTO: TcxGridDBColumn;
     viewUsuarioESTADO: TcxGridDBColumn;
+    lblPesquisa: TLabel;
     procedure btnFecharClick(Sender: TObject);
     procedure btnIncluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -82,9 +82,13 @@ type
     procedure btnAlterarClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure qryUsuarioFilterRecord(DataSet: TDataSet; var Accept: Boolean);
+    procedure edtPesquisaKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     procedure FormClose(Sender: TObject);
     procedure Pesquisar();
+    procedure Filtrar();
     { Private declarations }
   public
     { Public declarations }
@@ -95,6 +99,9 @@ var
   LocalizarUsuario: TLocalizarUsuario;
 
 implementation
+
+uses
+  StrUtils;
 
 {$R *.dfm}
 
@@ -128,6 +135,12 @@ begin
   Pesquisar;
 end;
 
+procedure TLocalizarUsuario.edtPesquisaKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  Filtrar();
+end;
+
 class procedure TLocalizarUsuario.Exibir;
 var
   lListaUsuario : TLocalizarUsuario;
@@ -153,6 +166,21 @@ begin
     on E: Exception do
       ShowMessage( E.Message );
   end;
+end;
+
+procedure TLocalizarUsuario.Filtrar;
+var
+  lTextoPesquisado: string;
+begin
+    if (Trim(edtPesquisa.Text) = '') then
+  begin
+    qryUsuario.Filtered := False;
+    Exit;
+  end;
+
+  qryUsuario.Filtered := False;
+  qryUsuario.Filter := '(1 = 1)';
+  qryUsuario.Filtered := True;
 end;
 
 procedure TLocalizarUsuario.FormClose(Sender: TObject);
@@ -247,6 +275,53 @@ begin
           on E: Exception do
             ShowMessage( E.Message );
         end
+end;
+
+procedure TLocalizarUsuario.qryUsuarioFilterRecord(DataSet: TDataSet;
+  var Accept: Boolean);
+var
+  i: Integer;
+  lPalavra,
+  lTextoPesquisado,
+  lTextoAvaliado: string;
+  lPalavrasPesquisadas: TStringList;
+begin
+
+  Accept := True;
+  lPalavrasPesquisadas := TStringList.Create();
+
+  try
+    lTextoPesquisado := AnsiReplaceStr(UpperCase(edtPesquisa.Text), ' ', ',');
+    lTextoPesquisado := AnsiReplaceStr(lTextoPesquisado, 'ã', 'A');
+    lTextoPesquisado := AnsiReplaceStr(lTextoPesquisado, 'ó', 'O');
+
+    lPalavrasPesquisadas.Delimiter := ',';
+    lPalavrasPesquisadas.DelimitedText := lTextoPesquisado;
+
+    lTextoAvaliado := DataSet.Fields.FieldByName('NOME').AsString;
+    lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('LOGIN').AsString;
+    lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('TELEFONE').AsString;
+     lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('CPF').AsString;
+    lTextoAvaliado := UpperCase(lTextoAvaliado);
+    lTextoAvaliado := AnsiReplaceStr(lTextoAvaliado, 'ã', 'A');
+    lTextoAvaliado := AnsiReplaceStr(lTextoAvaliado, 'ó', 'O');
+
+    for i := 0 to lPalavrasPesquisadas.Count - 1 do
+    begin
+      lPalavra := lPalavrasPesquisadas[i];
+
+      if (Trim(lPalavra) = '') then
+        Continue;
+
+      Accept := (AnsiContainsText(lTextoAvaliado, lPalavra));
+
+      if (not Accept) then
+        Break;
+    end;
+  finally
+    FreeAndNil(lPalavrasPesquisadas);
+  end;
+
 end;
 
 end.

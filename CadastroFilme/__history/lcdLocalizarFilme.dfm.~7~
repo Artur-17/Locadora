@@ -235,39 +235,6 @@ object LocalizarFilme: TLocalizarFilme
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
-      object viewFilmeID: TcxGridDBColumn
-        DataBinding.FieldName = 'ID'
-      end
-      object viewFilmeTITULO: TcxGridDBColumn
-        DataBinding.FieldName = 'TITULO'
-      end
-      object viewFilmeSINOPSE: TcxGridDBColumn
-        DataBinding.FieldName = 'SINOPSE'
-      end
-      object viewFilmeDT_LANCAMENTO: TcxGridDBColumn
-        DataBinding.FieldName = 'DT_LANCAMENTO'
-      end
-      object viewFilmeNM_DIRETOR: TcxGridDBColumn
-        DataBinding.FieldName = 'NM_DIRETOR'
-      end
-      object viewFilmeNM_ESTUDIO: TcxGridDBColumn
-        DataBinding.FieldName = 'NM_ESTUDIO'
-      end
-      object viewFilmeGENERO: TcxGridDBColumn
-        DataBinding.FieldName = 'GENERO'
-      end
-      object viewFilmeVALOR: TcxGridDBColumn
-        DataBinding.FieldName = 'VALOR'
-      end
-      object viewFilmeJUROS: TcxGridDBColumn
-        DataBinding.FieldName = 'JUROS'
-      end
-      object viewFilmeQUANTIDADE: TcxGridDBColumn
-        DataBinding.FieldName = 'QUANTIDADE'
-      end
-      object viewFilmeCOD_BARRAS: TcxGridDBColumn
-        DataBinding.FieldName = 'COD_BARRAS'
-      end
     end
     object levelFilme: TcxGridLevel
       GridView = viewFilme
@@ -276,49 +243,9 @@ object LocalizarFilme: TLocalizarFilme
   object qryFilme: TUniQuery
     Connection = dtmPrincipal.conexao
     SQL.Strings = (
-      'select * from FILME')
+      'select * from USUARIO')
     Left = 792
     Top = 248
-    object qryFilmeID: TIntegerField
-      FieldName = 'ID'
-      Required = True
-    end
-    object qryFilmeTITULO: TStringField
-      FieldName = 'TITULO'
-      Size = 80
-    end
-    object qryFilmeSINOPSE: TStringField
-      FieldName = 'SINOPSE'
-      Size = 300
-    end
-    object qryFilmeDT_LANCAMENTO: TDateField
-      FieldName = 'DT_LANCAMENTO'
-    end
-    object qryFilmeNM_DIRETOR: TStringField
-      FieldName = 'NM_DIRETOR'
-      Size = 30
-    end
-    object qryFilmeNM_ESTUDIO: TStringField
-      FieldName = 'NM_ESTUDIO'
-      Size = 30
-    end
-    object qryFilmeGENERO: TStringField
-      FieldName = 'GENERO'
-      Size = 30
-    end
-    object qryFilmeVALOR: TFloatField
-      FieldName = 'VALOR'
-    end
-    object qryFilmeJUROS: TFloatField
-      FieldName = 'JUROS'
-    end
-    object qryFilmeQUANTIDADE: TIntegerField
-      FieldName = 'QUANTIDADE'
-    end
-    object qryFilmeCOD_BARRAS: TStringField
-      FieldName = 'COD_BARRAS'
-      Size = 14
-    end
   end
   object dtsFilme: TDataSource
     DataSet = qryFilme

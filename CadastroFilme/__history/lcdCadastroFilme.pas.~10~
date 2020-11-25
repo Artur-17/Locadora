@@ -61,8 +61,7 @@ type
     qryFilmeCOD_BARRAS: TIntegerField;
     dtpDataLancamento: TcxDateEdit;
     lblDataLancamento: TLabel;
-    edtValor: TEdit;
-    Label1: TLabel;
+    edtValor: TcxCurrencyEdit;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnGravarClick(Sender: TObject);

@@ -1,7 +1,7 @@
-object LocalizarUsuario: TLocalizarUsuario
+object LocalizarCliente: TLocalizarCliente
   Left = 0
   Top = 0
-  Caption = 'Localizar Usu'#225'rio'
+  Caption = 'Localizar Cliente'
   ClientHeight = 624
   ClientWidth = 1207
   Color = clBtnFace
@@ -10,8 +10,11 @@ object LocalizarUsuario: TLocalizarUsuario
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   WindowState = wsMaximized
+  OnKeyUp = FormKeyUp
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object pnlTop: TPanel
@@ -20,7 +23,7 @@ object LocalizarUsuario: TLocalizarUsuario
     Width = 1207
     Height = 41
     Align = alTop
-    Caption = 'LOCALIZAR USUARIO'
+    Caption = 'LOCALIZAR CLIENTE'
     Color = 4605510
     Font.Charset = DEFAULT_CHARSET
     Font.Color = 15790320
@@ -30,8 +33,6 @@ object LocalizarUsuario: TLocalizarUsuario
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitLeft = -8
-    ExplicitTop = 8
   end
   object pnlClient: TPanel
     Left = 0
@@ -45,7 +46,7 @@ object LocalizarUsuario: TLocalizarUsuario
       56)
     object btnPesquisar: TcxButton
       Left = 1046
-      Top = 15
+      Top = 13
       Width = 145
       Height = 25
       Anchors = [akTop, akRight]
@@ -72,7 +73,8 @@ object LocalizarUsuario: TLocalizarUsuario
         DF170C2BD9A4AE2FBAC27C42DAF58310E2214174D44B455214E9F27F090060E0
         F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
         CCCEC728114BCD0000000049454E44AE426082}
-      TabOrder = 1
+      TabOrder = 0
+      OnClick = btnPesquisarClick
     end
     object edtPesquisa: TEdit
       Left = 8
@@ -80,80 +82,64 @@ object LocalizarUsuario: TLocalizarUsuario
       Width = 1009
       Height = 21
       Anchors = [akLeft, akTop, akRight]
-      TabOrder = 0
+      TabOrder = 1
     end
   end
-  object gridUsuario: TcxGrid
+  object grid: TcxGrid
     Left = 0
     Top = 97
     Width = 1207
     Height = 486
     Align = alClient
     TabOrder = 2
-    LookAndFeel.Kind = lfUltraFlat
-    object viewUsuario: TcxGridDBTableView
+    object viewcliente: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
-      DataController.DataSource = dtsUsuario
+      DataController.DataSource = dtsCliente
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
       OptionsData.Deleting = False
       OptionsData.Editing = False
       OptionsData.Inserting = False
-      object viewUsuarioID: TcxGridDBColumn
+      object viewclienteID: TcxGridDBColumn
         DataBinding.FieldName = 'ID'
       end
-      object viewUsuarioLOGIN: TcxGridDBColumn
-        DataBinding.FieldName = 'LOGIN'
-      end
-      object viewUsuarioNOME: TcxGridDBColumn
+      object viewclienteNOME: TcxGridDBColumn
         DataBinding.FieldName = 'NOME'
       end
-      object viewUsuarioDT_CRIACAO: TcxGridDBColumn
-        DataBinding.FieldName = 'DT_CRIACAO'
-        Width = 80
-      end
-      object viewUsuarioCPF: TcxGridDBColumn
+      object viewclienteCPF: TcxGridDBColumn
         DataBinding.FieldName = 'CPF'
       end
-      object viewUsuarioEMAIL: TcxGridDBColumn
+      object viewclienteEMAIL: TcxGridDBColumn
         DataBinding.FieldName = 'EMAIL'
-        Width = 250
       end
-      object viewUsuarioTELEFONE: TcxGridDBColumn
+      object viewclienteTELEFONE: TcxGridDBColumn
         DataBinding.FieldName = 'TELEFONE'
       end
-      object viewUsuarioDT_NASCIMENTO: TcxGridDBColumn
+      object viewclienteDT_NASCIMENTO: TcxGridDBColumn
         DataBinding.FieldName = 'DT_NASCIMENTO'
-        Width = 100
       end
-      object viewUsuarioOBSERVACAO: TcxGridDBColumn
-        DataBinding.FieldName = 'OBSERVACAO'
-        Width = 300
-      end
-      object viewUsuarioLOGRADOURO: TcxGridDBColumn
-        DataBinding.FieldName = 'LOGRADOURO'
-        Width = 300
-      end
-      object viewUsuarioBAIRRO: TcxGridDBColumn
-        DataBinding.FieldName = 'BAIRRO'
-        Width = 300
-      end
-      object viewUsuarioCIDADE: TcxGridDBColumn
-        DataBinding.FieldName = 'CIDADE'
-        Width = 300
-      end
-      object viewUsuarioCOMPLEMENTO: TcxGridDBColumn
-        DataBinding.FieldName = 'COMPLEMENTO'
-        Width = 300
-      end
-      object viewUsuarioESTADO: TcxGridDBColumn
+      object viewclienteESTADO: TcxGridDBColumn
         DataBinding.FieldName = 'ESTADO'
-        Width = 80
+      end
+      object viewclienteLOGRADOURO: TcxGridDBColumn
+        DataBinding.FieldName = 'LOGRADOURO'
+      end
+      object viewclienteBAIRRO: TcxGridDBColumn
+        DataBinding.FieldName = 'BAIRRO'
+      end
+      object viewclienteCIDADE: TcxGridDBColumn
+        DataBinding.FieldName = 'CIDADE'
+      end
+      object viewclienteCOMPLEMENTO: TcxGridDBColumn
+        DataBinding.FieldName = 'COMPLEMENTO'
+      end
+      object viewclienteOBSERVACAO: TcxGridDBColumn
+        DataBinding.FieldName = 'OBSERVACAO'
       end
     end
-    object levelUsuario: TcxGridLevel
-      GridView = viewUsuario
+    object levelCliente: TcxGridLevel
+      GridView = viewcliente
     end
   end
   object pnlBottom: TPanel
@@ -184,9 +170,10 @@ object LocalizarUsuario: TLocalizarUsuario
         7BF69FCB09F22F72A17ADF5E96639B03BB5F6438B4E43CE6ECC0040FDC71C211
         67D5AF47F101B4A2582947CFEBF80000000049454E44AE426082}
       TabOrder = 1
+      OnClick = btnAlterarClick
     end
     object btnExcluir: TcxButton
-      Left = 224
+      Left = 229
       Top = 6
       Width = 85
       Height = 25
@@ -203,6 +190,7 @@ object LocalizarUsuario: TLocalizarUsuario
         162C8DE2229A01D3E5053267099021D6B56AD58A440600DDC52C2A6CBB80B500
         00000049454E44AE426082}
       TabOrder = 2
+      OnClick = btnExcluirClick
     end
     object btnFechar: TcxButton
       Left = 1059
@@ -245,95 +233,76 @@ object LocalizarUsuario: TLocalizarUsuario
         B7F88ACAADE43A86B8C35CF2C332F6B738698ABF01062775A96EA3EBA7000000
         0049454E44AE426082}
       TabOrder = 0
+      OnClick = btnIncluirClick
     end
     object DBNavigator: TDBNavigator
-      Left = 320
+      Left = 488
       Top = 6
       Width = 224
       Height = 25
+      DataSource = dtsCliente
       VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
       TabOrder = 3
     end
   end
-  object qryUsuario: TUniQuery
+  object qryCliente: TUniQuery
     Connection = dtmPrincipal.conexao
     SQL.Strings = (
-      'select * from usuario;')
-    Left = 832
-    Top = 304
-    object qryUsuarioID: TIntegerField
+      'select * from cliente')
+    Left = 928
+    Top = 400
+    object qryClienteID: TIntegerField
       FieldName = 'ID'
       Required = True
     end
-    object qryUsuarioLOGIN: TStringField
-      FieldName = 'LOGIN'
-      Size = 30
-    end
-    object qryUsuarioSENHA: TStringField
-      FieldName = 'SENHA'
-      Size = 10
-    end
-    object qryUsuarioDT_CRIACAO: TDateField
-      FieldName = 'DT_CRIACAO'
-    end
-    object qryUsuarioDELETADO: TStringField
-      FieldName = 'DELETADO'
-      FixedChar = True
-      Size = 1
-    end
-    object qryUsuarioINATIVO: TStringField
-      FieldName = 'INATIVO'
-      FixedChar = True
-      Size = 1
-    end
-    object qryUsuarioNOME: TStringField
+    object qryClienteNOME: TStringField
       FieldName = 'NOME'
       Size = 80
     end
-    object qryUsuarioCPF: TStringField
+    object qryClienteCPF: TStringField
       FieldName = 'CPF'
       Size = 18
     end
-    object qryUsuarioEMAIL: TStringField
+    object qryClienteEMAIL: TStringField
       FieldName = 'EMAIL'
-      Size = 30
+      Size = 80
     end
-    object qryUsuarioTELEFONE: TStringField
+    object qryClienteTELEFONE: TStringField
       FieldName = 'TELEFONE'
-      Size = 40
+      Size = 80
     end
-    object qryUsuarioDT_NASCIMENTO: TDateField
+    object qryClienteDT_NASCIMENTO: TDateField
       FieldName = 'DT_NASCIMENTO'
     end
-    object qryUsuarioOBSERVACAO: TStringField
-      FieldName = 'OBSERVACAO'
-      Size = 800
-    end
-    object qryUsuarioLOGRADOURO: TStringField
-      FieldName = 'LOGRADOURO'
-      Size = 80
-    end
-    object qryUsuarioBAIRRO: TStringField
-      FieldName = 'BAIRRO'
-      Size = 80
-    end
-    object qryUsuarioCIDADE: TStringField
-      FieldName = 'CIDADE'
-      Size = 80
-    end
-    object qryUsuarioCOMPLEMENTO: TStringField
-      FieldName = 'COMPLEMENTO'
-      Size = 80
-    end
-    object qryUsuarioESTADO: TStringField
+    object qryClienteESTADO: TStringField
       FieldName = 'ESTADO'
       FixedChar = True
       Size = 2
     end
+    object qryClienteLOGRADOURO: TStringField
+      FieldName = 'LOGRADOURO'
+      Size = 150
+    end
+    object qryClienteBAIRRO: TStringField
+      FieldName = 'BAIRRO'
+      Size = 80
+    end
+    object qryClienteCIDADE: TStringField
+      FieldName = 'CIDADE'
+      Size = 150
+    end
+    object qryClienteCOMPLEMENTO: TStringField
+      FieldName = 'COMPLEMENTO'
+      Size = 80
+    end
+    object qryClienteOBSERVACAO: TStringField
+      FieldName = 'OBSERVACAO'
+      Size = 800
+    end
   end
-  object dtsUsuario: TDataSource
-    DataSet = qryUsuario
-    Left = 952
-    Top = 312
+  object dtsCliente: TDataSource
+    DataSet = qryCliente
+    Left = 864
+    Top = 400
   end
 end

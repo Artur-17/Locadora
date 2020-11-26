@@ -182,44 +182,21 @@ object LocalizarFilme: TLocalizarFilme
     DesignSize = (
       1207
       46)
-    object edtPesquisar: TEdit
-      Left = 8
-      Top = 11
-      Width = 977
+    object lblPesquisa: TLabel
+      Left = 7
+      Top = 3
+      Width = 247
+      Height = 13
+      Caption = 'C'#211'DIGO DE BARRAS / T'#205'TULO DO FILME / GENERO'
+    end
+    object edtPesquisa: TEdit
+      Left = 6
+      Top = 17
+      Width = 1190
       Height = 21
       Anchors = [akLeft, akTop, akRight]
-      TabOrder = 1
-    end
-    object btnPesquisar: TcxButton
-      Left = 1022
-      Top = 9
-      Width = 152
-      Height = 25
-      Anchors = [akTop, akRight]
-      Caption = 'Pesquisar'
-      OptionsImage.Glyph.SourceDPI = 96
-      OptionsImage.Glyph.Data = {
-        89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
-        610000000473424954080808087C086488000000097048597300000076000000
-        76014E7B26080000001974455874536F667477617265007777772E696E6B7363
-        6170652E6F72679BEE3C1A000001F049444154388D95904B6813511486FF7B67
-        8669568AE842504968A52ADAC40751AB2DA90651142CE2BA0B1197C10141A420
-        155404A142892062DCE84AEA038AD4D588A843D4843235204E044D8A554884BC
-        4C629CB9C785A954D349EBB7BADCFFDCEF9C73199A0C68D1A344A401D8D1BC7A
-        438C469F5D8B4CA00D0C0042DAD815103B1BE8F6A267FD5A00806965615A19D8
-        F51F775EDC3833E42A68767E746230847DC1CD7F85C6741AD1BB13B0EBF50BC6
-        ADE19185049C88B440B7B7E53100ECDCD285C1037B41C289B84DC0016C9F1BBB
-        25640CDB3675C2B1EDE5ED04AED8820050BB12700009D3CAB6044440CD118827
-        53E0B25C701510A351D3CAC0984EC32102353B977E3A98FD9AC783C73A001A77
-        134899F8A4B526B0BFF3F5DBB49FB8048FA703854A15FAF304A2B17BE05CCA95
-        F3B3C1151BFCB7BFBD9F2AFF2B607387DE939746483811C7F9FD615C920B008D
-        97739F875675F90DCFB2956671E643CC880DA71614B8B1F1D8A9D5BE9E70A451
-        2DF695735F7A6545B9F8F2E6B9F37F56584C907F97ACACF3EF4939425C955555
-        6ED4AAFDDE60589A49EA4F972400808FAF9E7CF7EE3E926084E3B2AA2A8D5AAD
-        DF170C2BD9A4AE2FBAC27C42DAF58310E2214174D44B455214E9F27F090060E0
-        F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
-        CCCEC728114BCD0000000049454E44AE426082}
       TabOrder = 0
+      OnKeyPress = edtPesquisaKeyPress
     end
   end
   object gridFilme: TcxGrid
@@ -235,38 +212,58 @@ object LocalizarFilme: TLocalizarFilme
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
+      OptionsData.Editing = False
       object viewFilmeID: TcxGridDBColumn
         DataBinding.FieldName = 'ID'
+        Visible = False
+      end
+      object viewFilmeCOD_BARRAS: TcxGridDBColumn
+        Caption = 'C'#243'digo de Barras'
+        DataBinding.FieldName = 'COD_BARRAS'
+        Width = 120
       end
       object viewFilmeTITULO: TcxGridDBColumn
+        Caption = 'Titulo do Filme'
         DataBinding.FieldName = 'TITULO'
+        Width = 200
       end
       object viewFilmeSINOPSE: TcxGridDBColumn
+        Caption = 'Sinopse'
         DataBinding.FieldName = 'SINOPSE'
+        Width = 300
       end
       object viewFilmeDT_LANCAMENTO: TcxGridDBColumn
+        Caption = 'Data de Lan'#231'amento'
         DataBinding.FieldName = 'DT_LANCAMENTO'
+        Width = 120
       end
       object viewFilmeNM_DIRETOR: TcxGridDBColumn
+        Caption = 'Nome do Diretor'
         DataBinding.FieldName = 'NM_DIRETOR'
+        Width = 150
       end
       object viewFilmeNM_ESTUDIO: TcxGridDBColumn
+        AlternateCaption = 'Nome do Est'#250'dio'
+        Caption = 'Nome do Est'#250'dio'
         DataBinding.FieldName = 'NM_ESTUDIO'
       end
       object viewFilmeGENERO: TcxGridDBColumn
+        Caption = 'G'#234'nero do filme'
         DataBinding.FieldName = 'GENERO'
+        Width = 120
       end
       object viewFilmeVALOR: TcxGridDBColumn
+        Caption = 'Valor'
         DataBinding.FieldName = 'VALOR'
+      end
+      object viewFilmeQUANTIDADE: TcxGridDBColumn
+        Caption = 'Quantidade'
+        DataBinding.FieldName = 'QUANTIDADE'
+        Width = 70
       end
       object viewFilmeJUROS: TcxGridDBColumn
         DataBinding.FieldName = 'JUROS'
-      end
-      object viewFilmeQUANTIDADE: TcxGridDBColumn
-        DataBinding.FieldName = 'QUANTIDADE'
-      end
-      object viewFilmeCOD_BARRAS: TcxGridDBColumn
-        DataBinding.FieldName = 'COD_BARRAS'
+        Visible = False
       end
     end
     object levelFilme: TcxGridLevel
@@ -277,6 +274,7 @@ object LocalizarFilme: TLocalizarFilme
     Connection = dtmPrincipal.conexao
     SQL.Strings = (
       'select * from FILME')
+    OnFilterRecord = qryFilmeFilterRecord
     Left = 792
     Top = 248
     object qryFilmeID: TIntegerField

@@ -193,8 +193,14 @@ begin
 
     qryCliente.ExecSQL;
 
-    ShowMessage('Os dados foram inseridos com sucesso');
-    ModalResult := mrCancel;
+    if FModo = 'novo' then
+      begin
+         ShowMessage('Os dados foram inseridos com sucesso');
+      end
+      else
+        ShowMessage('Os dados foram alterados com sucesso');
+
+    ModalResult := mrOk;
 
 
   except

@@ -264,7 +264,6 @@ object CadastroCliente: TCadastroCliente
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitLeft = -8
   end
   object btnFoto: TcxButton
     Left = 672

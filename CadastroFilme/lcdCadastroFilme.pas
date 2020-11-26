@@ -58,14 +58,18 @@ type
     qryFilmeVALOR: TFloatField;
     qryFilmeJUROS: TFloatField;
     qryFilmeQUANTIDADE: TIntegerField;
-    qryFilmeCOD_BARRAS: TIntegerField;
     dtpDataLancamento: TcxDateEdit;
     lblDataLancamento: TLabel;
     edtValor: TEdit;
     Label1: TLabel;
+    btnNumCodBarras: TcxButton;
+    qryFilmeCOD_BARRAS: TStringField;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnGravarClick(Sender: TObject);
+    procedure btnNumCodBarrasClick(Sender: TObject);
+    procedure btnGravarKeyUp(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     FModo : string;
@@ -117,6 +121,7 @@ begin
     edtValor.Text := FDataSet.FieldByName('VALOR').AsString;
     edtQuantidade.Text := FDataSet.FieldByName('QUANTIDADE').AsString;
     mmSinopse.Text := FDataSet.FieldByName('SINOPSE').AsString;
+    cbbGenero.Text := FDataSet.FieldByName('GENERO').AsString;
 
 
   except
@@ -135,6 +140,32 @@ end;
 procedure TCadastroFilme.btnGravarClick(Sender: TObject);
 begin
   GravarDadosFilme();
+end;
+
+procedure TCadastroFilme.btnGravarKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+var
+  lcadastro : TCadastroFilme;
+begin
+  if (Key = VK_F10) then
+  begin
+    GravarDadosFilme();
+  end;
+
+
+end;
+
+procedure TCadastroFilme.btnNumCodBarrasClick(Sender: TObject);
+var
+  NumCodBarras : integer;
+begin
+  qryFilme.Close;
+  qryFilme.Fields.Clear;
+
+
+  NumCodBarras := qryFilme.SQL.Add('SELECT GEN_ID( COD_BARRAS_SEQUENCIAL, 1 ) FROM RDB$DATABASE;');
+
+  edtCodBarras.Text := IntToStr(NumCodBarras);
 end;
 
 class procedure TCadastroFilme.Exibir;
@@ -197,13 +228,21 @@ begin
       qryFilme.ParamByName('DT_LANCAMENTO').AsDate := dtpDataLancamento.Date;
       qryFilme.ParamByName('NM_DIRETOR').AsString := edtNomeDiretor.Text;
       qryFilme.ParamByName('NM_ESTUDIO').AsString := edtNomeEstudio.Text;
+      qryFilme.ParamByName('GENERO').AsString := cbbGenero.Text;
       qryFilme.ParamByName('VALOR').AsString := edtValor.Text;
       qryFilme.ParamByName('QUANTIDADE').AsString := edtQuantidade.Text;
       qryFilme.ParamByName('COD_BARRAS').AsString := edtCodBarras.Text;
 
+
       qryFilme.ExecSQL;
 
-      ShowMessage('Os dados foram inseridos com sucesso');
+      if FModo = 'novo' then
+      begin
+         ShowMessage('Os dados foram inseridos com sucesso');
+      end
+      else
+        ShowMessage('Os dados foram alterados com sucesso');
+
       ModalResult := mrOk;
 
 

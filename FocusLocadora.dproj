@@ -88,6 +88,9 @@
 			<DCCReference Include="CadastroFilme\lcdCadastroFilme.pas">
 				<Form>CadastroFilme</Form>
 			</DCCReference>
+			<DCCReference Include="Emprestimo\locEmprestimo.pas">
+				<Form>Emprestimo</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

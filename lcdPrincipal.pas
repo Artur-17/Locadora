@@ -56,6 +56,7 @@ type
     procedure btnUsuarioClick(Sender: TObject);
     procedure Ca1Click(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
+    procedure dxBarLargeButton3Click(Sender: TObject);
   private
     { Private declarations }
 
@@ -72,7 +73,7 @@ implementation
 
 {$R *.dfm}
 
-uses lcdLocalizarCategoriaUsuario;
+uses lcdLocalizarCategoriaUsuario, locEmprestimo;
 
 
 
@@ -98,6 +99,11 @@ begin
 // Comentei para verificar que o cadastro de categoria está inserindo no bd
   TLocalizarCategoriaUsuario.exibirCategoriaUsuario();
 //  TCadastroCategoriaUsuario.exibirCadastroCategoriaUsuario();
+end;
+
+procedure TPrincipal.dxBarLargeButton3Click(Sender: TObject);
+begin
+  TEmprestimo.Exibir();
 end;
 
 procedure TPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);

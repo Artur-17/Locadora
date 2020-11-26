@@ -48,5 +48,7 @@
     <Transaction>2020/11/18 20:45:39.703.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroProduto\lcdLocalizarProduto.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroProduto\lcdCadastroProduto.dfm</Transaction>
     <Transaction>2020/11/18 20:47:57.332.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroProduto\lcdCadastroProduto.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroFilme\lcdCadastroFilme.pas</Transaction>
     <Transaction>2020/11/18 20:47:57.332.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroProduto\lcdCadastroProduto.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroFilme\lcdCadastroFilme.dfm</Transaction>
+    <Transaction>2020/11/25 20:19:19.894.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Emprestimo\locEmprestimo.pas</Transaction>
+    <Transaction>2020/11/25 20:19:19.894.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Emprestimo\locEmprestimo.dfm</Transaction>
   </Transactions>
 </BorlandProject>

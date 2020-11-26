@@ -29,7 +29,7 @@ uses
 
 type
   TLocalizarFilme = class(TForm)
-    edtPesquisar: TEdit;
+    edtPesquisa: TEdit;
     pnlbottom: TPanel;
     btnNavigator: TDBNavigator;
     pnlTop: TPanel;
@@ -37,7 +37,6 @@ type
     qryFilme: TUniQuery;
     dtsFilme: TDataSource;
     btnIncluir: TcxButton;
-    btnPesquisar: TcxButton;
     btnAlterar: TcxButton;
     btnExcluir: TcxButton;
     btnFechar: TcxButton;
@@ -54,7 +53,6 @@ type
     qryFilmeVALOR: TFloatField;
     qryFilmeJUROS: TFloatField;
     qryFilmeQUANTIDADE: TIntegerField;
-    qryFilmeCOD_BARRAS: TStringField;
     viewFilmeID: TcxGridDBColumn;
     viewFilmeTITULO: TcxGridDBColumn;
     viewFilmeSINOPSE: TcxGridDBColumn;
@@ -63,9 +61,11 @@ type
     viewFilmeNM_ESTUDIO: TcxGridDBColumn;
     viewFilmeGENERO: TcxGridDBColumn;
     viewFilmeVALOR: TcxGridDBColumn;
-    viewFilmeJUROS: TcxGridDBColumn;
     viewFilmeQUANTIDADE: TcxGridDBColumn;
+    viewFilmeJUROS: TcxGridDBColumn;
+    lblPesquisa: TLabel;
     viewFilmeCOD_BARRAS: TcxGridDBColumn;
+    qryFilmeCOD_BARRAS: TStringField;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -75,8 +75,11 @@ type
     procedure btnAlterarClick(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnExcluirClick(Sender: TObject);
+    procedure edtPesquisaKeyPress(Sender: TObject; var Key: Char);
+    procedure qryFilmeFilterRecord(DataSet: TDataSet; var Accept: Boolean);
   private
     { Private declarations }
+   procedure Filtrar();
   public
     { Public declarations }
    class procedure exibirLocalizarFilme();
@@ -87,6 +90,9 @@ var
   LocalizarFilme: TLocalizarFilme;
 
 implementation
+
+uses
+  StrUtils;
 
 {$R *.dfm}
 
@@ -118,6 +124,11 @@ begin
   viewfilme.DataController.DataSet.Refresh;
 end;
 
+procedure TLocalizarFilme.edtPesquisaKeyPress(Sender: TObject; var Key: Char);
+begin
+  Filtrar();
+end;
+
 class procedure TLocalizarFilme.exibirLocalizarFilme;
 var
   lcadastro : TLocalizarFilme;
@@ -126,6 +137,19 @@ begin
 
   lcadastro.ShowModal();
   FreeAndNil(lcadastro);
+end;
+
+procedure TLocalizarFilme.Filtrar;
+begin
+  if (Trim(edtPesquisa.Text) = '') then
+    begin
+      qryFilme.Filtered := False;
+      Exit;
+    end;
+
+    qryFilme.Filtered := False;
+    qryFilme.Filter := '(1 = 1)';
+    qryFilme.Filtered := True;
 end;
 
 procedure TLocalizarFilme.FormClose(Sender: TObject; var Action: TCloseAction);
@@ -184,5 +208,49 @@ begin
     qryFilme.Open;
 end;
 
+
+procedure TLocalizarFilme.qryFilmeFilterRecord(DataSet: TDataSet;
+  var Accept: Boolean);
+var
+  i: Integer;
+  lPalavra,
+  lTextoPesquisado,
+  lTextoAvaliado: string;
+  lPalavrasPesquisadas: TStringList;
+begin
+  Accept := true;
+  lPalavrasPesquisadas := TStringList.Create();
+
+     try
+      lTextoPesquisado := AnsiReplaceStr(UpperCase(edtPesquisa.Text), ' ', ',');
+      lTextoPesquisado := AnsiReplaceStr(lTextoPesquisado, 'ã', 'A');
+      lTextoPesquisado := AnsiReplaceStr(lTextoPesquisado, 'ó', 'O');
+
+      lPalavrasPesquisadas.Delimiter := ',';
+      lPalavrasPesquisadas.DelimitedText := lTextoPesquisado;
+
+      lTextoAvaliado := DataSet.Fields.FieldByName('TITULO').AsString;
+      lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('COD_BARRAS').AsString;
+      lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('GENERO').AsString;
+      lTextoAvaliado := UpperCase(lTextoAvaliado);
+      lTextoAvaliado := AnsiReplaceStr(lTextoAvaliado, 'ã', 'A');
+      lTextoAvaliado := AnsiReplaceStr(lTextoAvaliado, 'ó', 'O');
+
+    for i := 0 to lPalavrasPesquisadas.Count - 1 do
+    begin
+      lPalavra := lPalavrasPesquisadas[i];
+
+      if (Trim(lPalavra) = '') then
+        Continue;
+
+      Accept := (AnsiContainsText(lTextoAvaliado, lPalavra));
+
+      if (not Accept) then
+        Break;
+    end;
+  finally
+    FreeAndNil(lPalavrasPesquisadas);
+     end;
+end;
 
 end.

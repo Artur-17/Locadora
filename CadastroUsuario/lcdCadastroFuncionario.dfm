@@ -48,6 +48,7 @@ object CadastroFuncionario: TCadastroFuncionario
     Properties.TabWidth = 200
     LookAndFeel.NativeStyle = False
     LookAndFeel.SkinName = 'Office2007Silver'
+    ExplicitTop = 40
     ClientRectBottom = 525
     ClientRectLeft = 3
     ClientRectRight = 800
@@ -55,6 +56,7 @@ object CadastroFuncionario: TCadastroFuncionario
     object pgFuncionario: TcxTabSheet
       Caption = 'Funcionario'
       ImageIndex = 0
+      ExplicitTop = 20
       object lblNome: TLabel
         Left = 11
         Top = 6
@@ -403,10 +405,6 @@ object CadastroFuncionario: TCadastroFuncionario
     object pgUsuario: TcxTabSheet
       Caption = 'Usuario'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object lblLogin: TLabel
         Left = 384
         Top = 64

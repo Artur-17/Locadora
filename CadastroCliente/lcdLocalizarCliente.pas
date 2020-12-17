@@ -93,7 +93,7 @@ var
 implementation
 
 uses
-  StrUtils;
+  StrUtils, LcdLibStrings;
 
 {$R *.dfm}
 
@@ -191,45 +191,18 @@ end;
 procedure TLocalizarCliente.qryClienteFilterRecord(DataSet: TDataSet;
   var Accept: Boolean);
 var
-  i: Integer;
-  lPalavra,
-  lTextoPesquisado,
   lTextoAvaliado: string;
-  lPalavrasPesquisadas: TStringList;
 begin
-   Accept := True;
-  lPalavrasPesquisadas := TStringList.Create();
 
-  try
-    lTextoPesquisado := AnsiReplaceStr(UpperCase(edtPesquisa.Text), ' ', ',');
-    lTextoPesquisado := AnsiReplaceStr(lTextoPesquisado, 'ã', 'A');
-    lTextoPesquisado := AnsiReplaceStr(lTextoPesquisado, 'ó', 'O');
+  Accept := True;
 
-    lPalavrasPesquisadas.Delimiter := ',';
-    lPalavrasPesquisadas.DelimitedText := lTextoPesquisado;
+  lTextoAvaliado := DataSet.Fields.FieldByName('NOME').AsString;
+  lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('CPF').AsString;
+  lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('TELEFONE').AsString;
 
-    lTextoAvaliado := DataSet.Fields.FieldByName('NOME').AsString;
-    lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('CPF').AsString;
-    lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('TELEFONE').AsString;
-    lTextoAvaliado := UpperCase(lTextoAvaliado);
-    lTextoAvaliado := AnsiReplaceStr(lTextoAvaliado, 'ã', 'A');
-    lTextoAvaliado := AnsiReplaceStr(lTextoAvaliado, 'ó', 'O');
+  Accept := TLibStrings.TextoContemPalavras(lTextoAvaliado, edtPesquisa.Text);
 
-    for i := 0 to lPalavrasPesquisadas.Count - 1 do
-    begin
-      lPalavra := lPalavrasPesquisadas[i];
 
-      if (Trim(lPalavra) = '') then
-        Continue;
-
-      Accept := (AnsiContainsText(lTextoAvaliado, lPalavra));
-
-      if (not Accept) then
-        Break;
-    end;
-  finally
-    FreeAndNil(lPalavrasPesquisadas);
-  end;
 end;
 
 class procedure TLocalizarCliente.ExibirLocalizarCliente;

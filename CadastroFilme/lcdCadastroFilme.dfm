@@ -64,20 +64,20 @@ object CadastroFilme: TCadastroFilme
   object lblValor: TLabel
     Left = 21
     Top = 275
-    Width = 26
+    Width = 127
     Height = 15
-    Caption = 'Valor'
+    Caption = 'Valor Emprestimo Di'#225'rio'
   end
   object lblQuantidade: TLabel
-    Left = 152
+    Left = 175
     Top = 275
-    Width = 62
+    Width = 42
     Height = 15
-    Caption = 'Quantidade'
+    Caption = 'Estoque'
   end
-  object imgProduto: TImage
+  object imgFoto: TImage
     Left = 657
-    Top = 64
+    Top = 63
     Width = 128
     Height = 128
     Anchors = [akTop, akRight]
@@ -264,7 +264,7 @@ object CadastroFilme: TCadastroFilme
       30B0FD4CC4DAEF6DDC5BA476784AE37B02DCE48367E704313FC3338382FCB257
       9AF7BB7DD8D2B7059F15A09F1BF46F0DF371FA05F071FA05F071FA05F071FA05
       F071FA05F071FA05F071FE1F7FEA8675E25D59FE0000000049454E44AE426082}
-    ExplicitLeft = 672
+    Stretch = True
   end
   object lblDataLancamento: TLabel
     Left = 488
@@ -272,13 +272,6 @@ object CadastroFilme: TCadastroFilme
     Width = 112
     Height = 15
     Caption = 'Data de Lan'#231'amento '
-  end
-  object Label1: TLabel
-    Left = 8
-    Top = 299
-    Width = 13
-    Height = 15
-    Caption = 'R$'
   end
   object pnlTop: TPanel
     Left = 0
@@ -333,7 +326,9 @@ object CadastroFilme: TCadastroFilme
     Width = 129
     Height = 22
     Style = csOwnerDrawFixed
+    ItemIndex = 1
     TabOrder = 8
+    Text = 'Aventura'
     Items.Strings = (
       'A'#231#227'o'
       'Aventura'
@@ -373,9 +368,9 @@ object CadastroFilme: TCadastroFilme
     TabOrder = 4
   end
   object edtQuantidade: TEdit
-    Left = 152
+    Left = 175
     Top = 296
-    Width = 97
+    Width = 62
     Height = 23
     TabOrder = 11
   end
@@ -434,6 +429,7 @@ object CadastroFilme: TCadastroFilme
     Anchors = [akTop, akRight]
     Caption = 'Foto'
     TabOrder = 7
+    OnClick = btnFotoClick
   end
   object dtpDataLancamento: TcxDateEdit
     Left = 488
@@ -441,13 +437,6 @@ object CadastroFilme: TCadastroFilme
     EditValue = 36482d
     TabOrder = 9
     Width = 137
-  end
-  object edtValor: TEdit
-    Left = 21
-    Top = 296
-    Width = 81
-    Height = 23
-    TabOrder = 10
   end
   object btnNumCodBarras: TcxButton
     Left = 120
@@ -486,6 +475,13 @@ object CadastroFilme: TCadastroFilme
       10230000000049454E44AE426082}
     TabOrder = 1
     OnClick = btnNumCodBarrasClick
+  end
+  object edtValor: TcxCurrencyEdit
+    Left = 21
+    Top = 296
+    EditValue = 0.000000000000000000
+    TabOrder = 10
+    Width = 73
   end
   object qryFilme: TUniQuery
     Connection = dtmPrincipal.conexao
@@ -533,5 +529,9 @@ object CadastroFilme: TCadastroFilme
       FieldName = 'COD_BARRAS'
       Size = 14
     end
+  end
+  object dlgOpenFoto: TOpenDialog
+    Left = 736
+    Top = 304
   end
 end

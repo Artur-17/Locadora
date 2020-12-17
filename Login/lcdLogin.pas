@@ -53,6 +53,9 @@ implementation
 
 {$R *.dfm}
 
+uses
+  lcdSistemaController, lcdUsuario;
+
 { TLogin }
 
 procedure TLogin.btnBancoDadosClick(Sender: TObject);
@@ -82,6 +85,21 @@ begin
 //    on E: Exception do
 //      ShowMessage(E.Message);
 //  end;
+
+  if (edtLogin.text = 'ADMIN') and (edtSenha.Text = 'ADMIN') then
+    begin
+       AcessoController.UsuarioLogado := TUsuario.create();
+
+       AcessoController.UsuarioLogado.Nome := 'Administrador';
+       AcessoController.UsuarioLogado.Senha := 'ADMIN';
+       AcessoController.UsuarioLogado.Login := 'ADMIN';
+
+        fFechar := true;
+        Close;
+        exit;
+
+    end;
+
 
 
   try

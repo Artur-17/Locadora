@@ -24,11 +24,14 @@ uses
   ComCtrls, dxCore, cxDateUtils, cxTextEdit, cxMaskEdit, cxDropDownEdit,
   cxCalendar, cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGrid, DBCtrls, StdCtrls, cxButtons,
-  ExtCtrls, cxPC, MemDS, DBAccess, Uni;
+  ExtCtrls, cxPC, MemDS, DBAccess, Uni, cxCurrencyEdit,
+
+
+  lcdEnum;
 
 type
   TEmprestimo = class(TForm)
-    pgCadastro: TcxPageControl;
+    pgcPrincipal: TcxPageControl;
     pgListagem: TcxTabSheet;
     pgEmprestimo: TcxTabSheet;
     pnlClient: TPanel;
@@ -53,7 +56,6 @@ type
     btnCliente: TcxButton;
     dtpDataVenda: TcxDateEdit;
     edtNomeFilme: TEdit;
-    edtValorUnitario: TEdit;
     btnIncluir: TcxButton;
     btnRemoverItem: TcxButton;
     pnlTop: TPanel;
@@ -69,62 +71,24 @@ type
     lblQuantidade: TLabel;
     edtQuantidade: TEdit;
     lblTotalProduto: TLabel;
-    edtTotalProduto: TEdit;
     pnlValorTotal: TPanel;
-    edtValorTotalVenda: TEdit;
     lblValorTotalVenda: TLabel;
     qryEmprestimo: TUniQuery;
-    cxPageControl1: TcxPageControl;
-    cxTabSheet1: TcxTabSheet;
-    Panel1: TPanel;
-    Label1: TLabel;
-    Edit1: TEdit;
-    cxGrid1: TcxGrid;
-    cxGridDBTableView1: TcxGridDBTableView;
-    cxGridLevel1: TcxGridLevel;
-    Panel2: TPanel;
-    cxButton1: TcxButton;
-    cxButton2: TcxButton;
-    cxButton3: TcxButton;
-    DBNavigator2: TDBNavigator;
-    cxTabSheet2: TcxTabSheet;
-    Panel3: TPanel;
-    cxButton4: TcxButton;
-    cxButton5: TcxButton;
-    cxButton6: TcxButton;
-    DBNavigator3: TDBNavigator;
-    Panel4: TPanel;
-    Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
-    Label6: TLabel;
-    Label7: TLabel;
-    Label8: TLabel;
-    Edit2: TEdit;
-    cxButton7: TcxButton;
-    cxButton8: TcxButton;
-    cxButton9: TcxButton;
-    cxDateEdit1: TcxDateEdit;
-    Edit3: TEdit;
-    Edit4: TEdit;
-    Edit5: TEdit;
-    cxButton10: TcxButton;
-    Edit6: TEdit;
-    Edit7: TEdit;
-    cxGrid2: TcxGrid;
-    cxGridDBTableView2: TcxGridDBTableView;
-    cxGridLevel2: TcxGridLevel;
-    Panel5: TPanel;
-    Label9: TLabel;
-    Edit8: TEdit;
     qryEmprestimoItem: TUniQuery;
+    edtValorUnitario: TcxCurrencyEdit;
+    edtTotal: TcxCurrencyEdit;
+    edtTotalVenda: TcxCurrencyEdit;
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
   private
     { Private declarations }
+    procedure ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar,
+      btnApagar: TcxButton; btnNavigator: TDBNavigator;
+      pgcPrincipal: TcxPageControl; Flag: Boolean);
   public
     { Public declarations }
+    EstadoDoCadastro:TEstadoDoCadastro;
     class procedure Exibir();
+    //function Gravar(EstadoDoCadastro:TEstadoDoCadastro):boolean; virtual;
   end;
 
 var
@@ -135,6 +99,20 @@ implementation
 {$R *.dfm}
 
 { TForm1 }
+
+procedure TEmprestimo.ControlarBotoes(btnNovo, btnAlterar, btnCancelar,
+  btnGravar, btnApagar: TcxButton; btnNavigator: TDBNavigator;
+  pgcPrincipal: TcxPageControl; Flag: Boolean);
+begin
+  btnNovo.Enabled      :=Flag;
+  btnApagar.Enabled    :=Flag;
+  btnAlterar.Enabled   :=Flag;
+  btnNavigator.Enabled :=Flag;
+  pgcPrincipal.Pages[0].TabVisible:=Flag;
+
+  btnCancelar.Enabled  :=not(Flag);
+  btnGravar.Enabled    :=not(Flag);
+end;
 
 class procedure TEmprestimo.Exibir;
 var

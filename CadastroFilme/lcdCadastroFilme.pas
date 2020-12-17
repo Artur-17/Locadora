@@ -45,7 +45,7 @@ type
     edtQuantidade: TEdit;
     btnGravar: TcxButton;
     btnCancelar: TcxButton;
-    imgProduto: TImage;
+    imgFoto: TImage;
     btnFoto: TcxButton;
     qryFilme: TUniQuery;
     qryFilmeID: TIntegerField;
@@ -60,16 +60,17 @@ type
     qryFilmeQUANTIDADE: TIntegerField;
     dtpDataLancamento: TcxDateEdit;
     lblDataLancamento: TLabel;
-    edtValor: TEdit;
-    Label1: TLabel;
     btnNumCodBarras: TcxButton;
     qryFilmeCOD_BARRAS: TStringField;
+    edtValor: TcxCurrencyEdit;
+    dlgOpenFoto: TOpenDialog;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnGravarClick(Sender: TObject);
     procedure btnNumCodBarrasClick(Sender: TObject);
     procedure btnGravarKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure btnFotoClick(Sender: TObject);
   private
     { Private declarations }
     FModo : string;
@@ -91,6 +92,9 @@ var
 implementation
 
 {$R *.dfm}
+
+uses
+  jpeg, pngimage;
 
 class function TCadastroFilme.Alterar(pOwner: TForm; pDataSet: TDataset;
   pIDCliente: integer): TmodalResult;
@@ -135,6 +139,34 @@ end;
 procedure TCadastroFilme.btnCancelarClick(Sender: TObject);
 begin
   ModalResult := mrCancel;
+end;
+
+procedure TCadastroFilme.btnFotoClick(Sender: TObject);
+var
+  lFoto: TGraphic;
+  lExtensao: string;
+begin
+   if (dlgOpenFoto.Execute(Application.Handle)) then
+  begin
+    lExtensao := ExtractFileExt(dlgOpenFoto.FileName);
+
+    if ((not AnsiSameText(lExtensao, '.jpg')) and (not AnsiSameText(lExtensao, '.png'))) then
+    begin
+      ShowMessage('A foto selecionada não é compatível. Selecione uma foto .jpg ou .png.');
+      Abort;
+    end;
+
+    if (AnsiSameText(lExtensao, '.jpg')) then
+      lFoto := TJPEGImage.Create();
+
+    if (AnsiSameText(lExtensao, '.png')) then
+      lFoto := TPngImage.Create();
+
+    lFoto.LoadFromFile(dlgOpenFoto.FileName);
+    imgFoto.Picture.Bitmap.Assign(lFoto);
+
+    FreeAndNil(lFoto);
+  end;
 end;
 
 procedure TCadastroFilme.btnGravarClick(Sender: TObject);
@@ -198,8 +230,10 @@ end;
 procedure TCadastroFilme.GravarDadosFilme;
 var
   Titulo: String;
+  Valor: Double;
 begin
   Titulo := UpperCase(edtTitulo.Text);
+  Valor := edtValor.value;
 
 
    try
@@ -229,7 +263,7 @@ begin
       qryFilme.ParamByName('NM_DIRETOR').AsString := edtNomeDiretor.Text;
       qryFilme.ParamByName('NM_ESTUDIO').AsString := edtNomeEstudio.Text;
       qryFilme.ParamByName('GENERO').AsString := cbbGenero.Text;
-      qryFilme.ParamByName('VALOR').AsString := edtValor.Text;
+      qryFilme.ParamByName('VALOR').AsFloat := Valor;
       qryFilme.ParamByName('QUANTIDADE').AsString := edtQuantidade.Text;
       qryFilme.ParamByName('COD_BARRAS').AsString := edtCodBarras.Text;
 

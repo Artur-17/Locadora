@@ -52,9 +52,9 @@ object LocalizarUsuario: TLocalizarUsuario
       Caption = 'NOME / LOGIN / CPF / TELEFONE'
     end
     object edtPesquisa: TEdit
-      Left = 16
-      Top = 23
-      Width = 1175
+      Left = 4
+      Top = 25
+      Width = 1198
       Height = 21
       Hint = 'Digite o seu texto aqui para pesquisar'
       Anchors = [akLeft, akTop, akRight]
@@ -147,7 +147,7 @@ object LocalizarUsuario: TLocalizarUsuario
       1207
       41)
     object btnAlterar: TcxButton
-      Left = 117
+      Left = 120
       Top = 6
       Width = 85
       Height = 25

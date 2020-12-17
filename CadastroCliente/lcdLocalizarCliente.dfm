@@ -33,7 +33,6 @@ object LocalizarCliente: TLocalizarCliente
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitTop = -6
   end
   object pnlClient: TPanel
     Left = 0
@@ -53,9 +52,9 @@ object LocalizarCliente: TLocalizarCliente
       Caption = 'NOME / CPF / TELEFONE'
     end
     object edtPesquisa: TEdit
-      Left = 16
-      Top = 21
-      Width = 1175
+      Left = 4
+      Top = 25
+      Width = 1196
       Height = 21
       Hint = 'Digite o seu texto aqui para pesquisar'
       Anchors = [akLeft, akTop, akRight]

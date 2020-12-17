@@ -50,5 +50,11 @@
     <Transaction>2020/11/18 20:47:57.332.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroProduto\lcdCadastroProduto.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroFilme\lcdCadastroFilme.dfm</Transaction>
     <Transaction>2020/11/25 20:19:19.894.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Emprestimo\locEmprestimo.pas</Transaction>
     <Transaction>2020/11/25 20:19:19.894.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Emprestimo\locEmprestimo.dfm</Transaction>
+    <Transaction>2020/12/01 21:09:31.532.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Utils\lcdEnum.pas</Transaction>
+    <Transaction>2020/12/08 19:22:41.683.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\lib\locLibStrings.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\lib\lcdLibStrings.pas</Transaction>
+    <Transaction>2020/12/08 19:37:10.327.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\model\locUsuario.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\model\lcdUsuario.pas</Transaction>
+    <Transaction>2020/12/08 19:37:21.520.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Controller\locSistemaController.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Controller\lcdSistemaController.pas</Transaction>
+    <Transaction>2020/12/08 19:37:33.972.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Controller\locAcessoController.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Controller\lcdAcessoController.pas</Transaction>
+    <Transaction>2020/12/08 19:41:51.564.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\interfaces\locInterfaces.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\interfaces\lcdInterfaces.pas</Transaction>
   </Transactions>
 </BorlandProject>

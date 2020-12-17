@@ -20,10 +20,10 @@ uses
   dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
   dxSkinTheAsphaltWorld, dxSkinValentine, dxSkinVisualStudio2013Blue,
   dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinVS2010,
-  dxSkinWhiteprint, dxSkinXmas2008Blue, Enter,
-  lcdLocalizarFilme, lcdCadastroFuncionario, lcdLogin, lcdCadastroCategoriaUsuario,
-  lcdCadastroCliente, lcdLocalizarCliente, lcdLocalizarUsuario,
-  dxSkinsForm, Menus, dxBarCode, cxBarEditItem;
+  dxSkinWhiteprint, dxSkinXmas2008Blue,
+  dxSkinsForm, Menus, dxBarCode, cxBarEditItem,
+
+  lcdSistemaController, Enter;
 
 type
   TPrincipal = class(TForm)
@@ -73,7 +73,10 @@ implementation
 
 {$R *.dfm}
 
-uses lcdLocalizarCategoriaUsuario, locEmprestimo;
+uses
+   lcdAcessoController, lcdLocalizarCategoriaUsuario, locEmprestimo,
+   lcdLocalizarFilme, lcdCadastroFuncionario, lcdLogin, lcdCadastroCategoriaUsuario,
+   lcdCadastroCliente, lcdLocalizarCliente, lcdLocalizarUsuario;
 
 
 
@@ -128,6 +131,12 @@ end;
 procedure TPrincipal.FormShow(Sender: TObject);
 begin
   Tlogin.exibirLogin();
+
+  if AcessoController.UsuarioLogado <> nil then
+  begin
+    sttPrincipal.Panels [3].Text := ' '+ AcessoController.UsuarioLogado.Nome;
+  end;
+
 end;
 
 procedure TPrincipal.TimerTimer(Sender: TObject);
@@ -135,5 +144,8 @@ begin
   sttPrincipal.Panels [1].Text := ' '+formatdatetime ('dddd","dd" de "mmmm" de "yyyy',now);// para data
   sttPrincipal.Panels [2].Text := ' '+formatdatetime ('hh:mm:ss',now);//para hora
 End;
+
+initialization
+  lcdSistemaController.AcessoController := TAcessoController.Create();
 
 end.

@@ -71,6 +71,7 @@ type
     qryUsuarioLOGIN: TStringField;
     qryUsuarioSENHA: TStringField;
     lblCategoria: TLabel;
+    dlgOpenFoto: TOpenDialog;
     procedure btnFecharClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -79,6 +80,7 @@ type
     procedure btnLocalizarCategoriaClick(Sender: TObject);
     procedure cxButton1Click(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure btnFotoClick(Sender: TObject);
   private
     { Private declarations }
     FDataSet: TDataSet;
@@ -112,7 +114,7 @@ implementation
 {$R *.dfm}
 
 uses
-  FuncaoCriptografia;
+  FuncaoCriptografia, jpeg, pngimage, lcdSistemaController, lcdUsuario ;
 
 procedure TCadastroFuncionario.btnCancelarClick(Sender: TObject);
 begin
@@ -122,6 +124,35 @@ end;
 procedure TCadastroFuncionario.btnFecharClick(Sender: TObject);
 begin
   close;
+end;
+
+procedure TCadastroFuncionario.btnFotoClick(Sender: TObject);
+var
+  lFoto: TGraphic;
+  lExtensao: string;
+begin
+   if (dlgOpenFoto.Execute(Application.Handle)) then
+  begin
+    lExtensao := ExtractFileExt(dlgOpenFoto.FileName);
+
+    if ((not AnsiSameText(lExtensao, '.jpg')) and (not AnsiSameText(lExtensao, '.png'))) then
+    begin
+      ShowMessage('A foto selecionada não é compatível. Selecione uma foto .jpg ou .png.');
+      Abort;
+    end;
+
+    if (AnsiSameText(lExtensao, '.jpg')) then
+      lFoto := TJPEGImage.Create();
+
+    if (AnsiSameText(lExtensao, '.png')) then
+      lFoto := TPngImage.Create();
+
+    lFoto.LoadFromFile(dlgOpenFoto.FileName);
+    imgFoto.Picture.Bitmap.Assign(lFoto);
+
+    FreeAndNil(lFoto);
+  end;
+
 end;
 
 procedure TCadastroFuncionario.btnGravarClick(Sender: TObject);
@@ -388,7 +419,7 @@ begin
     LQRY.Close;
     LQRY.SQL.Clear;
 
-    LQRY.SQL.Add('SELECT COUNT(id) AS Qtde ' +
+    LQRY.SQL.Add('SELECT * ' +
                  'FROM USUARIO ' +
                  'WHERE LOGIN=:LOGIN AND SENHA=:SENHA');
     LQRY.ParamByName('LOGIN').AsString := aUsuario;
@@ -399,8 +430,36 @@ begin
     try
 //      LQRY.Open;
 
-      if LQRY.FieldByName('Qtde').AsInteger>0 then
-        result := true
+      if not LQRY.IsEmpty then
+        begin
+        AcessoController.UsuarioLogado := TUsuario.Create();
+
+         AcessoController.UsuarioLogado.Id := LQRY.FieldByName('ID').AsInteger;
+         AcessoController.UsuarioLogado.Nome := LQRY.FieldByName('Nome').AsString;
+         AcessoController.UsuarioLogado.Senha := LQRY.FieldByName('Senha').AsString;
+
+
+
+//        ID             INTEGER NOT NULL,
+//        LOGIN          VARCHAR(30),
+//        SENHA          VARCHAR(10),
+//        DT_CRIACAO     DATE,
+//        DELETADO       CHAR(1) DEFAULT 'F',
+//        INATIVO        CHAR(1) DEFAULT 'F',
+//        NOME           VARCHAR(80),
+//        CPF            VARCHAR(18),
+//        EMAIL          VARCHAR(30),
+//        TELEFONE       VARCHAR(40),
+//        DT_NASCIMENTO  DATE,
+//        OBSERVACAO     VARCHAR(800),
+//        LOGRADOURO     VARCHAR(80),
+//        BAIRRO         VARCHAR(80),
+//        CIDADE         VARCHAR(80),
+//        COMPLEMENTO    VARCHAR(80),
+//        ESTADO         CHAR(2)
+
+          result := true;
+        end
       else
         result := false;
     except

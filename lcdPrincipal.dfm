@@ -2,7 +2,7 @@
   Left = 0
   Top = 0
   Caption = 'Focus Locadora'
-  ClientHeight = 522
+  ClientHeight = 521
   ClientWidth = 981
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -44,21 +44,25 @@
   end
   object sttPrincipal: TStatusBar
     Left = 0
-    Top = 503
+    Top = 502
     Width = 981
     Height = 19
     Panels = <
       item
         Text = 'Criado por: Artur'
-        Width = 500
+        Width = 350
       end
       item
         Text = 'data'
-        Width = 500
+        Width = 150
       end
       item
         Text = 'hora'
-        Width = 50
+        Width = 150
+      end
+      item
+        Text = 'UsuarioLogado'
+        Width = 300
       end>
   end
   object dxbrmngr1: TdxBarManager
@@ -75,7 +79,7 @@
       True)
     PopupMenuLinks = <>
     UseSystemFont = True
-    Left = 856
+    Left = 880
     Top = 448
     PixelsPerInch = 96
     object dxbrCadastro: TdxBar
@@ -437,8 +441,8 @@
     Top = 448
   end
   object MainMenu1: TMainMenu
-    Left = 696
-    Top = 440
+    Left = 720
+    Top = 448
     object CADASTRO1: TMenuItem
       Caption = 'Cadastro'
       object UsuriosFuncionrios1: TMenuItem

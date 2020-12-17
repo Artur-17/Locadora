@@ -91,6 +91,12 @@
 			<DCCReference Include="Emprestimo\locEmprestimo.pas">
 				<Form>Emprestimo</Form>
 			</DCCReference>
+			<DCCReference Include="Utils\lcdEnum.pas"/>
+			<DCCReference Include="lib\lcdLibStrings.pas"/>
+			<DCCReference Include="Controller\lcdAcessoController.pas"/>
+			<DCCReference Include="Controller\lcdSistemaController.pas"/>
+			<DCCReference Include="model\lcdUsuario.pas"/>
+			<DCCReference Include="interfaces\lcdInterfaces.pas"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

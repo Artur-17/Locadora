@@ -89,6 +89,7 @@ type
     procedure FormClose(Sender: TObject);
     procedure Pesquisar();
     procedure Filtrar();
+    procedure ValidarPermissaoUsuario();
     { Private declarations }
   public
     { Public declarations }
@@ -96,23 +97,29 @@ type
   end;
 
 var
+
+
   LocalizarUsuario: TLocalizarUsuario;
 
 implementation
 
 uses
-  StrUtils;
+  lcdSistemaController, lcdAcessoController, StrUtils, lcdLibStrings;
 
 {$R *.dfm}
 
 procedure TLocalizarUsuario.btnAlterarClick(Sender: TObject);
 begin
+  ValidarPermissaoUsuario();
+
   TCadastroFuncionario.Alterar(Self,qryUsuario, qryUsuario.FieldByName('ID').AsInteger);
   viewUsuario.DataController.DataSet.Refresh;
 end;
 
 procedure TLocalizarUsuario.btnExcluirClick(Sender: TObject);
 begin
+  ValidarPermissaoUsuario();
+
   if Application.MessageBox('AVISO: Deseja realmente excluir esse registro ?','ATENÇÃO ',MB_YESNO + MB_ICONWARNING)=MRYES then
   begin
     qryUsuario.Delete;
@@ -126,6 +133,8 @@ end;
 
 procedure TLocalizarUsuario.btnIncluirClick(Sender: TObject);
 begin
+  ValidarPermissaoUsuario();
+
   TCadastroFuncionario.Novo(Self, qryUsuario, qryUsuario.FieldByName('ID').AsInteger);
   viewUsuario.DataController.DataSet.Refresh;
 end;
@@ -280,48 +289,27 @@ end;
 procedure TLocalizarUsuario.qryUsuarioFilterRecord(DataSet: TDataSet;
   var Accept: Boolean);
 var
-  i: Integer;
-  lPalavra,
-  lTextoPesquisado,
   lTextoAvaliado: string;
-  lPalavrasPesquisadas: TStringList;
 begin
 
   Accept := True;
-  lPalavrasPesquisadas := TStringList.Create();
 
-  try
-    lTextoPesquisado := AnsiReplaceStr(UpperCase(edtPesquisa.Text), ' ', ',');
-    lTextoPesquisado := AnsiReplaceStr(lTextoPesquisado, 'ã', 'A');
-    lTextoPesquisado := AnsiReplaceStr(lTextoPesquisado, 'ó', 'O');
+  lTextoAvaliado := DataSet.Fields.FieldByName('NOME').AsString;
+  lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('LOGIN').AsString;
+  lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('TELEFONE').AsString;
+  lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('CPF').AsString;
 
-    lPalavrasPesquisadas.Delimiter := ',';
-    lPalavrasPesquisadas.DelimitedText := lTextoPesquisado;
+  Accept := TLibStrings.TextoContemPalavras(lTextoAvaliado, edtPesquisa.Text);
 
-    lTextoAvaliado := DataSet.Fields.FieldByName('NOME').AsString;
-    lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('LOGIN').AsString;
-    lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('TELEFONE').AsString;
-     lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('CPF').AsString;
-    lTextoAvaliado := UpperCase(lTextoAvaliado);
-    lTextoAvaliado := AnsiReplaceStr(lTextoAvaliado, 'ã', 'A');
-    lTextoAvaliado := AnsiReplaceStr(lTextoAvaliado, 'ó', 'O');
+end;
 
-    for i := 0 to lPalavrasPesquisadas.Count - 1 do
-    begin
-      lPalavra := lPalavrasPesquisadas[i];
-
-      if (Trim(lPalavra) = '') then
-        Continue;
-
-      Accept := (AnsiContainsText(lTextoAvaliado, lPalavra));
-
-      if (not Accept) then
-        Break;
-    end;
-  finally
-    FreeAndNil(lPalavrasPesquisadas);
+procedure TLocalizarUsuario.ValidarPermissaoUsuario();
+begin
+  if ( lcdSistemaController.AcessoController.UsuarioLogado.Login <> 'ADMIN') then
+  begin
+    ShowMessage('Atenção: apenas o administrador pode cadastrar / editar / excluir usuários.');
+    Abort;
   end;
-
 end;
 
 end.

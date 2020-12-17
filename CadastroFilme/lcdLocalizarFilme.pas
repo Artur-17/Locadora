@@ -92,7 +92,7 @@ var
 implementation
 
 uses
-  StrUtils;
+  StrUtils, lcdLibStrings;
 
 {$R *.dfm}
 
@@ -212,45 +212,18 @@ end;
 procedure TLocalizarFilme.qryFilmeFilterRecord(DataSet: TDataSet;
   var Accept: Boolean);
 var
-  i: Integer;
-  lPalavra,
-  lTextoPesquisado,
   lTextoAvaliado: string;
-  lPalavrasPesquisadas: TStringList;
 begin
-  Accept := true;
-  lPalavrasPesquisadas := TStringList.Create();
 
-     try
-      lTextoPesquisado := AnsiReplaceStr(UpperCase(edtPesquisa.Text), ' ', ',');
-      lTextoPesquisado := AnsiReplaceStr(lTextoPesquisado, 'ã', 'A');
-      lTextoPesquisado := AnsiReplaceStr(lTextoPesquisado, 'ó', 'O');
+  Accept := True;
 
-      lPalavrasPesquisadas.Delimiter := ',';
-      lPalavrasPesquisadas.DelimitedText := lTextoPesquisado;
+  lTextoAvaliado := DataSet.Fields.FieldByName('TITULO').AsString;
+  lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('GENERO').AsString;
+  lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('COD_BARRAS').AsString;
 
-      lTextoAvaliado := DataSet.Fields.FieldByName('TITULO').AsString;
-      lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('COD_BARRAS').AsString;
-      lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('GENERO').AsString;
-      lTextoAvaliado := UpperCase(lTextoAvaliado);
-      lTextoAvaliado := AnsiReplaceStr(lTextoAvaliado, 'ã', 'A');
-      lTextoAvaliado := AnsiReplaceStr(lTextoAvaliado, 'ó', 'O');
+  Accept := TLibStrings.TextoContemPalavras(lTextoAvaliado, edtPesquisa.Text);
 
-    for i := 0 to lPalavrasPesquisadas.Count - 1 do
-    begin
-      lPalavra := lPalavrasPesquisadas[i];
 
-      if (Trim(lPalavra) = '') then
-        Continue;
-
-      Accept := (AnsiContainsText(lTextoAvaliado, lPalavra));
-
-      if (not Accept) then
-        Break;
-    end;
-  finally
-    FreeAndNil(lPalavrasPesquisadas);
-     end;
 end;
 
 end.

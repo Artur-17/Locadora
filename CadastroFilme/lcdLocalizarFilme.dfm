@@ -68,7 +68,7 @@ object LocalizarFilme: TLocalizarFilme
       OnClick = btnIncluirClick
     end
     object btnAlterar: TcxButton
-      Left = 118
+      Left = 125
       Top = 6
       Width = 89
       Height = 25
@@ -190,9 +190,9 @@ object LocalizarFilme: TLocalizarFilme
       Caption = 'C'#211'DIGO DE BARRAS / T'#205'TULO DO FILME / GENERO'
     end
     object edtPesquisa: TEdit
-      Left = 6
-      Top = 17
-      Width = 1190
+      Left = 3
+      Top = 19
+      Width = 1199
       Height = 21
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 0

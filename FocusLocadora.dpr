@@ -17,7 +17,13 @@ uses
   lcdLocalizarCliente in 'CadastroCliente\lcdLocalizarCliente.pas' {LocalizarCliente},
   lcdLocalizarUsuario in 'CadastroUsuario\lcdLocalizarUsuario.pas' {LocalizarUsuario},
   lcdCadastroFilme in 'CadastroFilme\lcdCadastroFilme.pas' {CadastroFilme},
-  locEmprestimo in 'Emprestimo\locEmprestimo.pas' {Emprestimo};
+  locEmprestimo in 'Emprestimo\locEmprestimo.pas' {Emprestimo},
+  lcdEnum in 'Utils\lcdEnum.pas',
+  lcdLibStrings in 'lib\lcdLibStrings.pas',
+  lcdAcessoController in 'Controller\lcdAcessoController.pas',
+  lcdSistemaController in 'Controller\lcdSistemaController.pas',
+  lcdUsuario in 'model\lcdUsuario.pas',
+  lcdInterfaces in 'interfaces\lcdInterfaces.pas';
 
 {$R *.res}
 

@@ -120,6 +120,8 @@ begin
     Add('TEdit');
     Add('TDateEdit');
     Add('TDBEdit');
+    Add('TcxCurrencyEdit');
+    Add('TcxDateEdit');
     Add('TDBCheckBox');
     Add('TTabbedNoteBook');
     Add('TComboBox');

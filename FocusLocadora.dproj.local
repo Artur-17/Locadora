@@ -56,5 +56,13 @@
     <Transaction>2020/12/08 19:37:21.520.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Controller\locSistemaController.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Controller\lcdSistemaController.pas</Transaction>
     <Transaction>2020/12/08 19:37:33.972.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Controller\locAcessoController.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Controller\lcdAcessoController.pas</Transaction>
     <Transaction>2020/12/08 19:41:51.564.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\interfaces\locInterfaces.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\interfaces\lcdInterfaces.pas</Transaction>
+    <Transaction>2020/12/23 19:22:48.934.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroGenero\lcdGeneroCadastro.pas</Transaction>
+    <Transaction>2020/12/23 19:22:48.934.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroGenero\lcdGeneroCadastro.dfm</Transaction>
+    <Transaction>2020/12/23 19:33:34.028.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroGenero\lcdLocalizarGenero.pas</Transaction>
+    <Transaction>2020/12/23 19:33:34.028.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroGenero\lcdLocalizarGenero.dfm</Transaction>
+    <Transaction>2020/12/23 19:41:30.702.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroGenero\lcdGeneroCadastro.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroGenero\lcdCadastroGenero.pas</Transaction>
+    <Transaction>2020/12/23 19:41:30.702.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroGenero\lcdGeneroCadastro.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroGenero\lcdCadastroGenero.dfm</Transaction>
+    <Transaction>2020/12/28 19:16:49.619.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroGenero\lcdGeneroSelecao.pas</Transaction>
+    <Transaction>2020/12/28 19:16:49.619.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroGenero\lcdGeneroSelecao.dfm</Transaction>
   </Transactions>
 </BorlandProject>

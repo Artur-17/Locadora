@@ -1,0 +1,24 @@
+unit lcdGeneroSelecao;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs;
+
+type
+  TGeneroSelecao = class(TForm)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  GeneroSelecao: TGeneroSelecao;
+
+implementation
+
+{$R *.dfm}
+
+end.

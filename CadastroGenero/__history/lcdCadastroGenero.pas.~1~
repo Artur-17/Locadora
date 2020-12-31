@@ -1,0 +1,116 @@
+unit lcdGeneroCadastro;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, Menus,
+  dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinBlueprint, dxSkinCaramel,
+  dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinFoggy, dxSkinGlassOceans, dxSkinHighContrast,
+  dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky, dxSkinLondonLiquidSky,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark, dxSkinPumpkin, dxSkinSeven, dxSkinSevenClassic,
+  dxSkinSharp, dxSkinSharpPlus, dxSkinSilver, dxSkinSpringTime, dxSkinStardust,
+  dxSkinSummer2008, dxSkinTheAsphaltWorld, dxSkinsDefaultPainters,
+  dxSkinValentine, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light, dxSkinVS2010, dxSkinWhiteprint,
+  dxSkinXmas2008Blue, StdCtrls, cxButtons, ExtCtrls;
+
+type
+  TCadastroGenero = class(TForm)
+    pnlTop: TPanel;
+    lblGenero: TLabel;
+    edtGenero: TEdit;
+    lblIdadeMinima: TLabel;
+    edtIdadeMinima: TEdit;
+    btnSalvar: TcxButton;
+    btnCancelar: TcxButton;
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
+  private
+    { Private declarations }
+    procedure Validar();
+    procedure Salvar();
+  public
+    { Public declarations }
+  end;
+
+var
+  CadastroGenero: TCadastroGenero;
+
+implementation
+
+uses
+  Uni, lcdDataModule;
+
+{$R *.dfm}
+
+procedure TCadastroGenero.btnCancelarClick(Sender: TObject);
+begin
+  ModalResult = mrClose;
+end;
+
+procedure TCadastroGenero.btnSalvarClick(Sender: TObject);
+begin
+  Salvar();
+end;
+
+procedure TCadastroGenero.Salvar;
+var
+  lQry : TUniQuery;
+begin
+  Validar();
+
+  lQry := TUniQuery.Create(nil);
+  try
+    lQry.Connection := dtmPrincipal.conexao;
+
+    lQry.SQL.Add('insert into genero (');
+    lQry.SQL.Add('  NOME,');
+    lQry.SQL.Add('  IDADE_MINIMA,');
+    lQry.SQL.Add('  DT_CADASTRO');
+    lQry.SQL.Add(') values (');
+    lQry.SQL.Add('  :NOME,');
+    lQry.SQL.Add('  :IDADE_MINIMA,');
+    lQry.SQL.Add('  :DT_CADASTRO');
+    lQry.SQL.Add(')');
+
+    lQry.Prepare();
+    lQry.ParamByName('NOME').AsString := edtGenero.Text;
+    lQry.ParamByName('IDADE_MINIMA').AsInteger := StrToIntDef(edtIdadeMinima.Text, 0);
+    lQry.ParamByName('DT_CADASTRO').AsDateTime := Trunc(Now);
+
+    lQry.ExecSQL();
+    ModalResult := mrOk;
+  except
+    on E: Exception do 
+    ShowMessage('Erro ao gravar dados. Verifique os dados e tente novamente #13' + E.Message);
+  end;
+
+  FreeAndNil(lQry);
+
+end;
+
+procedure TCadastroGenero.Validar();
+begin
+  if (Length(Trim(edtGenero.Text)) < 2) then
+  begin
+    ShowMessage('O nome do gênero deve ter, pelo menos, 2 dígitos.');
+    edtGenero.SetFocus();
+    abort;
+  end;
+
+  if (StrToIntDef(edtIdadeMinima.Text, -1) < 0) then
+  begin
+    ShowMessage('A idade mínima deve ser 0, caso não tenha restrição por idade.');
+    edtIdadeMinima.SetFocus();
+    abort;
+  end;
+end;
+
+end.

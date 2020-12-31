@@ -185,9 +185,9 @@ object LocalizarFilme: TLocalizarFilme
     object lblPesquisa: TLabel
       Left = 7
       Top = 3
-      Width = 247
+      Width = 140
       Height = 13
-      Caption = 'C'#211'DIGO DE BARRAS / T'#205'TULO DO FILME / GENERO'
+      Caption = ' T'#205'TULO DO FILME / GENERO'
     end
     object edtPesquisa: TEdit
       Left = 3
@@ -214,28 +214,27 @@ object LocalizarFilme: TLocalizarFilme
       DataController.Summary.SummaryGroups = <>
       OptionsData.Editing = False
       object viewFilmeID: TcxGridDBColumn
+        Caption = 'Id'
         DataBinding.FieldName = 'ID'
-        Visible = False
-      end
-      object viewFilmeCOD_BARRAS: TcxGridDBColumn
-        Caption = 'C'#243'digo de Barras'
-        DataBinding.FieldName = 'COD_BARRAS'
-        Width = 120
       end
       object viewFilmeTITULO: TcxGridDBColumn
-        Caption = 'Titulo do Filme'
+        Caption = 'Titulo'
         DataBinding.FieldName = 'TITULO'
-        Width = 200
-      end
-      object viewFilmeSINOPSE: TcxGridDBColumn
-        Caption = 'Sinopse'
-        DataBinding.FieldName = 'SINOPSE'
         Width = 300
+      end
+      object viewFilmeGenero_ID: TcxGridDBColumn
+        Caption = 'G'#234'nero'
+        DataBinding.FieldName = 'Genero_ID'
+      end
+      object viewFilmeVALOR: TcxGridDBColumn
+        Caption = 'Valor'
+        DataBinding.FieldName = 'VALOR'
+        Width = 80
       end
       object viewFilmeDT_LANCAMENTO: TcxGridDBColumn
         Caption = 'Data de Lan'#231'amento'
         DataBinding.FieldName = 'DT_LANCAMENTO'
-        Width = 120
+        Width = 150
       end
       object viewFilmeNM_DIRETOR: TcxGridDBColumn
         Caption = 'Nome do Diretor'
@@ -243,27 +242,9 @@ object LocalizarFilme: TLocalizarFilme
         Width = 150
       end
       object viewFilmeNM_ESTUDIO: TcxGridDBColumn
-        AlternateCaption = 'Nome do Est'#250'dio'
         Caption = 'Nome do Est'#250'dio'
         DataBinding.FieldName = 'NM_ESTUDIO'
-      end
-      object viewFilmeGENERO: TcxGridDBColumn
-        Caption = 'G'#234'nero do filme'
-        DataBinding.FieldName = 'GENERO'
-        Width = 120
-      end
-      object viewFilmeVALOR: TcxGridDBColumn
-        Caption = 'Valor'
-        DataBinding.FieldName = 'VALOR'
-      end
-      object viewFilmeQUANTIDADE: TcxGridDBColumn
-        Caption = 'Quantidade'
-        DataBinding.FieldName = 'QUANTIDADE'
-        Width = 70
-      end
-      object viewFilmeJUROS: TcxGridDBColumn
-        DataBinding.FieldName = 'JUROS'
-        Visible = False
+        Width = 150
       end
     end
     object levelFilme: TcxGridLevel
@@ -271,22 +252,30 @@ object LocalizarFilme: TLocalizarFilme
     end
   end
   object qryFilme: TUniQuery
+    KeyFields = 'ID'
     Connection = dtmPrincipal.conexao
     SQL.Strings = (
-      'select * from FILME')
+      'SELECT'
+      '  ID,'
+      '  TITULO,'
+      '  DT_LANCAMENTO,'
+      '  NM_DIRETOR,'
+      '  NM_ESTUDIO,'
+      '  VALOR,'
+      '  GENERO_ID '
+      'FROM '
+      '  FILME')
+    SpecificOptions.Strings = (
+      'InterBase.KeyGenerator=GEN_FILME_ID')
     OnFilterRecord = qryFilmeFilterRecord
-    Left = 792
-    Top = 248
+    Left = 32
+    Top = 440
     object qryFilmeID: TIntegerField
       FieldName = 'ID'
       Required = True
     end
     object qryFilmeTITULO: TStringField
       FieldName = 'TITULO'
-      Size = 80
-    end
-    object qryFilmeSINOPSE: TStringField
-      FieldName = 'SINOPSE'
       Size = 300
     end
     object qryFilmeDT_LANCAMENTO: TDateField
@@ -300,27 +289,39 @@ object LocalizarFilme: TLocalizarFilme
       FieldName = 'NM_ESTUDIO'
       Size = 30
     end
-    object qryFilmeGENERO: TStringField
-      FieldName = 'GENERO'
-      Size = 30
+    object qryFilmeGENERO_ID: TIntegerField
+      FieldName = 'GENERO_ID'
     end
     object qryFilmeVALOR: TFloatField
       FieldName = 'VALOR'
     end
-    object qryFilmeJUROS: TFloatField
-      FieldName = 'JUROS'
-    end
-    object qryFilmeQUANTIDADE: TIntegerField
-      FieldName = 'QUANTIDADE'
-    end
-    object qryFilmeCOD_BARRAS: TStringField
-      FieldName = 'COD_BARRAS'
-      Size = 14
-    end
   end
   object dtsFilme: TDataSource
     DataSet = qryFilme
-    Left = 840
-    Top = 248
+    Left = 200
+    Top = 440
+  end
+  object qryEstoque: TUniQuery
+    KeyFields = 'ID'
+    Connection = dtmPrincipal.conexao
+    SQL.Strings = (
+      'select'
+      '  *'
+      'from'
+      '  estoque')
+    SpecificOptions.Strings = (
+      'InterBase.KeyGenerator=GEN_ESTOQUE_ID')
+    Left = 88
+    Top = 440
+  end
+  object qryGenero: TUniQuery
+    Connection = dtmPrincipal.conexao
+    SQL.Strings = (
+      'select'
+      '  *'
+      'from'
+      '  genero')
+    Left = 144
+    Top = 440
   end
 end

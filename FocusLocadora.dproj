@@ -97,6 +97,15 @@
 			<DCCReference Include="Controller\lcdSistemaController.pas"/>
 			<DCCReference Include="model\lcdUsuario.pas"/>
 			<DCCReference Include="interfaces\lcdInterfaces.pas"/>
+			<DCCReference Include="CadastroGenero\lcdCadastroGenero.pas">
+				<Form>CadastroGenero</Form>
+			</DCCReference>
+			<DCCReference Include="CadastroGenero\lcdLocalizarGenero.pas">
+				<Form>LocalizarGenero</Form>
+			</DCCReference>
+			<DCCReference Include="CadastroGenero\lcdGeneroSelecao.pas">
+				<Form>GeneroSelecao</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

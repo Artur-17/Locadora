@@ -1,0 +1,41 @@
+program FocusLocadora;
+
+uses
+  Forms,
+  lcdPrincipal in 'lcdPrincipal.pas' {Principal},
+  lcdCadastroFuncionario in 'CadastroUsuario\lcdCadastroFuncionario.pas' {CadastroFuncionario},
+  lcdDataModule in 'lcdDataModule.pas' {dtmPrincipal: TDataModule},
+  Enter in 'terceiros\Enter.pas',
+  FuncaoCriptografia in 'Utils\FuncaoCriptografia.pas',
+  lcdCadastroCategoriaUsuario in 'CadastroUsuario\lcdCadastroCategoriaUsuario.pas' {CadastroCategoriaUsuario},
+  lcdCadastroPermissoes in 'CadastroUsuario\lcdCadastroPermissoes.pas' {CadastroPermissoes},
+  lcdLocalizarCategoriaUsuario in 'CadastroUsuario\lcdLocalizarCategoriaUsuario.pas' {LocalizarCategoriaUsuario},
+  lcdLogin in 'Login\lcdLogin.pas' {Login},
+  lcdLocalizarFilme in 'CadastroFilme\lcdLocalizarFilme.pas' {LocalizarFilme},
+  lcdCadastroCliente in 'CadastroCliente\lcdCadastroCliente.pas' {CadastroCliente},
+  lcdCaminhoBancoDados in 'CaminhoBancoDados\lcdCaminhoBancoDados.pas' {CaminhoBancoDados},
+  lcdLocalizarCliente in 'CadastroCliente\lcdLocalizarCliente.pas' {LocalizarCliente},
+  lcdLocalizarUsuario in 'CadastroUsuario\lcdLocalizarUsuario.pas' {LocalizarUsuario},
+  lcdCadastroFilme in 'CadastroFilme\lcdCadastroFilme.pas' {CadastroFilme},
+  locEmprestimo in 'Emprestimo\locEmprestimo.pas' {Emprestimo},
+  lcdEnum in 'Utils\lcdEnum.pas',
+  lcdLibStrings in 'lib\lcdLibStrings.pas',
+  lcdAcessoController in 'Controller\lcdAcessoController.pas',
+  lcdSistemaController in 'Controller\lcdSistemaController.pas',
+  lcdUsuario in 'model\lcdUsuario.pas',
+  lcdInterfaces in 'interfaces\lcdInterfaces.pas',
+  lcdGeneroCadastro in 'CadastroGenero\lcdGeneroCadastro.pas' {CadastroGenero},
+  lcdLocalizarGenero in 'CadastroGenero\lcdLocalizarGenero.pas' {LocalizarGenero};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TPrincipal, Principal);
+  Application.CreateForm(TdtmPrincipal, dtmPrincipal);
+  Application.CreateForm(TEmprestimo, Emprestimo);
+  Application.CreateForm(TCadastroGenero, CadastroGenero);
+  Application.CreateForm(TLocalizarGenero, LocalizarGenero);
+  Application.Run;
+end.

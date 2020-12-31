@@ -28,8 +28,6 @@ uses
 type
   TCadastroFilme = class(TForm)
     pnlTop: TPanel;
-    edtCodBarras: TEdit;
-    lblCodBarras: TLabel;
     edtTitulo: TEdit;
     lblTitulo: TLabel;
     lblNomeDiretor: TLabel;
@@ -37,53 +35,68 @@ type
     edtNomeEstudio: TEdit;
     lblNomeEstudio: TLabel;
     lblGenero: TLabel;
-    cbbGenero: TComboBox;
-    mmSinopse: TMemo;
+    mmoSinopse: TMemo;
     lblSinopse: TLabel;
     lblValor: TLabel;
     lblQuantidade: TLabel;
-    edtQuantidade: TEdit;
+    edtEstoque: TEdit;
     btnGravar: TcxButton;
     btnCancelar: TcxButton;
     imgFoto: TImage;
-    btnFoto: TcxButton;
     qryFilme: TUniQuery;
     qryFilmeID: TIntegerField;
     qryFilmeTITULO: TStringField;
-    qryFilmeSINOPSE: TStringField;
     qryFilmeDT_LANCAMENTO: TDateField;
     qryFilmeNM_DIRETOR: TStringField;
     qryFilmeNM_ESTUDIO: TStringField;
-    qryFilmeGENERO: TStringField;
     qryFilmeVALOR: TFloatField;
-    qryFilmeJUROS: TFloatField;
-    qryFilmeQUANTIDADE: TIntegerField;
-    dtpDataLancamento: TcxDateEdit;
+    edtLancamento: TcxDateEdit;
     lblDataLancamento: TLabel;
-    btnNumCodBarras: TcxButton;
-    qryFilmeCOD_BARRAS: TStringField;
     edtValor: TcxCurrencyEdit;
     dlgOpenFoto: TOpenDialog;
+    edtGenero: TEdit;
+    btnSelecionarCategoriaGenero: TcxButton;
+    btnFoto: TcxButton;
+    qryFilmeGENERO_ID: TIntegerField;
+    qryFilmeFOTO: TBlobField;
+    qryFilmeSINOPSE: TBlobField;
+    qryEstoque: TUniQuery;
+    qryEstoqueID: TIntegerField;
+    qryEstoqueFILME_ID: TIntegerField;
+    qryEstoqueESTOQUE: TIntegerField;
+    qryEstoqueDATA: TDateTimeField;
+    qryEstoqueUSUARIO_ID: TIntegerField;
+    Shape1: TShape;
+    trsCadastro: TUniTransaction;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnGravarClick(Sender: TObject);
-    procedure btnNumCodBarrasClick(Sender: TObject);
+//    procedure btnNumCodBarrasClick(Sender: TObject);
     procedure btnGravarKeyUp(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure btnFotoClick(Sender: TObject);
+    procedure btnSelecionarCategoriaGeneroClick(Sender: TObject);
   private
     { Private declarations }
     FModo : string;
+    FFilmeId: Integer;
     FDataSet: TDataSet;
     FIDCliente: integer;
+    FGeneroId: Integer;
+
+
     procedure PreencherDados;
     procedure GravarDadosFilme();
+    function GetFilmeId: Integer;
+    procedure SetFilmeId(const Value: Integer);
   public
     { Public declarations }
     class procedure Exibir();
 
     class function Novo(pOwner: TForm; pDataSet: TDataset;  pIDCliente: integer): TmodalResult;
     class function Alterar(pOwner: TForm; pDataSet: TDataset;  pIDCliente: integer): TmodalResult;
+
+    property FilmeId: Integer read GetFilmeId write SetFilmeId;
   end;
 
 var
@@ -91,10 +104,12 @@ var
 
 implementation
 
+uses
+  jpeg, pngimage, StrUtils, lcdGeneroSelecao, lcdSistemaController;
+
 {$R *.dfm}
 
-uses
-  jpeg, pngimage;
+
 
 class function TCadastroFilme.Alterar(pOwner: TForm; pDataSet: TDataset;
   pIDCliente: integer): TmodalResult;
@@ -118,14 +133,11 @@ procedure TCadastroFilme.PreencherDados;
 begin
   Try
     edtTitulo.Text := FDataSet.FieldByName('TITULO').AsString;
-    edtCodBarras.Text := FDataSet.FieldByName('COD_BARRAS').AsString;
     edtNomeDiretor.Text := FDataSet.FieldByName('NM_DIRETOR').AsString;
     edtNomeEstudio.Text := FDataSet.FieldByName('NM_ESTUDIO').AsString;
-    cbbGenero.Text := FDataSet.FieldByName('GENERO').AsString;
     edtValor.Text := FDataSet.FieldByName('VALOR').AsString;
-    edtQuantidade.Text := FDataSet.FieldByName('QUANTIDADE').AsString;
-    mmSinopse.Text := FDataSet.FieldByName('SINOPSE').AsString;
-    cbbGenero.Text := FDataSet.FieldByName('GENERO').AsString;
+    edtEstoque.Text := FDataSet.FieldByName('QUANTIDADE').AsString;
+    mmoSinopse.Text := FDataSet.FieldByName('SINOPSE').AsString;
 
 
   except
@@ -136,10 +148,16 @@ begin
 
 end;
 
+procedure TCadastroFilme.SetFilmeId(const Value: Integer);
+begin
+  FFilmeId := Value;
+end;
+
 procedure TCadastroFilme.btnCancelarClick(Sender: TObject);
 begin
   ModalResult := mrCancel;
 end;
+
 
 procedure TCadastroFilme.btnFotoClick(Sender: TObject);
 var
@@ -187,17 +205,67 @@ begin
 
 end;
 
-procedure TCadastroFilme.btnNumCodBarrasClick(Sender: TObject);
+//procedure TCadastroFilme.btnNumCodBarrasClick(Sender: TObject);
+//var
+//  NumCodBarras : integer;
+//begin
+//  qryFilme.Close;
+//  qryFilme.Fields.Clear;
+//
+//
+//  qryFilme.SQL.Add('SELECT GEN_ID( COD_BARRAS_SEQUENCIAL, 1 ) FROM RDB$DATABASE;');
+//  qryFilme.Prepare();
+//  qryFilme.ExecSQL;
+//  qryFilme.Open();
+//
+//
+//  edtCodBarras.Text := IntToStr(NumCodBarras);
+//end;
+
+procedure TCadastroFilme.btnSelecionarCategoriaGeneroClick(Sender: TObject);
 var
-  NumCodBarras : integer;
+  lQryGenero : TUniQuery;
 begin
-  qryFilme.Close;
-  qryFilme.Fields.Clear;
+  FGeneroId := TGeneroSelecao.Selecionar();
+
+  if FGeneroId > 0 then
+  begin
+    lQryGenero := TUniQuery.Create(nil);
+
+    try
+      lQryGenero.Connection := dtmPrincipal.conexao;
+
+      lQryGenero.SQL.Add('SELECT ID, NOME FROM GENERO WHERE ID = :ID');
+      lQryGenero.Prepare();
+      lQryGenero.ParamByName('ID').AsInteger := FGeneroId;
+
+      lQryGenero.Open();
+
+      (lQryGenero.FieldByName('ID') as TIntegerField).DisplayFormat := '00000';
+
+      edtGenero.Text := Format('%s - %s', [
+          lQryGenero.Fields.FieldByName('id').DisplayText,
+          lQryGenero.Fields.FieldByName('nome').DisplayText
+        ]);
 
 
-  NumCodBarras := qryFilme.SQL.Add('SELECT GEN_ID( COD_BARRAS_SEQUENCIAL, 1 ) FROM RDB$DATABASE;');
 
-  edtCodBarras.Text := IntToStr(NumCodBarras);
+    finally
+       if lQryGenero.Active then
+          lQryGenero.Close();
+
+        FreeAndNil(lQryGenero);
+    end;
+  end
+  else
+    begin
+      edtGenero.Clear();
+    end;
+
+
+
+
+
 end;
 
 class procedure TCadastroFilme.Exibir;
@@ -227,64 +295,130 @@ begin
     ModalResult := mrCancel;
 end;
 
+function TCadastroFilme.GetFilmeId: Integer;
+begin
+   Result := FFilmeId;
+end;
+
 procedure TCadastroFilme.GravarDadosFilme;
 var
-  Titulo: String;
-  Valor: Double;
+  lValorEmprestimoDia: string;
+  lSinopseStream: TStringStream;
 begin
-  Titulo := UpperCase(edtTitulo.Text);
-  Valor := edtValor.value;
+//  Titulo := UpperCase(edtTitulo.Text);
+//  Valor := edtValor.value;
 
 
-   try
-    qryFilme.Close;
-    qryFilme.SQL.Clear;
+//   try
+   //FILME ERA GRAVADO DESSA MANEIRA, PRECISEI ALTERAR PARA SALVAR NA TABELA DE ESTOQUE TAMBÉM
+//    qryFilme.Close;
+//    qryFilme.SQL.Clear;
+//
+//       if FModo = 'novo' then
+//       begin
+//         qryFilme.SQL.Add('INSERT INTO FILME');
+//         qryFilme.SQL.Add('(TITULO, SINOPSE, DT_LANCAMENTO, NM_DIRETOR, NM_ESTUDIO, GENERO_ID, VALOR, QUANTIDADE, COD_BARRAS)');
+//         qryFilme.SQL.Add('values ( :TITULO, :SINOPSE, :DT_LANCAMENTO, :NM_DIRETOR, :NM_ESTUDIO, :GENERO_ID, :VALOR, :QUANTIDADE, :COD_BARRAS)')
+//       end
+//       else
+//       begin
+//        qryFilme.SQL.Add('UPDATE OR INSERT INTO FILME');
+//        qryFilme.SQL.Add('(ID, TITULO, SINOPSE, DT_LANCAMENTO, NM_DIRETOR, NM_ESTUDIO, GENERO_ID, VALOR, QUANTIDADE, COD_BARRAS)');
+//        qryFilme.SQL.Add('values (:ID, :TITULO, :SINOPSE, :DT_LANCAMENTO, :NM_DIRETOR, :NM_ESTUDIO, :GENERO_ID, :VALOR, :QUANTIDADE, :COD_BARRAS)');
+//        qryFilme.SQL.Add('MATCHING (ID);');
+//
+//        qryFilme.ParamByName('ID').AsInteger := FIDCliente;
+//       end;
+//
+//
+//      qryFilme.ParamByName('TITULO').AsString := Titulo;
+//      qryFilme.ParamByName('SINOPSE').AsString := mmSinopse.Text;
 
-       if FModo = 'novo' then
-       begin
-         qryFilme.SQL.Add('INSERT INTO FILME');
-         qryFilme.SQL.Add('(TITULO, SINOPSE, DT_LANCAMENTO, NM_DIRETOR, NM_ESTUDIO, GENERO, VALOR, QUANTIDADE, COD_BARRAS)');
-         qryFilme.SQL.Add('values ( :TITULO, :SINOPSE, :DT_LANCAMENTO, :NM_DIRETOR, :NM_ESTUDIO, :GENERO, :VALOR, :QUANTIDADE, :COD_BARRAS)')
-       end
-       else
-       begin
-        qryFilme.SQL.Add('UPDATE OR INSERT INTO FILME');
-        qryFilme.SQL.Add('(ID, TITULO, SINOPSE, DT_LANCAMENTO, NM_DIRETOR, NM_ESTUDIO, GENERO, VALOR, QUANTIDADE, COD_BARRAS)');
-        qryFilme.SQL.Add('values (:ID, :TITULO, :SINOPSE, :DT_LANCAMENTO, :NM_DIRETOR, :NM_ESTUDIO, :GENERO, :VALOR, :QUANTIDADE, :COD_BARRAS)');
-        qryFilme.SQL.Add('MATCHING (ID);');
+//    qryFilme.ParamByName('DT_LANCAMENTO').AsDate := dtpDataLancamento.Date;
+//      qryFilme.ParamByName('NM_DIRETOR').AsString := edtNomeDiretor.Text;
+//      qryFilme.ParamByName('NM_ESTUDIO').AsString := edtNomeEstudio.Text;
+//      qryFilme.ParamByName('GENERO_ID').AsInteger := FGeneroId;
+//      qryFilme.ParamByName('VALOR').AsFloat := Valor;
+//      qryFilme.ParamByName('QUANTIDADE').AsString := edtQuantidade.Text;
+//      qryFilme.ParamByName('COD_BARRAS').AsString := edtCodBarras.Text;
+//
+//
+//      qryFilme.ExecSQL;
+//
+//      if FModo = 'novo' then
+//      begin
+//         ShowMessage('Os dados foram inseridos com sucesso');
+//      end
+//      else
+//        ShowMessage('Os dados foram alterados com sucesso');
+//
+//      ModalResult := mrOk;
 
-        qryFilme.ParamByName('ID').AsInteger := FIDCliente;
-       end;
+//
+//  except
+//    on E: Exception do
+//
+//    ShowMessage( E.Message )
+//  end;
 
+    trsCadastro.StartTransaction();
+  try
+    if not qryFilme.Prepared then
+      qryFilme.Prepare();
 
-      qryFilme.ParamByName('TITULO').AsString := Titulo;
-      qryFilme.ParamByName('SINOPSE').AsString := mmSinopse.Text;
-      qryFilme.ParamByName('DT_LANCAMENTO').AsDate := dtpDataLancamento.Date;
-      qryFilme.ParamByName('NM_DIRETOR').AsString := edtNomeDiretor.Text;
-      qryFilme.ParamByName('NM_ESTUDIO').AsString := edtNomeEstudio.Text;
-      qryFilme.ParamByName('GENERO').AsString := cbbGenero.Text;
-      qryFilme.ParamByName('VALOR').AsFloat := Valor;
-      qryFilme.ParamByName('QUANTIDADE').AsString := edtQuantidade.Text;
-      qryFilme.ParamByName('COD_BARRAS').AsString := edtCodBarras.Text;
+    qryFilme.ParamByName('ID').AsInteger := FFilmeId;
+    qryFilme.Open();
 
+     if qryFilme.IsEmpty then
+      qryFilme.Append()
+    else
+      qryFilme.Edit();
 
-      qryFilme.ExecSQL;
+    qryFilmeTITULO.Value := edtTitulo.Text;
 
-      if FModo = 'novo' then
-      begin
-         ShowMessage('Os dados foram inseridos com sucesso');
-      end
-      else
-        ShowMessage('Os dados foram alterados com sucesso');
+    lSinopseStream := TStringStream.Create();
+    mmoSinopse.Lines.SaveToStream(lSinopseStream, TEncoding.UTF8);
+    lSinopseStream.Position := 0;
 
-      ModalResult := mrOk;
+    qryFilmeSINOPSE.LoadFromStream(lSinopseStream);
+    qryFilmeFOTO.Assign(imgFoto.Picture.Bitmap);
 
+    qryFilmeDT_LANCAMENTO.Value := edtLancamento.Date;
+    qryFilmeNM_DIRETOR.Value := edtNomeDiretor.Text;
+    qryFilmeNM_ESTUDIO.Value := edtNomeEstudio.Text;
+
+    lValorEmprestimoDia := AnsiReplaceStr(edtValor.Text, ' ', '0');
+    lValorEmprestimoDia := Trim(lValorEmprestimoDia);
+    qryFilmeVALOR.Value := StrToFloatDef(lValorEmprestimoDia, 0);
+    qryFilmeGENERO_ID.Value := FGeneroId;
+
+    qryFilme.Post();
+
+    if not qryEstoque.Prepared then
+      qryEstoque.Prepare();
+
+    qryEstoque.ParamByName('filme_id').AsInteger := 0;
+    qryEstoque.Open();
+    qryEstoque.Append();
+    qryEstoqueFILME_ID.Value := qryFilmeID.Value;
+    qryEstoqueESTOQUE.Value := StrToIntDef(edtEstoque.Text, 0);
+    qryEstoqueDATA.Value := Now;
+    qryEstoqueUSUARIO_ID.AsInteger := AcessoController.UsuarioLogado.Id;
+    qryEstoque.Post();
+
+    trsCadastro.Commit();
+    ModalResult := mrOk;
 
   except
-    on E: Exception do
-
-    ShowMessage( E.Message )
+     on E: Exception do
+    begin
+      trsCadastro.Rollback();
+      ShowMessage('Erro ao gravar os dados.'#13'Detalhes: ' + E.Message);
+    end;
   end;
+
+  if Assigned(lSinopseStream) then
+    FreeAndNil(lSinopseStream);
 
 end;
 

@@ -43,29 +43,23 @@ type
     viewFilme: TcxGridDBTableView;
     levelFilme: TcxGridLevel;
     gridFilme: TcxGrid;
-    qryFilmeID: TIntegerField;
-    qryFilmeTITULO: TStringField;
-    qryFilmeSINOPSE: TStringField;
-    qryFilmeDT_LANCAMENTO: TDateField;
-    qryFilmeNM_DIRETOR: TStringField;
-    qryFilmeNM_ESTUDIO: TStringField;
-    qryFilmeGENERO: TStringField;
-    qryFilmeVALOR: TFloatField;
-    qryFilmeJUROS: TFloatField;
-    qryFilmeQUANTIDADE: TIntegerField;
+    lblPesquisa: TLabel;
     viewFilmeID: TcxGridDBColumn;
     viewFilmeTITULO: TcxGridDBColumn;
-    viewFilmeSINOPSE: TcxGridDBColumn;
     viewFilmeDT_LANCAMENTO: TcxGridDBColumn;
     viewFilmeNM_DIRETOR: TcxGridDBColumn;
     viewFilmeNM_ESTUDIO: TcxGridDBColumn;
-    viewFilmeGENERO: TcxGridDBColumn;
     viewFilmeVALOR: TcxGridDBColumn;
-    viewFilmeQUANTIDADE: TcxGridDBColumn;
-    viewFilmeJUROS: TcxGridDBColumn;
-    lblPesquisa: TLabel;
-    viewFilmeCOD_BARRAS: TcxGridDBColumn;
-    qryFilmeCOD_BARRAS: TStringField;
+    viewFilmeGenero_ID: TcxGridDBColumn;
+    qryFilmeID: TIntegerField;
+    qryFilmeTITULO: TStringField;
+    qryFilmeDT_LANCAMENTO: TDateField;
+    qryFilmeNM_DIRETOR: TStringField;
+    qryFilmeNM_ESTUDIO: TStringField;
+    qryFilmeGENERO_ID: TIntegerField;
+    qryFilmeVALOR: TFloatField;
+    qryEstoque: TUniQuery;
+    qryGenero: TUniQuery;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -217,9 +211,9 @@ begin
 
   Accept := True;
 
+  lTextoAvaliado := DataSet.Fields.FieldByName('ID').AsString;
   lTextoAvaliado := DataSet.Fields.FieldByName('TITULO').AsString;
   lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('GENERO').AsString;
-  lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('COD_BARRAS').AsString;
 
   Accept := TLibStrings.TextoContemPalavras(lTextoAvaliado, edtPesquisa.Text);
 

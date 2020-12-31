@@ -23,7 +23,10 @@ uses
   lcdAcessoController in 'Controller\lcdAcessoController.pas',
   lcdSistemaController in 'Controller\lcdSistemaController.pas',
   lcdUsuario in 'model\lcdUsuario.pas',
-  lcdInterfaces in 'interfaces\lcdInterfaces.pas';
+  lcdInterfaces in 'interfaces\lcdInterfaces.pas',
+  lcdCadastroGenero in 'CadastroGenero\lcdCadastroGenero.pas' {CadastroGenero},
+  lcdLocalizarGenero in 'CadastroGenero\lcdLocalizarGenero.pas' {LocalizarGenero},
+  lcdGeneroSelecao in 'CadastroGenero\lcdGeneroSelecao.pas' {GeneroSelecao};
 
 {$R *.res}
 
@@ -33,5 +36,8 @@ begin
   Application.CreateForm(TPrincipal, Principal);
   Application.CreateForm(TdtmPrincipal, dtmPrincipal);
   Application.CreateForm(TEmprestimo, Emprestimo);
+  Application.CreateForm(TCadastroGenero, CadastroGenero);
+  Application.CreateForm(TLocalizarGenero, LocalizarGenero);
+  Application.CreateForm(TGeneroSelecao, GeneroSelecao);
   Application.Run;
 end.

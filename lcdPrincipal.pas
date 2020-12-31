@@ -47,6 +47,7 @@ type
     dxbrVenda: TdxBar;
     dxBarLargeButton2: TdxBarLargeButton;
     dxBarLargeButton3: TdxBarLargeButton;
+    dxBarLargeButton4: TdxBarLargeButton;
     procedure TimerTimer(Sender: TObject);
     procedure btnFilmeClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -57,6 +58,7 @@ type
     procedure Ca1Click(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
     procedure dxBarLargeButton3Click(Sender: TObject);
+    procedure dxBarLargeButton4Click(Sender: TObject);
   private
     { Private declarations }
 
@@ -76,7 +78,7 @@ implementation
 uses
    lcdAcessoController, lcdLocalizarCategoriaUsuario, locEmprestimo,
    lcdLocalizarFilme, lcdCadastroFuncionario, lcdLogin, lcdCadastroCategoriaUsuario,
-   lcdCadastroCliente, lcdLocalizarCliente, lcdLocalizarUsuario;
+   lcdCadastroCliente, lcdLocalizarCliente, lcdLocalizarUsuario, lcdlocalizarGenero;
 
 
 
@@ -107,6 +109,11 @@ end;
 procedure TPrincipal.dxBarLargeButton3Click(Sender: TObject);
 begin
   TEmprestimo.Exibir();
+end;
+
+procedure TPrincipal.dxBarLargeButton4Click(Sender: TObject);
+begin
+  TLocalizarGenero.Exibir();
 end;
 
 procedure TPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);

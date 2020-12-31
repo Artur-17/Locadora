@@ -2,8 +2,8 @@ object CadastroFilme: TCadastroFilme
   Left = 0
   Top = 0
   Caption = 'Cadastro de Produtos'
-  ClientHeight = 424
-  ClientWidth = 805
+  ClientHeight = 455
+  ClientWidth = 883
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -15,72 +15,71 @@ object CadastroFilme: TCadastroFilme
   Position = poScreenCenter
   OnKeyUp = FormKeyUp
   DesignSize = (
-    805
-    424)
+    883
+    455)
   PixelsPerInch = 96
   TextHeight = 15
-  object lblCodBarras: TLabel
-    Left = 8
-    Top = 47
-    Width = 90
-    Height = 15
-    Caption = 'C'#243'digo de Barras'
-  end
   object lblTitulo: TLabel
-    Left = 160
-    Top = 47
+    Left = 178
+    Top = 43
     Width = 77
     Height = 15
     Caption = 'T'#237'tulo do filme'
   end
   object lblNomeDiretor: TLabel
-    Left = 320
-    Top = 99
+    Left = 168
+    Top = 267
     Width = 89
     Height = 15
     Caption = 'Nome do Diretor'
   end
   object lblNomeEstudio: TLabel
-    Left = 320
-    Top = 159
+    Left = 504
+    Top = 267
     Width = 92
     Height = 15
     Caption = 'Nome do Estudio'
   end
   object lblGenero: TLabel
-    Left = 320
-    Top = 212
-    Width = 85
+    Left = 168
+    Top = 324
+    Width = 91
     Height = 15
     Caption = 'G'#234'nero do filme'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Segoe UI'
+    Font.Style = [fsBold]
+    ParentFont = False
   end
   object lblSinopse: TLabel
-    Left = 8
-    Top = 99
+    Left = 178
+    Top = 89
     Width = 41
     Height = 15
     Caption = 'Sinopse'
   end
   object lblValor: TLabel
-    Left = 21
-    Top = 275
+    Left = 24
+    Top = 267
     Width = 127
     Height = 15
     Caption = 'Valor Emprestimo Di'#225'rio'
   end
   object lblQuantidade: TLabel
-    Left = 175
-    Top = 275
+    Left = 24
+    Top = 324
     Width = 42
     Height = 15
     Caption = 'Estoque'
   end
   object imgFoto: TImage
-    Left = 657
-    Top = 63
+    Left = 15
+    Top = 97
     Width = 128
     Height = 128
-    Anchors = [akTop, akRight]
+    Anchors = []
     Picture.Data = {
       0B546478504E47496D61676589504E470D0A1A0A0000000D4948445200000080
       000000800806000000C33E61CB0000000473424954080808087C086488000000
@@ -265,18 +264,26 @@ object CadastroFilme: TCadastroFilme
       9AF7BB7DD8D2B7059F15A09F1BF46F0DF371FA05F071FA05F071FA05F071FA05
       F071FA05F071FA05F071FE1F7FEA8675E25D59FE0000000049454E44AE426082}
     Stretch = True
+    ExplicitLeft = 24
+    ExplicitTop = 89
   end
   object lblDataLancamento: TLabel
-    Left = 488
-    Top = 212
+    Left = 734
+    Top = 43
     Width = 112
     Height = 15
     Caption = 'Data de Lan'#231'amento '
   end
+  object Shape1: TShape
+    Left = 8
+    Top = 390
+    Width = 855
+    Height = 1
+  end
   object pnlTop: TPanel
     Left = 0
     Top = 0
-    Width = 805
+    Width = 883
     Height = 41
     Align = alTop
     Caption = 'CADASTRO DE FILMES'
@@ -289,97 +296,52 @@ object CadastroFilme: TCadastroFilme
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-  end
-  object edtCodBarras: TEdit
-    Left = 8
-    Top = 64
-    Width = 105
-    Height = 23
-    MaxLength = 14
-    TabOrder = 2
+    ExplicitWidth = 981
   end
   object edtTitulo: TEdit
-    Left = 160
+    Left = 178
     Top = 64
-    Width = 465
+    Width = 543
     Height = 23
     CharCase = ecUpperCase
-    TabOrder = 3
+    TabOrder = 1
   end
   object edtNomeDiretor: TEdit
-    Left = 320
-    Top = 120
-    Width = 305
-    Height = 23
-    TabOrder = 5
-  end
-  object edtNomeEstudio: TEdit
-    Left = 320
-    Top = 176
-    Width = 305
+    Left = 168
+    Top = 288
+    Width = 321
     Height = 23
     TabOrder = 6
   end
-  object cbbGenero: TComboBox
-    Left = 320
-    Top = 233
-    Width = 129
-    Height = 22
-    Style = csOwnerDrawFixed
-    ItemIndex = 1
-    TabOrder = 8
-    Text = 'Aventura'
-    Items.Strings = (
-      'A'#231#227'o'
-      'Aventura'
-      'Cinema de arte'
-      'Chanchada'
-      'Com'#233'dia'
-      'Com'#233'dia de a'#231#227'o'
-      'Com'#233'dia de terror'
-      'Com'#233'dia dram'#225'tica'
-      'Com'#233'dia rom'#226'ntica'
-      'Dan'#231'a'
-      'Document'#225'rio'
-      'Docufic'#231#227'o'
-      'Drama'
-      'Espionagem'
-      'Faroeste'
-      'Fantasia'
-      'Fantasia cient'#237'fica'
-      'Fic'#231#227'o cient'#237'fica'
-      'Filmes com truques'
-      'Filmes de guerra'
-      'Musical'
-      'Filme policial'
-      'Romance'
-      'Seriado'
-      'Suspense'
-      'Terror'
-      'Thriller'
-      'Pornogr'#225'fico')
+  object edtNomeEstudio: TEdit
+    Left = 504
+    Top = 288
+    Width = 367
+    Height = 23
+    TabOrder = 7
   end
-  object mmSinopse: TMemo
-    Left = 8
-    Top = 120
-    Width = 297
+  object mmoSinopse: TMemo
+    Left = 178
+    Top = 110
+    Width = 693
     Height = 135
     MaxLength = 300
-    TabOrder = 4
+    TabOrder = 3
   end
-  object edtQuantidade: TEdit
-    Left = 175
-    Top = 296
-    Width = 62
+  object edtEstoque: TEdit
+    Left = 24
+    Top = 345
+    Width = 124
     Height = 23
-    TabOrder = 11
+    TabOrder = 9
+    Text = '1'
   end
   object btnGravar: TcxButton
-    Left = 546
-    Top = 391
+    Left = 650
+    Top = 408
     Width = 104
-    Height = 25
-    Anchors = [akRight, akBottom]
+    Height = 39
+    Anchors = []
     Caption = 'Gravar(F10)'
     OptionsImage.Glyph.SourceDPI = 96
     OptionsImage.Glyph.Data = {
@@ -394,16 +356,16 @@ object CadastroFilme: TCadastroFilme
       2711F1EBB9CF04F0D4730CDCD8C40AEB0E4ED92AD09CB10BF58FF4856D4FDE03
       2695C041F73EFC85E3C0CF76DD637029192FDF89D476AD1A1B827F0000000049
       454E44AE426082}
-    TabOrder = 12
+    TabOrder = 11
     OnClick = btnGravarClick
     OnKeyUp = btnGravarKeyUp
   end
   object btnCancelar: TcxButton
-    Left = 670
-    Top = 391
+    Left = 768
+    Top = 408
     Width = 107
-    Height = 25
-    Anchors = [akRight, akBottom]
+    Height = 39
+    Anchors = []
     Caption = 'Cancelar(ESC)'
     OptionsImage.Glyph.SourceDPI = 96
     OptionsImage.Glyph.Data = {
@@ -418,77 +380,86 @@ object CadastroFilme: TCadastroFilme
       E1361956A1E5975842EDF7CFF8D0C7D84C34E91AD7651F2A97EFF95DF30BEE72
       332B97EF99E394FC889307E61275346D17B9DB982FCBCC3D3E01CE9C9E84BC00
       CBCA0000000049454E44AE426082}
-    TabOrder = 13
+    TabOrder = 12
     OnClick = btnCancelarClick
   end
-  object btnFoto: TcxButton
-    Left = 657
-    Top = 208
-    Width = 128
-    Height = 25
-    Anchors = [akTop, akRight]
-    Caption = 'Foto'
-    TabOrder = 7
-    OnClick = btnFotoClick
-  end
-  object dtpDataLancamento: TcxDateEdit
-    Left = 488
-    Top = 233
+  object edtLancamento: TcxDateEdit
+    Left = 734
+    Top = 64
     EditValue = 36482d
-    TabOrder = 9
+    TabOrder = 2
     Width = 137
   end
-  object btnNumCodBarras: TcxButton
-    Left = 120
-    Top = 63
+  object edtValor: TcxCurrencyEdit
+    Left = 24
+    Top = 288
+    EditValue = 0.000000000000000000
+    TabOrder = 5
+    Width = 124
+  end
+  object edtGenero: TEdit
+    Left = 168
+    Top = 345
+    Width = 679
+    Height = 23
+    ReadOnly = True
+    TabOrder = 10
+  end
+  object btnSelecionarCategoriaGenero: TcxButton
+    Left = 846
+    Top = 344
     Width = 25
     Height = 25
     OptionsImage.Glyph.SourceDPI = 96
     OptionsImage.Glyph.Data = {
       89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
-      6100000027744558745469746C6500526566726573683B5265706561743B4261
-      72733B526962626F6E3B52656C6F6164CD4DF6E90000030249444154785EA593
-      6D4C926B18C76F018114A40D6D619DE98433AAE3F16D7CB173AC43666FE69C7A
-      D4F48825339D4E6136D314EB2C23B46C332B957484A0522E5B6E2C31B537B437
-      319BCECC17B2652D672FC715E03194AEEE875A6BB53E796DBFDDCF7EF7FFFFE1
-      DAB3DB0500D052C6E5A7FEC73B70F2FDC89A4D48D664FA5A5AF5DB1FE4E8928B
-      E2226D9F11FB0F04459A7B3D052A63DE0E71B11B91C10E77FA9D5D94DF70DF59
-      4E93EB7EC957DF1B4F935FE009B3EBB7A59FE8704C59E6E185E503DC9D7C0B9A
-      5B66D8A7BA33243AD4E087F3A4E9F98F683FD1959EBD8BF0B8E6D418BB1F3C9B
-      855DA57A23871BC00C15D755FD99D508E1521DE49EB90E833356B8D4F71C726A
-      7A460285F11EC48A92CF5D44D973CC50A8BDF504C6FE7780F2CA3044481AFEF5
-      FE3598C1DD24F5E10A73F88109958A8DD94DF69E171638D53E0AA2A36D07885E
-      E6E95E8476E6D5090AD57D0B66DB02F45B1661DC6A87B4B2F685E0D8C3422284
-      21619605FC5DA148ADE884F303D3905C6630112EF5C40D449AB550D5BDBDA314
-      D9C99BC862B52379ED6DF478E215C595B9AAFE4B9918D2CC4857CBE4F834A22D
-      672287831C881D4B9B2F74232EE918CFA81283FDDA4B1B241CE9062F7E441076
-      0C0C19438B2CD63F8A3AD8017187BB4033F61E88EFA8920E882CD24F92F8D1D5
-      F3383467B3D846269EFE877CBC5928707372CAB7FFFFF9F01D890783BE98951E
-      8628542ACACDDC88ACAF5E3B4C8656090ACBBD4C846802514DE9DEDAFBD038F4
-      06E28F742F083395C7F91B44416BFEDACDA731BD38214995E519AA01A837CF41
-      A2A213BC422455B8C744828C56E78E8C956B3921E226739666109A47DE81E4DC
-      0024286E424CE935F83DA95A87337E41A92A93ECEA14B043F63F2451591CE78A
-      01BB5B50DB14B105725D199C28F0FF47FD24EEF86D28D19B4139340BCAC15908
-      2F6807DFF042317BCD9650FF14ED33EA8AB0F5384F65AC2B40889FD48CD1394F
-      42D2D9BCD53E5BE515BC98DA21EC017BE0C52A877DB797CBC8547716CE786068
-      74AE1411E0F90132C61DC3C67030DE18CF2F8EFC7D78C9CFF9136643522887EA
-      10230000000049454E44AE426082}
-    TabOrder = 1
-    OnClick = btnNumCodBarrasClick
+      610000000473424954080808087C086488000000097048597300000076000000
+      76014E7B26080000001974455874536F667477617265007777772E696E6B7363
+      6170652E6F72679BEE3C1A000001F049444154388D95904B6813511486FF7B67
+      8669568AE842504968A52ADAC40751AB2DA90651142CE2BA0B1197C10141A420
+      155404A142892062DCE84AEA038AD4D588A843D4843235204E044D8A554884BC
+      4C629CB9C785A954D349EBB7BADCFFDCEF9C73199A0C68D1A344A401D8D1BC7A
+      438C469F5D8B4CA00D0C0042DAD815103B1BE8F6A267FD5A00806965615A19D8
+      F51F775EDC3833E42A68767E746230847DC1CD7F85C6741AD1BB13B0EBF50BC6
+      ADE19185049C88B440B7B7E53100ECDCD285C1037B41C289B84DC0016C9F1BBB
+      25640CDB3675C2B1EDE5ED04AED8820050BB12700009D3CAB6044440CD118827
+      53E0B25C701510A351D3CAC0984EC32102353B977E3A98FD9AC783C73A001A77
+      134899F8A4B526B0BFF3F5DBB49FB8048FA703854A15FAF304A2B17BE05CCA95
+      F3B3C1151BFCB7BFBD9F2AFF2B607387DE939746483811C7F9FD615C920B008D
+      97739F875675F90DCFB2956671E643CC880DA71614B8B1F1D8A9D5BE9E70A451
+      2DF695735F7A6545B9F8F2E6B9F37F56584C907F97ACACF3EF4939425C955555
+      6ED4AAFDDE60589A49EA4F972400808FAF9E7CF7EE3E926084E3B2AA2A8D5AAD
+      DF170C2BD9A4AE2FBAC27C42DAF58310E2214174D44B455214E9F27F090060E0
+      F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
+      CCCEC728114BCD0000000049454E44AE426082}
+    TabOrder = 8
+    OnClick = btnSelecionarCategoriaGeneroClick
   end
-  object edtValor: TcxCurrencyEdit
-    Left = 21
-    Top = 296
-    EditValue = 0.000000000000000000
-    TabOrder = 10
-    Width = 73
+  object btnFoto: TcxButton
+    Left = 15
+    Top = 232
+    Width = 128
+    Height = 25
+    Anchors = []
+    Caption = 'Foto'
+    TabOrder = 4
+    OnClick = btnFotoClick
+    ExplicitLeft = 24
   end
   object qryFilme: TUniQuery
+    KeyFields = 'ID'
     Connection = dtmPrincipal.conexao
     SQL.Strings = (
-      'SELECT * FROM FILME')
-    Left = 456
-    Top = 376
+      'SELECT * FROM FILME WHERE ID = :ID')
+    SpecificOptions.Strings = (
+      'InterBase.KeyGenerator=GEN_FILME_ID')
+    Left = 72
+    Top = 408
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'ID'
+      end>
     object qryFilmeID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -496,13 +467,6 @@ object CadastroFilme: TCadastroFilme
     object qryFilmeTITULO: TStringField
       FieldName = 'TITULO'
       Size = 80
-    end
-    object qryFilmeSINOPSE: TStringField
-      FieldName = 'SINOPSE'
-      Size = 300
-    end
-    object qryFilmeDT_LANCAMENTO: TDateField
-      FieldName = 'DT_LANCAMENTO'
     end
     object qryFilmeNM_DIRETOR: TStringField
       FieldName = 'NM_DIRETOR'
@@ -512,26 +476,60 @@ object CadastroFilme: TCadastroFilme
       FieldName = 'NM_ESTUDIO'
       Size = 30
     end
-    object qryFilmeGENERO: TStringField
-      FieldName = 'GENERO'
-      Size = 30
-    end
     object qryFilmeVALOR: TFloatField
       FieldName = 'VALOR'
     end
-    object qryFilmeJUROS: TFloatField
-      FieldName = 'JUROS'
+    object qryFilmeGENERO_ID: TIntegerField
+      FieldName = 'GENERO_ID'
     end
-    object qryFilmeQUANTIDADE: TIntegerField
-      FieldName = 'QUANTIDADE'
+    object qryFilmeFOTO: TBlobField
+      FieldName = 'FOTO'
     end
-    object qryFilmeCOD_BARRAS: TStringField
-      FieldName = 'COD_BARRAS'
-      Size = 14
+    object qryFilmeSINOPSE: TBlobField
+      FieldName = 'SINOPSE'
+    end
+    object qryFilmeDT_LANCAMENTO: TDateField
+      FieldName = 'DT_LANCAMENTO'
     end
   end
   object dlgOpenFoto: TOpenDialog
-    Left = 736
-    Top = 304
+    Left = 24
+    Top = 408
+  end
+  object qryEstoque: TUniQuery
+    KeyFields = 'ID'
+    Connection = dtmPrincipal.conexao
+    SQL.Strings = (
+      'select * from ESTOQUE where FILME_ID = :filme_id')
+    SpecificOptions.Strings = (
+      'InterBase.KeyGenerator=GEN_ESTOQUE_ID')
+    Left = 128
+    Top = 408
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'filme_id'
+      end>
+    object qryEstoqueID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object qryEstoqueFILME_ID: TIntegerField
+      FieldName = 'FILME_ID'
+    end
+    object qryEstoqueESTOQUE: TIntegerField
+      FieldName = 'ESTOQUE'
+    end
+    object qryEstoqueDATA: TDateTimeField
+      FieldName = 'DATA'
+    end
+    object qryEstoqueUSUARIO_ID: TIntegerField
+      FieldName = 'USUARIO_ID'
+    end
+  end
+  object trsCadastro: TUniTransaction
+    DefaultConnection = dtmPrincipal.conexao
+    Left = 200
+    Top = 408
   end
 end

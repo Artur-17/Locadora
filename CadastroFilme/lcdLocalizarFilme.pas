@@ -60,6 +60,15 @@ type
     qryFilmeVALOR: TFloatField;
     qryEstoque: TUniQuery;
     qryGenero: TUniQuery;
+    qryEstoqueID: TIntegerField;
+    qryEstoqueFILME_ID: TIntegerField;
+    qryEstoqueESTOQUE: TIntegerField;
+    qryEstoqueDATA: TDateTimeField;
+    qryEstoqueUSUARIO_ID: TIntegerField;
+    qryGeneroID: TIntegerField;
+    qryGeneroNOME: TStringField;
+    qryGeneroIDADE_MINIMA: TIntegerField;
+    qryGeneroDT_CADASTRO: TDateTimeField;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -94,8 +103,9 @@ uses
 
 procedure TLocalizarFilme.btnAlterarClick(Sender: TObject);
 begin
-  TCadastroFilme.Alterar(Self, qryFilme, qryFilme.FieldByName('ID').AsInteger);
+  TCadastroFilme.Alterar(Self, qryFilme, qryFilme.FieldByName('ID').AsInteger, qryEstoque, qryEstoque.FieldByName('FILME_ID').AsInteger, qryGenero);
   viewFilme.DataController.DataSet.Refresh;
+
 end;
 
 procedure TLocalizarFilme.btnExcluirClick(Sender: TObject);
@@ -148,8 +158,13 @@ end;
 
 procedure TLocalizarFilme.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
+  if qryEstoque.Active then
+    qryEstoque.close;
+
   if qryFilme.Active then
     qryFilme.Close;
+
+
 end;
 
 procedure TLocalizarFilme.FormCreate(Sender: TObject);
@@ -168,19 +183,19 @@ end;
 procedure TLocalizarFilme.FormKeyUp(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if (Key = VK_F2) then
+  if (Key = VK_F2) then //Novo
      begin
-      TCadastroFilme.Novo(Self, qryFilme, qryFilme.FieldByName('ID').AsInteger);
+     TCadastroFilme.Novo(Self, qryFilme, qryFilme.FieldByName('ID').AsInteger);
       viewfilme.DataController.DataSet.Refresh;
      end;
 
-  if (Key = VK_F5) then
+  if (Key = VK_F5) then   //Alterar
     begin
-      TCadastroFilme.Alterar(Self, qryFilme, qryFilme.FieldByName('ID').AsInteger);
+       TCadastroFilme.Alterar(Self, qryFilme, qryFilme.FieldByName('ID').AsInteger, qryEstoque, qryEstoque.FieldByName('FILME_ID').AsInteger, qryGenero);
       viewFilme.DataController.DataSet.Refresh;
     end;
 
-  if (Key = VK_F4) then
+  if (Key = VK_F4) then   //Deletar
     begin
         if Application.MessageBox('AVISO: Deseja realmente excluir esse registro ?','ATENÇÃO ',MB_YESNO + MB_ICONWARNING)=MRYES then
       begin
@@ -192,14 +207,41 @@ end;
 
 procedure TLocalizarFilme.FormShow(Sender: TObject);
 begin
-  if not Assigned(qryFilme.Connection)  then
+  try
+   if not Assigned(qryFilme.Connection)  then
     qryFilme.Connection := dtmPrincipal.conexao;
 
-  if not qryFilme.Connection.Connected then
+    if not qryFilme.Connection.Connected then
     qryFilme.Connection.Connect();
 
-  if not qryFilme.Active then
+    if not qryFilme.Active then
     qryFilme.Open;
+  except
+    on E: Exception do
+    begin
+      ShowMessage(E.Message);
+    end;
+
+  end;
+
+
+  try
+    if not Assigned(qryEstoque.Connection)  then
+    qryEstoque.Connection := dtmPrincipal.conexao;
+
+    if not qryEstoque.Connection.Connected then
+    qryEstoque.Connection.Connect();
+
+    if not qryEstoque.Active then
+    qryEstoque.Open;
+  except
+    on E: Exception do
+    begin
+      ShowMessage(E.Message);
+    end;
+
+  end;
+
 end;
 
 

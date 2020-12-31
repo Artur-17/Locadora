@@ -32,8 +32,8 @@ uses
 type
   TEmprestimo = class(TForm)
     pgcPrincipal: TcxPageControl;
-    pgListagem: TcxTabSheet;
-    pgEmprestimo: TcxTabSheet;
+    pgListagemEmprestimo: TcxTabSheet;
+    pgEmprestimoItens: TcxTabSheet;
     pnlClient: TPanel;
     lblPesquisa: TLabel;
     edtPesquisa: TEdit;
@@ -79,6 +79,7 @@ type
     edtTotal: TcxCurrencyEdit;
     edtTotalVenda: TcxCurrencyEdit;
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure btnFecharEmprestimoClick(Sender: TObject);
   private
     { Private declarations }
     procedure ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar,
@@ -99,6 +100,11 @@ implementation
 {$R *.dfm}
 
 { TForm1 }
+
+procedure TEmprestimo.btnFecharEmprestimoClick(Sender: TObject);
+begin
+  ModalResult := MrClose;
+end;
 
 procedure TEmprestimo.ControlarBotoes(btnNovo, btnAlterar, btnCancelar,
   btnGravar, btnApagar: TcxButton; btnNavigator: TDBNavigator;

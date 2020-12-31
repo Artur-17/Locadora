@@ -308,11 +308,34 @@ object LocalizarFilme: TLocalizarFilme
       'select'
       '  *'
       'from'
-      '  estoque')
+      '  estoque'
+      'where '
+      '  FILME_ID = :filme_id')
     SpecificOptions.Strings = (
       'InterBase.KeyGenerator=GEN_ESTOQUE_ID')
     Left = 88
     Top = 440
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'filme_id'
+      end>
+    object qryEstoqueID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object qryEstoqueFILME_ID: TIntegerField
+      FieldName = 'FILME_ID'
+    end
+    object qryEstoqueESTOQUE: TIntegerField
+      FieldName = 'ESTOQUE'
+    end
+    object qryEstoqueDATA: TDateTimeField
+      FieldName = 'DATA'
+    end
+    object qryEstoqueUSUARIO_ID: TIntegerField
+      FieldName = 'USUARIO_ID'
+    end
   end
   object qryGenero: TUniQuery
     Connection = dtmPrincipal.conexao
@@ -320,8 +343,22 @@ object LocalizarFilme: TLocalizarFilme
       'select'
       '  *'
       'from'
-      '  genero')
+      '  genero'
+      '')
     Left = 144
     Top = 440
+    object qryGeneroID: TIntegerField
+      FieldName = 'ID'
+    end
+    object qryGeneroNOME: TStringField
+      FieldName = 'NOME'
+      Size = 150
+    end
+    object qryGeneroIDADE_MINIMA: TIntegerField
+      FieldName = 'IDADE_MINIMA'
+    end
+    object qryGeneroDT_CADASTRO: TDateTimeField
+      FieldName = 'DT_CADASTRO'
+    end
   end
 end

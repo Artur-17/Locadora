@@ -81,8 +81,11 @@ type
     FModo : string;
     FFilmeId: Integer;
     FDataSet: TDataSet;
+    FDataSetEstoque: TDataSet;
+    FDataSetGenero: TDataSet;
     FIDCliente: integer;
     FGeneroId: Integer;
+    FIDEstoque: Integer;
 
 
     procedure PreencherDados;
@@ -94,7 +97,7 @@ type
     class procedure Exibir();
 
     class function Novo(pOwner: TForm; pDataSet: TDataset;  pIDCliente: integer): TmodalResult;
-    class function Alterar(pOwner: TForm; pDataSet: TDataset;  pIDCliente: integer): TmodalResult;
+    class function Alterar(pOwner: TForm; pDataSet: TDataset;  pIDCliente: integer; pDataSetEstoque: TDataSet; pIDEstoque:integer; pDataSetGenero: TDataSet): TmodalResult;
 
     property FilmeId: Integer read GetFilmeId write SetFilmeId;
   end;
@@ -112,15 +115,18 @@ uses
 
 
 class function TCadastroFilme.Alterar(pOwner: TForm; pDataSet: TDataset;
-  pIDCliente: integer): TmodalResult;
+  pIDCliente: integer; pDataSetEstoque: TDataSet; pIDEstoque: integer; pDataSetGenero: TDataSet): TmodalResult;
 var
   lCadastroFilme : TCadastroFilme;
 begin
   lCadastroFilme := TCadastroFilme.Create(pOwner);
   try
     lCadastroFilme.FDataSet := pDataSet;
+    lCadastroFilme.FDataSetEstoque := pDataSetEstoque;
+    lCadastroFilme.FDataSetGenero := pDataSetGenero;
     lCadastroFilme.PreencherDados;
     lCadastroFilme.FIDCliente := pIDCliente;
+    lCadastroFilme.FIDEstoque := pIDEstoque;
     lCadastroFilme.FModo := 'alterar';
 
     Result := lCadastroFilme.ShowModal
@@ -132,11 +138,16 @@ end;
 procedure TCadastroFilme.PreencherDados;
 begin
   Try
+    ShowMessage(FDataSetEstoque.FieldByName('FILME_ID').AsString);
+    ShowMessage(FDataSetEstoque.FieldByName('ESTOQUE').AsString);
+    ShowMessage(FDataSet.FieldByName('TITULO').AsString);
+
     edtTitulo.Text := FDataSet.FieldByName('TITULO').AsString;
     edtNomeDiretor.Text := FDataSet.FieldByName('NM_DIRETOR').AsString;
     edtNomeEstudio.Text := FDataSet.FieldByName('NM_ESTUDIO').AsString;
     edtValor.Text := FDataSet.FieldByName('VALOR').AsString;
-    edtEstoque.Text := FDataSet.FieldByName('QUANTIDADE').AsString;
+    edtEstoque.Text := FDataSetEstoque.FieldByName('ESTOQUE').AsString;
+//    edtGenero.Text :=
     mmoSinopse.Text := FDataSet.FieldByName('SINOPSE').AsString;
 
 

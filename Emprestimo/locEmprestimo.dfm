@@ -3,7 +3,7 @@ object Emprestimo: TEmprestimo
   Top = 0
   Caption = 'Empr'#233'stimo de filme'
   ClientHeight = 675
-  ClientWidth = 1252
+  ClientWidth = 1000
   Color = clBtnFace
   Font.Charset = ANSI_CHARSET
   Font.Color = clWindowText
@@ -13,47 +13,45 @@ object Emprestimo: TEmprestimo
   KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
-  WindowState = wsMaximized
   OnKeyUp = FormKeyUp
   DesignSize = (
-    1252
+    1000
     675)
   PixelsPerInch = 96
   TextHeight = 15
   object pgcPrincipal: TcxPageControl
     Left = 0
     Top = 0
-    Width = 1252
+    Width = 1000
     Height = 675
     Align = alClient
     TabOrder = 0
-    Properties.ActivePage = pgListagem
+    Properties.ActivePage = pgListagemEmprestimo
     Properties.CustomButtons.Buttons = <>
     Properties.TabHeight = 25
     Properties.TabWidth = 200
     LookAndFeel.NativeStyle = False
     LookAndFeel.SkinName = 'Office2007Silver'
-    ExplicitWidth = 1223
-    ExplicitHeight = 676
+    ExplicitLeft = -8
+    ExplicitWidth = 1363
     ClientRectBottom = 669
     ClientRectLeft = 3
-    ClientRectRight = 1246
+    ClientRectRight = 994
     ClientRectTop = 33
-    object pgListagem: TcxTabSheet
-      Caption = 'Listagem'
+    object pgListagemEmprestimo: TcxTabSheet
+      Caption = 'Emprestimos'
       ImageIndex = 0
-      ExplicitWidth = 1214
-      ExplicitHeight = 637
+      ExplicitWidth = 1243
       object pnlClient: TPanel
         Left = 0
         Top = 0
-        Width = 1243
+        Width = 991
         Height = 56
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 1214
+        ExplicitWidth = 1243
         DesignSize = (
-          1243
+          991
           56)
         object lblPesquisa: TLabel
           Left = 16
@@ -65,24 +63,24 @@ object Emprestimo: TEmprestimo
         object edtPesquisa: TEdit
           Left = 16
           Top = 25
-          Width = 1205
+          Width = 953
           Height = 23
           Hint = 'Digite o seu texto aqui para pesquisar'
           Anchors = [akLeft, akTop, akRight]
           TabOrder = 0
           TextHint = 'Digite o seu texto aqui para pesquisar'
-          ExplicitWidth = 1176
+          ExplicitWidth = 1205
         end
       end
       object gdrListagem: TcxGrid
         Left = 0
         Top = 56
-        Width = 1243
+        Width = 991
         Height = 539
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 1214
-        ExplicitHeight = 540
+        ExplicitLeft = 48
+        ExplicitWidth = 889
         object ViewListagem: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.Summary.DefaultGroupSummaryItems = <>
@@ -97,14 +95,13 @@ object Emprestimo: TEmprestimo
       object pnlBottom: TPanel
         Left = 0
         Top = 595
-        Width = 1243
+        Width = 991
         Height = 41
         Align = alBottom
         TabOrder = 2
-        ExplicitTop = 596
-        ExplicitWidth = 1214
+        ExplicitWidth = 1243
         object btnAlterarEmprestimo: TcxButton
-          Left = 117
+          Left = 125
           Top = 6
           Width = 85
           Height = 25
@@ -123,7 +120,7 @@ object Emprestimo: TEmprestimo
           TabOrder = 1
         end
         object btnExcluirEmprestimo: TcxButton
-          Left = 229
+          Left = 237
           Top = 6
           Width = 85
           Height = 25
@@ -173,20 +170,18 @@ object Emprestimo: TEmprestimo
         end
       end
     end
-    object pgEmprestimo: TcxTabSheet
-      Caption = 'Emprestimo'
+    object pgEmprestimoItens: TcxTabSheet
+      Caption = 'Itens do Emprestimo'
       ImageIndex = 1
-      ExplicitWidth = 1214
-      ExplicitHeight = 637
+      ExplicitWidth = 1243
       object pnlBottomEmprestimoItem: TPanel
         Left = 0
         Top = 595
-        Width = 1243
+        Width = 991
         Height = 41
         Align = alBottom
-        TabOrder = 5
-        ExplicitTop = 596
-        ExplicitWidth = 1214
+        TabOrder = 3
+        ExplicitWidth = 1243
         object btnAlterarItem: TcxButton
           Left = 117
           Top = 6
@@ -259,13 +254,13 @@ object Emprestimo: TEmprestimo
       object pnlTop: TPanel
         Left = 0
         Top = 0
-        Width = 1243
+        Width = 991
         Height = 137
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 1214
+        ExplicitWidth = 1243
         object lblNumVenda: TLabel
-          Left = 16
+          Left = 19
           Top = 5
           Width = 95
           Height = 15
@@ -279,8 +274,8 @@ object Emprestimo: TEmprestimo
           Caption = 'Nome do Cliente'
         end
         object lblDataVenda: TLabel
-          Left = 766
-          Top = 5
+          Left = 822
+          Top = 2
           Width = 75
           Height = 15
           Caption = 'Data da Venda'
@@ -293,22 +288,22 @@ object Emprestimo: TEmprestimo
           Caption = 'Nome do Filme'
         end
         object lblValorUnitario: TLabel
-          Left = 455
-          Top = 60
+          Left = 388
+          Top = 62
           Width = 71
           Height = 15
           Caption = 'Valor Unit'#225'rio'
         end
         object lblQuantidade: TLabel
-          Left = 551
-          Top = 60
+          Left = 496
+          Top = 62
           Width = 62
           Height = 15
           Caption = 'Quantidade'
         end
         object lblTotalProduto: TLabel
-          Left = 646
-          Top = 60
+          Left = 611
+          Top = 62
           Width = 88
           Height = 15
           Caption = 'Total do produto'
@@ -316,13 +311,13 @@ object Emprestimo: TEmprestimo
         object edtNomeFilme: TEdit
           Left = 19
           Top = 81
-          Width = 334
+          Width = 326
           Height = 23
-          TabOrder = 7
+          TabOrder = 6
         end
         object btnCliente: TcxButton
-          Left = 660
-          Top = 24
+          Left = 753
+          Top = 26
           Width = 22
           Height = 22
           OptionsImage.Glyph.SourceDPI = 96
@@ -347,11 +342,11 @@ object Emprestimo: TEmprestimo
             DF170C2BD9A4AE2FBAC27C42DAF58310E2214174D44B455214E9F27F090060E0
             F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
             CCCEC728114BCD0000000049454E44AE426082}
-          TabOrder = 2
+          TabOrder = 3
         end
         object btnIncluir: TcxButton
-          Left = 766
-          Top = 77
+          Left = 735
+          Top = 79
           Width = 106
           Height = 25
           Caption = 'Incluir Item'
@@ -372,8 +367,8 @@ object Emprestimo: TEmprestimo
           TabOrder = 4
         end
         object btnRemoverItem: TcxButton
-          Left = 894
-          Top = 77
+          Left = 870
+          Top = 79
           Width = 107
           Height = 25
           Caption = 'Remover Item'
@@ -391,28 +386,28 @@ object Emprestimo: TEmprestimo
           TabOrder = 5
         end
         object dtpDataVenda: TcxDateEdit
-          Left = 766
-          Top = 24
-          TabOrder = 3
+          Left = 822
+          Top = 23
+          TabOrder = 0
           Width = 155
         end
         object edtNumVenda: TEdit
-          Left = 16
-          Top = 24
+          Left = 19
+          Top = 26
           Width = 121
           Height = 23
           NumbersOnly = True
-          TabOrder = 0
+          TabOrder = 1
         end
         object edtNomeCliente: TEdit
           Left = 176
-          Top = 24
-          Width = 481
+          Top = 26
+          Width = 577
           Height = 23
-          TabOrder = 1
+          TabOrder = 2
         end
         object btnProduto: TcxButton
-          Left = 356
+          Left = 345
           Top = 81
           Width = 22
           Height = 22
@@ -438,26 +433,46 @@ object Emprestimo: TEmprestimo
             DF170C2BD9A4AE2FBAC27C42DAF58310E2214174D44B455214E9F27F090060E0
             F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
             CCCEC728114BCD0000000049454E44AE426082}
-          TabOrder = 8
+          TabOrder = 7
         end
         object edtQuantidade: TEdit
-          Left = 551
-          Top = 79
+          Left = 496
+          Top = 83
           Width = 73
           Height = 23
           NumbersOnly = True
-          TabOrder = 6
+          TabOrder = 9
+        end
+        object edtTotal: TcxCurrencyEdit
+          Left = 611
+          Top = 83
+          Style.LookAndFeel.NativeStyle = True
+          StyleDisabled.LookAndFeel.NativeStyle = True
+          StyleFocused.LookAndFeel.NativeStyle = True
+          StyleHot.LookAndFeel.NativeStyle = True
+          TabOrder = 10
+          Width = 88
+        end
+        object edtValorUnitario: TcxCurrencyEdit
+          Left = 388
+          Top = 83
+          Style.LookAndFeel.NativeStyle = True
+          StyleDisabled.LookAndFeel.NativeStyle = True
+          StyleFocused.LookAndFeel.NativeStyle = True
+          StyleHot.LookAndFeel.NativeStyle = True
+          TabOrder = 8
+          Width = 71
         end
       end
       object gridVenda: TcxGrid
         Left = 0
         Top = 137
-        Width = 1243
-        Height = 417
+        Width = 991
+        Height = 419
         Align = alClient
-        TabOrder = 3
-        ExplicitWidth = 1214
-        ExplicitHeight = 418
+        TabOrder = 1
+        ExplicitWidth = 1243
+        ExplicitHeight = 417
         object viewVenda: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
           DataController.Summary.DefaultGroupSummaryItems = <>
@@ -470,22 +485,20 @@ object Emprestimo: TEmprestimo
       end
       object pnlValorTotal: TPanel
         Left = 0
-        Top = 554
-        Width = 1243
-        Height = 41
+        Top = 556
+        Width = 991
+        Height = 39
         Align = alBottom
         BevelEdges = []
         Color = clGrayText
         ParentBackground = False
-        TabOrder = 4
-        ExplicitTop = 555
-        ExplicitWidth = 1214
+        TabOrder = 2
         DesignSize = (
-          1243
-          41)
+          991
+          39)
         object lblValorTotalVenda: TLabel
-          Left = 1015
-          Top = 7
+          Left = 723
+          Top = 6
           Width = 118
           Height = 21
           Anchors = [akTop, akRight]
@@ -496,45 +509,23 @@ object Emprestimo: TEmprestimo
           Font.Name = 'Segoe UI Black'
           Font.Style = [fsBold]
           ParentFont = False
-          ExplicitLeft = 986
         end
         object edtTotalVenda: TcxCurrencyEdit
-          Left = 1140
-          Top = 7
-          Anchors = [akTop, akRight]
+          Left = 884
+          Top = 6
+          Anchors = []
           Style.LookAndFeel.NativeStyle = True
           StyleDisabled.LookAndFeel.NativeStyle = True
           StyleFocused.LookAndFeel.NativeStyle = True
           StyleHot.LookAndFeel.NativeStyle = True
           TabOrder = 0
-          ExplicitLeft = 1111
-          Width = 71
+          Width = 93
         end
-      end
-      object edtValorUnitario: TcxCurrencyEdit
-        Left = 455
-        Top = 81
-        Style.LookAndFeel.NativeStyle = True
-        StyleDisabled.LookAndFeel.NativeStyle = True
-        StyleFocused.LookAndFeel.NativeStyle = True
-        StyleHot.LookAndFeel.NativeStyle = True
-        TabOrder = 1
-        Width = 71
-      end
-      object edtTotal: TcxCurrencyEdit
-        Left = 646
-        Top = 81
-        Style.LookAndFeel.NativeStyle = True
-        StyleDisabled.LookAndFeel.NativeStyle = True
-        StyleFocused.LookAndFeel.NativeStyle = True
-        StyleHot.LookAndFeel.NativeStyle = True
-        TabOrder = 2
-        Width = 71
       end
     end
   end
   object btnFecharEmprestimo: TcxButton
-    Left = 1103
+    Left = 851
     Top = 634
     Width = 132
     Height = 25
@@ -551,15 +542,15 @@ object Emprestimo: TEmprestimo
       E4FADABA3DA07806AFB4E0C4C90206A0C980BD5DE27F0FA9F8992A2016E4C719
       85119E2654D1CAB70000000049454E44AE426082}
     TabOrder = 1
-    ExplicitLeft = 1074
-    ExplicitTop = 635
+    OnClick = btnFecharEmprestimoClick
+    ExplicitLeft = 1103
   end
   object qryEmprestimo: TUniQuery
-    Left = 872
-    Top = 248
+    Left = 32
+    Top = 488
   end
   object qryEmprestimoItem: TUniQuery
-    Left = 960
-    Top = 248
+    Left = 104
+    Top = 488
   end
 end

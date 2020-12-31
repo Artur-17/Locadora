@@ -296,7 +296,6 @@ object CadastroFilme: TCadastroFilme
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 981
   end
   object edtTitulo: TEdit
     Left = 178
@@ -444,7 +443,6 @@ object CadastroFilme: TCadastroFilme
     Caption = 'Foto'
     TabOrder = 4
     OnClick = btnFotoClick
-    ExplicitLeft = 24
   end
   object qryFilme: TUniQuery
     KeyFields = 'ID'
@@ -503,7 +501,7 @@ object CadastroFilme: TCadastroFilme
       'select * from ESTOQUE where FILME_ID = :filme_id')
     SpecificOptions.Strings = (
       'InterBase.KeyGenerator=GEN_ESTOQUE_ID')
-    Left = 128
+    Left = 120
     Top = 408
     ParamData = <
       item
@@ -529,7 +527,7 @@ object CadastroFilme: TCadastroFilme
   end
   object trsCadastro: TUniTransaction
     DefaultConnection = dtmPrincipal.conexao
-    Left = 200
+    Left = 176
     Top = 408
   end
 end

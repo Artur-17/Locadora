@@ -42,7 +42,7 @@ object LocalizarFilme: TLocalizarFilme
       TabOrder = 3
     end
     object btnIncluir: TcxButton
-      Left = 8
+      Left = 7
       Top = 6
       Width = 89
       Height = 25
@@ -231,6 +231,9 @@ object LocalizarFilme: TLocalizarFilme
         DataBinding.FieldName = 'VALOR'
         Width = 80
       end
+      object viewFilmeESTOQUE: TcxGridDBColumn
+        DataBinding.FieldName = 'ESTOQUE'
+      end
       object viewFilmeDT_LANCAMENTO: TcxGridDBColumn
         Caption = 'Data de Lan'#231'amento'
         DataBinding.FieldName = 'DT_LANCAMENTO'
@@ -256,15 +259,12 @@ object LocalizarFilme: TLocalizarFilme
     Connection = dtmPrincipal.conexao
     SQL.Strings = (
       'SELECT'
-      '  ID,'
-      '  TITULO,'
-      '  DT_LANCAMENTO,'
-      '  NM_DIRETOR,'
-      '  NM_ESTUDIO,'
-      '  VALOR,'
-      '  GENERO_ID '
+      'F.*,'
+      
+        '(SELECT E.ESTOQUE FROM ESTOQUE E WHERE E.FILME_ID = F.ID ) as ES' +
+        'TOQUE'
       'FROM '
-      '  FILME')
+      'FILME F')
     SpecificOptions.Strings = (
       'InterBase.KeyGenerator=GEN_FILME_ID')
     OnFilterRecord = qryFilmeFilterRecord
@@ -272,11 +272,10 @@ object LocalizarFilme: TLocalizarFilme
     Top = 440
     object qryFilmeID: TIntegerField
       FieldName = 'ID'
-      Required = True
     end
     object qryFilmeTITULO: TStringField
       FieldName = 'TITULO'
-      Size = 300
+      Size = 80
     end
     object qryFilmeDT_LANCAMENTO: TDateField
       FieldName = 'DT_LANCAMENTO'
@@ -289,11 +288,21 @@ object LocalizarFilme: TLocalizarFilme
       FieldName = 'NM_ESTUDIO'
       Size = 30
     end
+    object qryFilmeVALOR: TFloatField
+      FieldName = 'VALOR'
+    end
     object qryFilmeGENERO_ID: TIntegerField
       FieldName = 'GENERO_ID'
     end
-    object qryFilmeVALOR: TFloatField
-      FieldName = 'VALOR'
+    object qryFilmeSINOPSE: TBlobField
+      FieldName = 'SINOPSE'
+    end
+    object qryFilmeFOTO: TBlobField
+      FieldName = 'FOTO'
+    end
+    object qryFilmeESTOQUE: TIntegerField
+      FieldName = 'ESTOQUE'
+      ReadOnly = True
     end
   end
   object dtsFilme: TDataSource

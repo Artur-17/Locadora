@@ -1,0 +1,265 @@
+unit lcdLocalizarFilme;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxStyles, dxSkinsCore, dxSkinsDefaultPainters,
+  cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator,
+  dxDateRanges, DB, cxDBData, DBCtrls, StdCtrls, cxGridLevel, cxClasses,
+  cxGridCustomView, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
+  cxGrid, MemDS, DBAccess, Uni, dxSkinBlack, dxSkinBlue,
+  dxSkinBlueprint, dxSkinCaramel, dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinFoggy,
+  dxSkinGlassOceans, dxSkinHighContrast, dxSkiniMaginary, dxSkinLilian,
+  dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMetropolis,
+  dxSkinMetropolisDark, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013DarkGray, dxSkinOffice2013LightGray,
+  dxSkinOffice2013White, dxSkinOffice2016Colorful, dxSkinOffice2016Dark,
+  dxSkinPumpkin, dxSkinSeven, dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus,
+  dxSkinSilver, dxSkinSpringTime, dxSkinStardust, dxSkinSummer2008,
+  dxSkinTheAsphaltWorld, dxSkinValentine, dxSkinVisualStudio2013Blue,
+  dxSkinVisualStudio2013Dark, dxSkinVisualStudio2013Light, dxSkinVS2010,
+  dxSkinWhiteprint, dxSkinXmas2008Blue, Menus, cxButtons,
+  lcdDataModule, lcdCadastroFilme;
+
+
+type
+  TLocalizarFilme = class(TForm)
+    edtPesquisa: TEdit;
+    pnlbottom: TPanel;
+    btnNavigator: TDBNavigator;
+    pnlTop: TPanel;
+    pnlfields: TPanel;
+    qryFilme: TUniQuery;
+    dtsFilme: TDataSource;
+    btnIncluir: TcxButton;
+    btnAlterar: TcxButton;
+    btnExcluir: TcxButton;
+    btnFechar: TcxButton;
+    viewFilme: TcxGridDBTableView;
+    levelFilme: TcxGridLevel;
+    gridFilme: TcxGrid;
+    lblPesquisa: TLabel;
+    viewFilmeID: TcxGridDBColumn;
+    viewFilmeTITULO: TcxGridDBColumn;
+    viewFilmeDT_LANCAMENTO: TcxGridDBColumn;
+    viewFilmeNM_DIRETOR: TcxGridDBColumn;
+    viewFilmeNM_ESTUDIO: TcxGridDBColumn;
+    viewFilmeVALOR: TcxGridDBColumn;
+    viewFilmeGenero_ID: TcxGridDBColumn;
+    qryFilmeID: TIntegerField;
+    qryFilmeTITULO: TStringField;
+    qryFilmeDT_LANCAMENTO: TDateField;
+    qryFilmeNM_DIRETOR: TStringField;
+    qryFilmeNM_ESTUDIO: TStringField;
+    qryFilmeGENERO_ID: TIntegerField;
+    qryFilmeVALOR: TFloatField;
+    qryEstoque: TUniQuery;
+    qryGenero: TUniQuery;
+    qryEstoqueID: TIntegerField;
+    qryEstoqueFILME_ID: TIntegerField;
+    qryEstoqueESTOQUE: TIntegerField;
+    qryEstoqueDATA: TDateTimeField;
+    qryEstoqueUSUARIO_ID: TIntegerField;
+    qryGeneroID: TIntegerField;
+    qryGeneroNOME: TStringField;
+    qryGeneroIDADE_MINIMA: TIntegerField;
+    qryGeneroDT_CADASTRO: TDateTimeField;
+    qryFilmeESTOQUE: TIntegerField;
+    viewFilmeESTOQUE: TcxGridDBColumn;
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnFecharClick(Sender: TObject);
+    procedure btnIncluirClick(Sender: TObject);
+    procedure btnAlterarClick(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure btnExcluirClick(Sender: TObject);
+    procedure edtPesquisaKeyPress(Sender: TObject; var Key: Char);
+    procedure qryFilmeFilterRecord(DataSet: TDataSet; var Accept: Boolean);
+  private
+    { Private declarations }
+   procedure Filtrar();
+  public
+    { Public declarations }
+   class procedure exibirLocalizarFilme();
+
+  end;
+
+var
+  LocalizarFilme: TLocalizarFilme;
+
+implementation
+
+uses
+  StrUtils, lcdLibStrings;
+
+{$R *.dfm}
+
+{ TuLocalizarFilme }
+
+procedure TLocalizarFilme.btnAlterarClick(Sender: TObject);
+begin
+  TCadastroFilme.CadastrarOuAlterar(Self, qryFilme, dsEdit);
+  qryFilme.Refresh;
+end;
+
+procedure TLocalizarFilme.btnExcluirClick(Sender: TObject);
+begin
+   if Application.MessageBox('AVISO: Deseja realmente excluir esse registro ?','ATENÇÃO ',MB_YESNO + MB_ICONWARNING)=MRYES then
+   begin
+    qryFilme.Delete;
+   end;
+end;
+
+procedure TLocalizarFilme.btnFecharClick(Sender: TObject);
+begin
+  ModalResult := mrCancel;
+end;
+
+
+procedure TLocalizarFilme.btnIncluirClick(Sender: TObject);
+begin
+  TCadastroFilme.CadastrarOuAlterar(Self, qryFilme,dsInsert);
+  qryFilme.Refresh;
+end;
+
+procedure TLocalizarFilme.edtPesquisaKeyPress(Sender: TObject; var Key: Char);
+begin
+  Filtrar();
+end;
+
+class procedure TLocalizarFilme.exibirLocalizarFilme;
+var
+  lcadastro : TLocalizarFilme;
+begin
+  lcadastro := TLocalizarFilme.Create(nil);
+
+  lcadastro.ShowModal();
+  FreeAndNil(lcadastro);
+end;
+
+procedure TLocalizarFilme.Filtrar;
+begin
+  if (Trim(edtPesquisa.Text) = '') then
+    begin
+      qryFilme.Filtered := False;
+      Exit;
+    end;
+
+    qryFilme.Filtered := False;
+    qryFilme.Filter := '(1 = 1)';
+    qryFilme.Filtered := True;
+end;
+
+procedure TLocalizarFilme.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if qryEstoque.Active then
+    qryEstoque.close;
+
+  if qryFilme.Active then
+    qryFilme.Close;
+
+
+end;
+
+procedure TLocalizarFilme.FormCreate(Sender: TObject);
+begin
+  qryFilme.Connection := dtmPrincipal.conexao;
+end;
+
+procedure TLocalizarFilme.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_ESCAPE) then
+  Close;
+
+end;
+
+procedure TLocalizarFilme.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_F2) then //Novo
+    btnIncluirClick();
+
+  if (Key = VK_F5) then   //Alterar
+    btnAlterarClick();
+
+  if (Key = VK_F4) then   //Deletar
+    begin
+
+    end;
+
+end;
+
+procedure TLocalizarFilme.Deletar;
+begin
+  if Application.MessageBox('AVISO: Deseja realmente excluir esse registro ?','ATENÇÃO ',MB_YESNO + MB_ICONWARNING)=MRYES then
+  begin
+    qryFilme.Delete;
+  end;
+end;
+
+procedure TLocalizarFilme.FormShow(Sender: TObject);
+begin
+  try
+   if not Assigned(qryFilme.Connection)  then
+    qryFilme.Connection := dtmPrincipal.conexao;
+
+    if not qryFilme.Connection.Connected then
+    qryFilme.Connection.Connect();
+
+    if not qryFilme.Active then
+    qryFilme.Open;
+  except
+    on E: Exception do
+    begin
+      ShowMessage(E.Message);
+    end;
+
+  end;
+
+
+  try
+    if not Assigned(qryEstoque.Connection)  then
+    qryEstoque.Connection := dtmPrincipal.conexao;
+
+    if not qryEstoque.Connection.Connected then
+    qryEstoque.Connection.Connect();
+
+    if not qryEstoque.Active then
+    qryEstoque.Open;
+  except
+    on E: Exception do
+    begin
+      ShowMessage(E.Message);
+    end;
+
+  end;
+
+end;
+
+
+procedure TLocalizarFilme.qryFilmeFilterRecord(DataSet: TDataSet;
+  var Accept: Boolean);
+var
+  lTextoAvaliado: string;
+begin
+
+  Accept := True;
+
+  lTextoAvaliado := DataSet.Fields.FieldByName('ID').AsString;
+  lTextoAvaliado := DataSet.Fields.FieldByName('TITULO').AsString;
+  lTextoAvaliado := lTextoAvaliado + ' ' + DataSet.Fields.FieldByName('GENERO').AsString;
+
+  Accept := TLibStrings.TextoContemPalavras(lTextoAvaliado, edtPesquisa.Text);
+
+
+end;
+
+end.

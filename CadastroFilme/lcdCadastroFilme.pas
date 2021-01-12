@@ -43,13 +43,6 @@ type
     btnGravar: TcxButton;
     btnCancelar: TcxButton;
     imgFoto: TImage;
-    qryFilme: TUniQuery;
-    qryFilmeID: TIntegerField;
-    qryFilmeTITULO: TStringField;
-    qryFilmeDT_LANCAMENTO: TDateField;
-    qryFilmeNM_DIRETOR: TStringField;
-    qryFilmeNM_ESTUDIO: TStringField;
-    qryFilmeVALOR: TFloatField;
     edtLancamento: TcxDateEdit;
     lblDataLancamento: TLabel;
     edtValor: TcxCurrencyEdit;
@@ -57,17 +50,7 @@ type
     edtGenero: TEdit;
     btnSelecionarCategoriaGenero: TcxButton;
     btnFoto: TcxButton;
-    qryFilmeGENERO_ID: TIntegerField;
-    qryFilmeFOTO: TBlobField;
-    qryFilmeSINOPSE: TBlobField;
-    qryEstoque: TUniQuery;
-    qryEstoqueID: TIntegerField;
-    qryEstoqueFILME_ID: TIntegerField;
-    qryEstoqueESTOQUE: TIntegerField;
-    qryEstoqueDATA: TDateTimeField;
-    qryEstoqueUSUARIO_ID: TIntegerField;
     Shape1: TShape;
-    trsCadastro: TUniTransaction;
     procedure btnCancelarClick(Sender: TObject);
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnGravarClick(Sender: TObject);
@@ -78,28 +61,29 @@ type
     procedure btnSelecionarCategoriaGeneroClick(Sender: TObject);
   private
     { Private declarations }
-    FModo : string;
-    FFilmeId: Integer;
     FDataSet: TDataSet;
-    FDataSetEstoque: TDataSet;
-    FDataSetGenero: TDataSet;
-    FIDCliente: integer;
+//    FDataSetEstoque: TDataSet;
+//    FDataSetGenero: TDataSet;
+//    FIDCliente: integer;
     FGeneroId: Integer;
-    FIDEstoque: Integer;
+//    FIDEstoque: Integer;
+    FModo: TDataSetState;
 
 
     procedure PreencherDados;
     procedure GravarDadosFilme();
-    function GetFilmeId: Integer;
-    procedure SetFilmeId(const Value: Integer);
+    class function Novo(pOwner: TForm; pDataSet: TDataset;
+      pIDFilme: integer): TmodalResult; static;
+    procedure SetModo(const Value: TDataSetState);
   public
     { Public declarations }
     class procedure Exibir();
 
-    class function Novo(pOwner: TForm; pDataSet: TDataset;  pIDCliente: integer): TmodalResult;
-    class function Alterar(pOwner: TForm; pDataSet: TDataset;  pIDCliente: integer; pDataSetEstoque: TDataSet; pIDEstoque:integer; pDataSetGenero: TDataSet): TmodalResult;
+    class function CadastrarOuAlterar(pOwner: TForm; pDataSet: TDataset;
+      pState: TDataSetState): TmodalResult;
 
-    property FilmeId: Integer read GetFilmeId write SetFilmeId;
+    property Modo : TDataSetState read FModo write SetModo;
+
   end;
 
 var
@@ -114,54 +98,52 @@ uses
 
 
 
-class function TCadastroFilme.Alterar(pOwner: TForm; pDataSet: TDataset;
-  pIDCliente: integer; pDataSetEstoque: TDataSet; pIDEstoque: integer; pDataSetGenero: TDataSet): TmodalResult;
-var
-  lCadastroFilme : TCadastroFilme;
-begin
-  lCadastroFilme := TCadastroFilme.Create(pOwner);
-  try
-    lCadastroFilme.FDataSet := pDataSet;
-    lCadastroFilme.FDataSetEstoque := pDataSetEstoque;
-    lCadastroFilme.FDataSetGenero := pDataSetGenero;
-    lCadastroFilme.PreencherDados;
-    lCadastroFilme.FIDCliente := pIDCliente;
-    lCadastroFilme.FIDEstoque := pIDEstoque;
-    lCadastroFilme.FModo := 'alterar';
-
-    Result := lCadastroFilme.ShowModal
-  finally
-    FreeAndNil(lCadastroFilme);
-  end;
-end;
-
 procedure TCadastroFilme.PreencherDados;
+var
+  lQry : TUniQuery;
+  lStrem : TBlobStream;
 begin
-  Try
-    ShowMessage(FDataSetEstoque.FieldByName('FILME_ID').AsString);
-    ShowMessage(FDataSetEstoque.FieldByName('ESTOQUE').AsString);
-    ShowMessage(FDataSet.FieldByName('TITULO').AsString);
+  lQry := TUniQuery.Create(self);
+  lQry.Connection := dtmPrincipal.conexao;
+
+  try
+    lQry.SQL.Add('SELECT * FROM GENERO WHERE ID = :GENERO_ID' );
+    lQry.Prepare();
+
+    lQry.ParamByName('genero_id').AsInteger := FDataSet.FieldByName('GENERO_ID').AsInteger;
+    lQry.Open();
+
+    (lQry.FieldByName('ID') as TIntegerField).DisplayFormat := '00000';
+
+     edtGenero.Text := Format('%s - %s', [
+          lQry.Fields.FieldByName('id').DisplayText,
+          lQry.Fields.FieldByName('nome').DisplayText
+        ]);
 
     edtTitulo.Text := FDataSet.FieldByName('TITULO').AsString;
     edtNomeDiretor.Text := FDataSet.FieldByName('NM_DIRETOR').AsString;
     edtNomeEstudio.Text := FDataSet.FieldByName('NM_ESTUDIO').AsString;
     edtValor.Text := FDataSet.FieldByName('VALOR').AsString;
-    edtEstoque.Text := FDataSetEstoque.FieldByName('ESTOQUE').AsString;
-//    edtGenero.Text :=
-    mmoSinopse.Text := FDataSet.FieldByName('SINOPSE').AsString;
+    edtEstoque.Text := FDataSet.FieldByName('ESTOQUE').AsString;
+    mmoSinopse.lines.text := FDataSet.FieldByName('SINOPSE').AsString;
 
-
+    if not (FDataSet.FieldByName('FOTO').IsNull) and (FDataSet.FieldByName('FOTO').IsBlob) then
+    begin
+      lStrem := TBlobStream.Create(TBlobField(FDataSet.FieldByName('FOTO')),bmRead);
+      imgFoto.Picture.Graphic.LoadFromStream(lStrem);
+    end;
   except
     on E: Exception do
       ShowMessage( E.Message );
   End;
 
-
+  FreeAndNil(lQry);
+  FreeAndNil(lStrem);
 end;
 
-procedure TCadastroFilme.SetFilmeId(const Value: Integer);
+procedure TCadastroFilme.SetModo(const Value: TDataSetState);
 begin
-  FFilmeId := Value;
+  FModo := Value;
 end;
 
 procedure TCadastroFilme.btnCancelarClick(Sender: TObject);
@@ -289,14 +271,22 @@ begin
 
 end;
 
-class function TCadastroFilme.Novo(pOwner :TForm; pDataSet :TDataset; pIDCliente: integer) : TmodalResult;
+class function TCadastroFilme.CadastrarOuAlterar(pOwner: TForm; pDataSet: TDataset; pState : TDataSetState): TmodalResult;
 var
-  lcadastro : TCadastroFilme;
+  lCadastroFilme : TCadastroFilme;
 begin
-   lcadastro := TCadastroFilme.Create(nil);
-   lcadastro.FModo := 'novo';
-   lcadastro.ShowModal();
-   FreeAndNil(lcadastro);
+  lCadastroFilme := TCadastroFilme.Create(pOwner);
+  try
+    lCadastroFilme.FDataSet := pDataSet;
+    lCadastroFilme.Modo := pstate;
+
+    if pState = dsEdit then
+      lCadastroFilme.PreencherDados;
+
+    Result := (lCadastroFilme.ShowModal)
+  finally
+    FreeAndNil(lCadastroFilme);
+  end;
 end;
 
 procedure TCadastroFilme.FormKeyUp(Sender: TObject; var Key: Word;
@@ -306,130 +296,96 @@ begin
     ModalResult := mrCancel;
 end;
 
-function TCadastroFilme.GetFilmeId: Integer;
-begin
-   Result := FFilmeId;
-end;
 
 procedure TCadastroFilme.GravarDadosFilme;
 var
   lValorEmprestimoDia: string;
-  lSinopseStream: TStringStream;
+  lStream: TStringStream;
+  lQry : TUniQuery;
+  lTrs : TUniTransaction;
 begin
-//  Titulo := UpperCase(edtTitulo.Text);
-//  Valor := edtValor.value;
+  lQry := TUniQuery.Create(self);
+  lTrs := TUniTransaction.Create(self);
 
+  lQry.Transaction := lTrs;
 
-//   try
-   //FILME ERA GRAVADO DESSA MANEIRA, PRECISEI ALTERAR PARA SALVAR NA TABELA DE ESTOQUE TAMBÉM
-//    qryFilme.Close;
-//    qryFilme.SQL.Clear;
-//
-//       if FModo = 'novo' then
-//       begin
-//         qryFilme.SQL.Add('INSERT INTO FILME');
-//         qryFilme.SQL.Add('(TITULO, SINOPSE, DT_LANCAMENTO, NM_DIRETOR, NM_ESTUDIO, GENERO_ID, VALOR, QUANTIDADE, COD_BARRAS)');
-//         qryFilme.SQL.Add('values ( :TITULO, :SINOPSE, :DT_LANCAMENTO, :NM_DIRETOR, :NM_ESTUDIO, :GENERO_ID, :VALOR, :QUANTIDADE, :COD_BARRAS)')
-//       end
-//       else
-//       begin
-//        qryFilme.SQL.Add('UPDATE OR INSERT INTO FILME');
-//        qryFilme.SQL.Add('(ID, TITULO, SINOPSE, DT_LANCAMENTO, NM_DIRETOR, NM_ESTUDIO, GENERO_ID, VALOR, QUANTIDADE, COD_BARRAS)');
-//        qryFilme.SQL.Add('values (:ID, :TITULO, :SINOPSE, :DT_LANCAMENTO, :NM_DIRETOR, :NM_ESTUDIO, :GENERO_ID, :VALOR, :QUANTIDADE, :COD_BARRAS)');
-//        qryFilme.SQL.Add('MATCHING (ID);');
-//
-//        qryFilme.ParamByName('ID').AsInteger := FIDCliente;
-//       end;
-//
-//
-//      qryFilme.ParamByName('TITULO').AsString := Titulo;
-//      qryFilme.ParamByName('SINOPSE').AsString := mmSinopse.Text;
+  lQry.Connection := dtmPrincipal.conexao;
+  lTrs.DefaultConnection := lQry.Connection;
 
-//    qryFilme.ParamByName('DT_LANCAMENTO').AsDate := dtpDataLancamento.Date;
-//      qryFilme.ParamByName('NM_DIRETOR').AsString := edtNomeDiretor.Text;
-//      qryFilme.ParamByName('NM_ESTUDIO').AsString := edtNomeEstudio.Text;
-//      qryFilme.ParamByName('GENERO_ID').AsInteger := FGeneroId;
-//      qryFilme.ParamByName('VALOR').AsFloat := Valor;
-//      qryFilme.ParamByName('QUANTIDADE').AsString := edtQuantidade.Text;
-//      qryFilme.ParamByName('COD_BARRAS').AsString := edtCodBarras.Text;
-//
-//
-//      qryFilme.ExecSQL;
-//
-//      if FModo = 'novo' then
-//      begin
-//         ShowMessage('Os dados foram inseridos com sucesso');
-//      end
-//      else
-//        ShowMessage('Os dados foram alterados com sucesso');
-//
-//      ModalResult := mrOk;
+  lTrs.StartTransaction;
 
-//
-//  except
-//    on E: Exception do
-//
-//    ShowMessage( E.Message )
-//  end;
-
-    trsCadastro.StartTransaction();
   try
-    if not qryFilme.Prepared then
-      qryFilme.Prepare();
+    lQry.SQL.Add(' UPDATE OR INSERT INTO FILME (ID, TITULO, DT_LANCAMENTO, NM_DIRETOR, NM_ESTUDIO, VALOR, GENERO_ID,FOTO, SINOPSE) ');
+    lQry.SQL.Add(' VALUES ( :ID, :TITULO, :DT_LANCAMENTO, :NM_DIRETOR, :NM_ESTUDIO, :VALOR, :GENERO_ID,:FOTO, :SINOPSE )');
+    lQry.SQL.Add(' MATCHING (ID)');
 
-    qryFilme.ParamByName('ID').AsInteger := FFilmeId;
-    qryFilme.Open();
+    if not lQry.Prepared then
+      lQry.Prepare;
 
-     if qryFilme.IsEmpty then
-      qryFilme.Append()
+    if FDataSet.FieldByName('ID').AsInteger > 0 then
+      lQry.ParamByName('ID').AsInteger := FDataSet.FieldByName('ID').AsInteger
     else
-      qryFilme.Edit();
+      lQry.ParamByName('ID').AsInteger := 0;
 
-    qryFilmeTITULO.Value := edtTitulo.Text;
+    lQry.ParamByName('Sinopse').AsMemo := mmoSinopse.Lines.Text;
 
-    lSinopseStream := TStringStream.Create();
-    mmoSinopse.Lines.SaveToStream(lSinopseStream, TEncoding.UTF8);
-    lSinopseStream.Position := 0;
+    FreeAndNil(lStream);
+    lStream := TStringStream.Create();
+    imgFoto.Picture.Graphic.SaveToStream(lStream);
 
-    qryFilmeSINOPSE.LoadFromStream(lSinopseStream);
-    qryFilmeFOTO.Assign(imgFoto.Picture.Bitmap);
+    lQry.ParamByName('FOTO').LoadFromStream(lStream,ftBlob);
 
-    qryFilmeDT_LANCAMENTO.Value := edtLancamento.Date;
-    qryFilmeNM_DIRETOR.Value := edtNomeDiretor.Text;
-    qryFilmeNM_ESTUDIO.Value := edtNomeEstudio.Text;
 
-    lValorEmprestimoDia := AnsiReplaceStr(edtValor.Text, ' ', '0');
-    lValorEmprestimoDia := Trim(lValorEmprestimoDia);
-    qryFilmeVALOR.Value := StrToFloatDef(lValorEmprestimoDia, 0);
-    qryFilmeGENERO_ID.Value := FGeneroId;
+    lQry.ParamByName('TITULO').AsString := edtTitulo.Text;
+    lQry.ParamByName('DT_LANCAMENTO').AsDateTime := edtLancamento.Date;
+    lQry.ParamByName('NM_DIRETOR').AsString := edtNomeDiretor.Text;
+    lQry.ParamByName('NM_ESTUDIO').AsString := edtNomeEstudio.Text;
+    lQry.ParamByName('VALOR').AsFloat := edtValor.Value;
+    lQry.ParamByName('GENERO_ID').AsInteger := FGeneroID;
 
-    qryFilme.Post();
+    lQry.ExecSQL;
 
-    if not qryEstoque.Prepared then
-      qryEstoque.Prepare();
 
-    qryEstoque.ParamByName('filme_id').AsInteger := 0;
-    qryEstoque.Open();
-    qryEstoque.Append();
-    qryEstoqueFILME_ID.Value := qryFilmeID.Value;
-    qryEstoqueESTOQUE.Value := StrToIntDef(edtEstoque.Text, 0);
-    qryEstoqueDATA.Value := Now;
-    qryEstoqueUSUARIO_ID.AsInteger := AcessoController.UsuarioLogado.Id;
-    qryEstoque.Post();
 
-    trsCadastro.Commit();
+    lQry.SQL.Clear;
+
+    if FModo = dsInsert  then
+      begin
+        lQry.SQL.Add('INSERT INTO ESTOQUE ( FILME_ID, ESTOQUE, DATA, USUARIO_ID)');
+        lQry.SQL.Add('VALUES ( :FILME_ID, :ESTOQUE, :DATA, :USUARIO_ID)');
+      end
+    else
+      begin
+        lQry.SQL.Add('UPDATE ESTOQUE E SET E.ESTOQUE = :ESTOQUE , E.USUARIO_ID = :USUARIO_ID WHERE FILME_ID = :FILME_ID');
+      end;
+
+    if not lQry.Prepared then
+      lQry.Prepare;
+
+    lQry.ParamByName('FILME_ID').AsInteger := FDataSet.FieldByName('ID').AsInteger;
+    lQry.ParamByName('ESTOQUE').AsInteger := StrToIntDef(edtEstoque.Text, 0);
+    lQry.ParamByName('USUARIO_ID').AsInteger := AcessoController.UsuarioLogado.Id;
+
+    lQry.ExecSQL;
+
+    lTrs.Commit();
     ModalResult := mrOk;
 
   except
      on E: Exception do
     begin
-      trsCadastro.Rollback();
+      lTrs.Rollback();
       ShowMessage('Erro ao gravar os dados.'#13'Detalhes: ' + E.Message);
     end;
   end;
 
-  if Assigned(lSinopseStream) then
-    FreeAndNil(lSinopseStream);
+  if Assigned(lStream) then
+    FreeAndNil(lStream);
+end;
+
+class function TCadastroFilme.Novo(pOwner: TForm; pDataSet: TDataset;
+  pIDFilme: integer): TmodalResult;
+begin
 
 end;
 

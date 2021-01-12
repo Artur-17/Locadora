@@ -75,7 +75,7 @@ object CadastroFilme: TCadastroFilme
     Caption = 'Estoque'
   end
   object imgFoto: TImage
-    Left = 15
+    Left = 22
     Top = 97
     Width = 128
     Height = 128
@@ -264,8 +264,6 @@ object CadastroFilme: TCadastroFilme
       9AF7BB7DD8D2B7059F15A09F1BF46F0DF371FA05F071FA05F071FA05F071FA05
       F071FA05F071FA05F071FE1F7FEA8675E25D59FE0000000049454E44AE426082}
     Stretch = True
-    ExplicitLeft = 24
-    ExplicitTop = 89
   end
   object lblDataLancamento: TLabel
     Left = 734
@@ -332,11 +330,11 @@ object CadastroFilme: TCadastroFilme
     Top = 345
     Width = 124
     Height = 23
-    TabOrder = 9
+    TabOrder = 8
     Text = '1'
   end
   object btnGravar: TcxButton
-    Left = 650
+    Left = 658
     Top = 408
     Width = 104
     Height = 39
@@ -402,7 +400,7 @@ object CadastroFilme: TCadastroFilme
     Width = 679
     Height = 23
     ReadOnly = True
-    TabOrder = 10
+    TabOrder = 9
   end
   object btnSelecionarCategoriaGenero: TcxButton
     Left = 846
@@ -431,11 +429,11 @@ object CadastroFilme: TCadastroFilme
       DF170C2BD9A4AE2FBAC27C42DAF58310E2214174D44B455214E9F27F090060E0
       F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
       CCCEC728114BCD0000000049454E44AE426082}
-    TabOrder = 8
+    TabOrder = 10
     OnClick = btnSelecionarCategoriaGeneroClick
   end
   object btnFoto: TcxButton
-    Left = 15
+    Left = 22
     Top = 232
     Width = 128
     Height = 25
@@ -444,90 +442,8 @@ object CadastroFilme: TCadastroFilme
     TabOrder = 4
     OnClick = btnFotoClick
   end
-  object qryFilme: TUniQuery
-    KeyFields = 'ID'
-    Connection = dtmPrincipal.conexao
-    SQL.Strings = (
-      'SELECT * FROM FILME WHERE ID = :ID')
-    SpecificOptions.Strings = (
-      'InterBase.KeyGenerator=GEN_FILME_ID')
-    Left = 72
-    Top = 408
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'ID'
-      end>
-    object qryFilmeID: TIntegerField
-      FieldName = 'ID'
-      Required = True
-    end
-    object qryFilmeTITULO: TStringField
-      FieldName = 'TITULO'
-      Size = 80
-    end
-    object qryFilmeNM_DIRETOR: TStringField
-      FieldName = 'NM_DIRETOR'
-      Size = 30
-    end
-    object qryFilmeNM_ESTUDIO: TStringField
-      FieldName = 'NM_ESTUDIO'
-      Size = 30
-    end
-    object qryFilmeVALOR: TFloatField
-      FieldName = 'VALOR'
-    end
-    object qryFilmeGENERO_ID: TIntegerField
-      FieldName = 'GENERO_ID'
-    end
-    object qryFilmeFOTO: TBlobField
-      FieldName = 'FOTO'
-    end
-    object qryFilmeSINOPSE: TBlobField
-      FieldName = 'SINOPSE'
-    end
-    object qryFilmeDT_LANCAMENTO: TDateField
-      FieldName = 'DT_LANCAMENTO'
-    end
-  end
   object dlgOpenFoto: TOpenDialog
     Left = 24
-    Top = 408
-  end
-  object qryEstoque: TUniQuery
-    KeyFields = 'ID'
-    Connection = dtmPrincipal.conexao
-    SQL.Strings = (
-      'select * from ESTOQUE where FILME_ID = :filme_id')
-    SpecificOptions.Strings = (
-      'InterBase.KeyGenerator=GEN_ESTOQUE_ID')
-    Left = 120
-    Top = 408
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'filme_id'
-      end>
-    object qryEstoqueID: TIntegerField
-      FieldName = 'ID'
-      Required = True
-    end
-    object qryEstoqueFILME_ID: TIntegerField
-      FieldName = 'FILME_ID'
-    end
-    object qryEstoqueESTOQUE: TIntegerField
-      FieldName = 'ESTOQUE'
-    end
-    object qryEstoqueDATA: TDateTimeField
-      FieldName = 'DATA'
-    end
-    object qryEstoqueUSUARIO_ID: TIntegerField
-      FieldName = 'USUARIO_ID'
-    end
-  end
-  object trsCadastro: TUniTransaction
-    DefaultConnection = dtmPrincipal.conexao
-    Left = 176
     Top = 408
   end
 end

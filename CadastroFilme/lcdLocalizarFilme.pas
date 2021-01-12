@@ -51,13 +51,6 @@ type
     viewFilmeNM_ESTUDIO: TcxGridDBColumn;
     viewFilmeVALOR: TcxGridDBColumn;
     viewFilmeGenero_ID: TcxGridDBColumn;
-    qryFilmeID: TIntegerField;
-    qryFilmeTITULO: TStringField;
-    qryFilmeDT_LANCAMENTO: TDateField;
-    qryFilmeNM_DIRETOR: TStringField;
-    qryFilmeNM_ESTUDIO: TStringField;
-    qryFilmeGENERO_ID: TIntegerField;
-    qryFilmeVALOR: TFloatField;
     qryEstoque: TUniQuery;
     qryGenero: TUniQuery;
     qryEstoqueID: TIntegerField;
@@ -69,6 +62,17 @@ type
     qryGeneroNOME: TStringField;
     qryGeneroIDADE_MINIMA: TIntegerField;
     qryGeneroDT_CADASTRO: TDateTimeField;
+    viewFilmeESTOQUE: TcxGridDBColumn;
+    qryFilmeID: TIntegerField;
+    qryFilmeTITULO: TStringField;
+    qryFilmeDT_LANCAMENTO: TDateField;
+    qryFilmeNM_DIRETOR: TStringField;
+    qryFilmeNM_ESTUDIO: TStringField;
+    qryFilmeVALOR: TFloatField;
+    qryFilmeGENERO_ID: TIntegerField;
+    qryFilmeSINOPSE: TBlobField;
+    qryFilmeFOTO: TBlobField;
+    qryFilmeESTOQUE: TIntegerField;
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -83,6 +87,7 @@ type
   private
     { Private declarations }
    procedure Filtrar();
+    procedure Deletar;
   public
     { Public declarations }
    class procedure exibirLocalizarFilme();
@@ -103,9 +108,8 @@ uses
 
 procedure TLocalizarFilme.btnAlterarClick(Sender: TObject);
 begin
-  TCadastroFilme.Alterar(Self, qryFilme, qryFilme.FieldByName('ID').AsInteger, qryEstoque, qryEstoque.FieldByName('FILME_ID').AsInteger, qryGenero);
-  viewFilme.DataController.DataSet.Refresh;
-
+  TCadastroFilme.CadastrarOuAlterar(Self, qryFilme, dsEdit);
+  qryFilme.Refresh;
 end;
 
 procedure TLocalizarFilme.btnExcluirClick(Sender: TObject);
@@ -124,8 +128,8 @@ end;
 
 procedure TLocalizarFilme.btnIncluirClick(Sender: TObject);
 begin
-  TCadastroFilme.Novo(Self, qryFilme, qryFilme.FieldByName('ID').AsInteger);
-  viewfilme.DataController.DataSet.Refresh;
+  TCadastroFilme.CadastrarOuAlterar(Self, qryFilme,dsInsert);
+  qryFilme.Refresh;
 end;
 
 procedure TLocalizarFilme.edtPesquisaKeyPress(Sender: TObject; var Key: Char);
@@ -180,29 +184,24 @@ begin
 
 end;
 
-procedure TLocalizarFilme.FormKeyUp(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
+procedure TLocalizarFilme.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
   if (Key = VK_F2) then //Novo
-     begin
-     TCadastroFilme.Novo(Self, qryFilme, qryFilme.FieldByName('ID').AsInteger);
-      viewfilme.DataController.DataSet.Refresh;
-     end;
+    btnIncluirClick(sender);
 
   if (Key = VK_F5) then   //Alterar
-    begin
-       TCadastroFilme.Alterar(Self, qryFilme, qryFilme.FieldByName('ID').AsInteger, qryEstoque, qryEstoque.FieldByName('FILME_ID').AsInteger, qryGenero);
-      viewFilme.DataController.DataSet.Refresh;
-    end;
+    btnAlterarClick(sender);
 
   if (Key = VK_F4) then   //Deletar
-    begin
-        if Application.MessageBox('AVISO: Deseja realmente excluir esse registro ?','ATENÇÃO ',MB_YESNO + MB_ICONWARNING)=MRYES then
-      begin
-        qryFilme.Delete;
-      end;
-    end;
+    Deletar;
+end;
 
+procedure TLocalizarFilme.Deletar;
+begin
+  if Application.MessageBox('AVISO: Deseja realmente excluir esse registro ?','ATENÇÃO ',MB_YESNO + MB_ICONWARNING)=MRYES then
+  begin
+    qryFilme.Delete;
+  end;
 end;
 
 procedure TLocalizarFilme.FormShow(Sender: TObject);

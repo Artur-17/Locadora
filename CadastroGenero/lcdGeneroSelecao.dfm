@@ -11,6 +11,7 @@ object GeneroSelecao: TGeneroSelecao
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
   OnShow = FormShow
@@ -33,8 +34,6 @@ object GeneroSelecao: TGeneroSelecao
     ParentBackground = False
     ParentFont = False
     TabOrder = 0
-    ExplicitLeft = -359
-    ExplicitWidth = 1207
   end
   object pnlfields: TPanel
     Left = 0
@@ -61,8 +60,6 @@ object GeneroSelecao: TGeneroSelecao
     ShowCaption = False
     ShowHint = False
     TabOrder = 1
-    ExplicitLeft = -257
-    ExplicitWidth = 1207
     DesignSize = (
       1057
       46)
@@ -80,7 +77,6 @@ object GeneroSelecao: TGeneroSelecao
       Height = 21
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 0
-      ExplicitWidth = 1199
     end
   end
   object gridGenero: TcxGrid
@@ -90,10 +86,6 @@ object GeneroSelecao: TGeneroSelecao
     Height = 462
     Align = alClient
     TabOrder = 2
-    ExplicitLeft = -230
-    ExplicitTop = -46
-    ExplicitWidth = 1207
-    ExplicitHeight = 497
     object gridGeneroDBTableView: TcxGridDBTableView
       Navigator.Buttons.CustomButtons = <>
       DataController.DataSource = dtsGenero
@@ -127,9 +119,6 @@ object GeneroSelecao: TGeneroSelecao
     Height = 40
     Align = alBottom
     TabOrder = 3
-    ExplicitLeft = -213
-    ExplicitTop = 471
-    ExplicitWidth = 1207
     DesignSize = (
       1057
       40)
@@ -145,7 +134,6 @@ object GeneroSelecao: TGeneroSelecao
       LookAndFeel.SkinName = 'Office2010Silver'
       TabOrder = 1
       OnClick = btnCancelarClick
-      ExplicitLeft = 1097
     end
     object btnSelecionar: TcxButton
       Left = 824

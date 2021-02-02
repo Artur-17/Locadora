@@ -1,0 +1,323 @@
+unit locEmprestimo;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinBlueprint, dxSkinCaramel,
+  dxSkinCoffee, dxSkinDarkRoom, dxSkinDarkSide, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinFoggy, dxSkinGlassOceans, dxSkinHighContrast,
+  dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky, dxSkinLondonLiquidSky,
+  dxSkinMcSkin, dxSkinMetropolis, dxSkinMetropolisDark, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013DarkGray,
+  dxSkinOffice2013LightGray, dxSkinOffice2013White, dxSkinOffice2016Colorful,
+  dxSkinOffice2016Dark, dxSkinPumpkin, dxSkinSeven, dxSkinSevenClassic,
+  dxSkinSharp, dxSkinSharpPlus, dxSkinSilver, dxSkinSpringTime, dxSkinStardust,
+  dxSkinSummer2008, dxSkinTheAsphaltWorld, dxSkinsDefaultPainters,
+  dxSkinValentine, dxSkinVisualStudio2013Blue, dxSkinVisualStudio2013Dark,
+  dxSkinVisualStudio2013Light, dxSkinVS2010, dxSkinWhiteprint,
+  dxSkinXmas2008Blue, dxBarBuiltInMenu, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, Menus, cxStyles, cxCustomData, cxFilter, cxData,
+  cxDataStorage, cxEdit, cxNavigator, dxDateRanges, DB, cxDBData, cxContainer,
+  ComCtrls, dxCore, cxDateUtils, cxTextEdit, cxMaskEdit, cxDropDownEdit,
+  cxCalendar, cxGridLevel, cxClasses, cxGridCustomView, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxGrid, DBCtrls, StdCtrls, cxButtons,
+  ExtCtrls, cxPC, MemDS, DBAccess, Uni, cxCurrencyEdit,
+
+
+  lcdEnum, lcdDataModule, lcdSistemaController, lcdClienteSelecao;
+
+type
+  TEmprestimo = class(TForm)
+    pgcPrincipal: TcxPageControl;
+    pgListagemEmprestimo: TcxTabSheet;
+    pgEmprestimoItens: TcxTabSheet;
+    pnlClient: TPanel;
+    lblPesquisa: TLabel;
+    edtPesquisa: TEdit;
+    pnlBottom: TPanel;
+    btnAlterarEmprestimo: TcxButton;
+    btnExcluirEmprestimo: TcxButton;
+    btnFecharEmprestimo: TcxButton;
+    btnIncluirEmprestimo: TcxButton;
+    DBNavigatorEmprestimo: TDBNavigator;
+    ViewListagem: TcxGridDBTableView;
+    lvlListagem: TcxGridLevel;
+    gdrListagem: TcxGrid;
+    pnlBottomEmprestimoItem: TPanel;
+    edtNumVenda: TEdit;
+    edtNomeCliente: TEdit;
+    btnCliente: TcxButton;
+    dtpDataVenda: TcxDateEdit;
+    edtNomeFilme: TEdit;
+    btnIncluir: TcxButton;
+    btnRemoverItem: TcxButton;
+    pnlTop: TPanel;
+    viewVenda: TcxGridDBTableView;
+    lvlVenda: TcxGridLevel;
+    gridVenda: TcxGrid;
+    lblNumVenda: TLabel;
+    lblNomeCliente: TLabel;
+    lblDataVenda: TLabel;
+    lblNomeFilme: TLabel;
+    btnProduto: TcxButton;
+    lblValorUnitario: TLabel;
+    lblQuantidade: TLabel;
+    edtQuantidade: TEdit;
+    lblTotalProduto: TLabel;
+    pnlValorTotal: TPanel;
+    lblValorTotalVenda: TLabel;
+    qryEmprestimo: TUniQuery;
+    qryEmprestimoItem: TUniQuery;
+    edtValorUnitario: TcxCurrencyEdit;
+    edtTotal: TcxCurrencyEdit;
+    edtTotalVenda: TcxCurrencyEdit;
+    qryEmprestimoID: TIntegerField;
+    qryEmprestimoNUM_VENDA: TIntegerField;
+    qryEmprestimoULTIMAALTERACAO: TDateTimeField;
+    qryEmprestimoDELETADO: TStringField;
+    qryEmprestimoCD_USUARIO: TIntegerField;
+    qryEmprestimoItemID: TIntegerField;
+    qryEmprestimoItemCD_EMPRESTIMO: TIntegerField;
+    qryEmprestimoItemULTIMAALTERACAO: TDateTimeField;
+    qryEmprestimoItemDELETADO: TStringField;
+    qryEmprestimoItemCD_CLIENTE: TIntegerField;
+    qryEmprestimoItemCD_FILME: TIntegerField;
+    qryEmprestimoItemVALOR: TFloatField;
+    qryEmprestimoItemQUANTIDADE: TIntegerField;
+    qryEmprestimoItemTOTAL: TFloatField;
+    qryEmprestimoItemDT_VENDA: TDateTimeField;
+    dtsEmprestimo: TDataSource;
+    ViewListagemID: TcxGridDBColumn;
+    ViewListagemNUM_VENDA: TcxGridDBColumn;
+    ViewListagemULTIMAALTERACAO: TcxGridDBColumn;
+    ViewListagemDELETADO: TcxGridDBColumn;
+    ViewListagemCD_USUARIO: TcxGridDBColumn;
+    dtsEmprestimoItem: TDataSource;
+    viewVendaID: TcxGridDBColumn;
+    viewVendaCD_EMPRESTIMO: TcxGridDBColumn;
+    viewVendaULTIMAALTERACAO: TcxGridDBColumn;
+    viewVendaDELETADO: TcxGridDBColumn;
+    viewVendaCD_CLIENTE: TcxGridDBColumn;
+    viewVendaCD_FILME: TcxGridDBColumn;
+    viewVendaVALOR: TcxGridDBColumn;
+    viewVendaQUANTIDADE: TcxGridDBColumn;
+    viewVendaTOTAL: TcxGridDBColumn;
+    viewVendaDT_VENDA: TcxGridDBColumn;
+    btnConcluir: TcxButton;
+    procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure btnFecharEmprestimoClick(Sender: TObject);
+    procedure btnIncluirEmprestimoClick(Sender: TObject);
+    procedure btnAlterarEmprestimoClick(Sender: TObject);
+    procedure btnConcluirClick(Sender: TObject);
+    procedure btnClienteClick(Sender: TObject);
+  private
+    FModo: TDataSetState;
+    FClienteId : Integer;
+    { Private declarations }
+    procedure ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar,
+      btnApagar: TcxButton; btnNavigator: TDBNavigator;
+      pgcPrincipal: TcxPageControl; Flag: Boolean);
+    procedure SetModo(const Value: TDataSetState);
+  public
+    { Public declarations }
+    EstadoDoCadastro:TEstadoDoCadastro;
+    class procedure Exibir();
+
+    procedure NovoEmprestimo();
+    procedure AlterarEmprestimo();
+    //function Gravar(EstadoDoCadastro:TEstadoDoCadastro):boolean; virtual;
+
+    property Modo : TDataSetState read FModo write SetModo;
+  end;
+
+var
+  Emprestimo: TEmprestimo;
+
+implementation
+
+{$R *.dfm}
+
+{ TForm1 }
+
+procedure TEmprestimo.AlterarEmprestimo;
+begin
+  pgcPrincipal.ActivePage := pgEmprestimoItens;
+end;
+
+procedure TEmprestimo.btnAlterarEmprestimoClick(Sender: TObject);
+begin
+  AlterarEmprestimo();
+end;
+
+procedure TEmprestimo.btnClienteClick(Sender: TObject);
+var
+  lQryCliente : TUniQuery;
+begin
+  FClienteId := TGeneroSelecao.Selecionar();
+
+  if FGeneroId > 0 then
+  begin
+    lQryGenero := TUniQuery.Create(nil);
+
+    try
+      lQryGenero.Connection := dtmPrincipal.conexao;
+
+      lQryGenero.SQL.Add('SELECT ID, NOME FROM GENERO WHERE ID = :ID');
+      lQryGenero.Prepare();
+      lQryGenero.ParamByName('ID').AsInteger := FGeneroId;
+
+      lQryGenero.Open();
+
+      (lQryGenero.FieldByName('ID') as TIntegerField).DisplayFormat := '00000';
+
+      edtGenero.Text := Format('%s - %s', [
+          lQryGenero.Fields.FieldByName('id').DisplayText,
+          lQryGenero.Fields.FieldByName('nome').DisplayText
+        ]);
+
+
+
+    finally
+       if lQryGenero.Active then
+          lQryGenero.Close();
+
+        FreeAndNil(lQryGenero);
+    end;
+  end
+  else
+    begin
+      edtGenero.Clear();
+    end;
+
+
+
+end;
+
+procedure TEmprestimo.btnConcluirClick(Sender: TObject);
+var
+   lTrs : TUniTransaction;
+begin
+  lTrs := TUniTransaction.Create(self);
+  if FModo = dsInsert then
+  begin
+
+
+  lTrs.StartTransaction;
+
+  try
+
+    qryEmprestimo.Close;
+    qryEmprestimo.SQL.Clear;
+  
+    qryEmprestimo.SQL.Add('INSERT INTO EMPRESTIMO(ID, NUM_VENDA, ULTIMAALTERACAO, CD_USUARIO) ');
+    qryEmprestimo.SQL.Add('VALUES (:ID, :NUM_VENDA, :ULTIMAALTERACAO, :CD_USUARIO) ');
+
+    qryEmprestimo.ParamByName('NUM_VENDA').AsString := edtNumVenda.Text;
+    qryEmprestimo.ParamByName('ULTIMAALTERACAO').AsDateTime := now;
+    qryEmprestimo.ParamByName('CD_USUARIO').AsInteger := AcessoController.UsuarioLogado.Id;
+
+    qryEmprestimo.Prepare();
+    qryEmprestimo.Open();
+    qryEmprestimo.ExecSQL();
+
+   
+    qryEmprestimoItem.Close;
+    qryEmprestimoItem.SQL.Clear;
+                    
+    qryEmprestimoItem.SQL.Add('INSERT INTO EMPRESTIMO_ITEM (ID, CD_EMPRESTIMO, ');
+    qryEmprestimoItem.SQL.Add('ULTIMAALTERACAO, CD_CLIENTE, CD_FILME, VALOR, QUANTIDADE, TOTAL, DT_VENDA)');
+    qryEmprestimoItem.SQL.Add('VALUES (:ID, :CD_EMPRESTIMO, :ULTIMAALTERACAO, :CD_CLIENTE, :CD_FILME, :VALOR, :QUANTIDADE, :TOTAL, :DT_VENDA)');    
+
+    qryEmprestimoItem.ParamByName('CD_EMPRESTIMO').AsInteger := qryEmprestimo.FieldByName('ID').AsInteger;
+    qryEmprestimoItem.ParamByName('ULTIMAALTERACAO').AsDateTime := now;
+//    qryEmprestimoItem.ParamByName('CD_CLIENTE').AsInteger :=
+
+    
+    qryEmprestimoItem.open();
+    qryEmprestimoItem.Prepare();
+    qryEmprestimoItem.ExecSQL();
+    
+    
+   lTrs.Commit();
+
+  except
+    on E: Exception do
+      begin
+        lTrs.Rollback();
+        ShowMessage('Erro ao gravar os dados.'#13'Detalhes: ' + E.Message);
+      end;
+  end;
+  end
+  else
+    begin
+      
+      try
+
+      
+        
+      except
+        
+      end;
+
+
+    end;
+
+  FreeAndNil(lTrs);
+end;
+
+procedure TEmprestimo.btnFecharEmprestimoClick(Sender: TObject);
+begin
+  ModalResult := MrClose;
+end;
+
+procedure TEmprestimo.NovoEmprestimo;
+begin
+  pgcPrincipal.ActivePage := pgEmprestimoItens;
+  FModo := dsInsert;
+end;
+
+procedure TEmprestimo.btnIncluirEmprestimoClick(Sender: TObject);
+begin
+  NovoEmprestimo();
+end;
+
+procedure TEmprestimo.ControlarBotoes(btnNovo, btnAlterar, btnCancelar,
+  btnGravar, btnApagar: TcxButton; btnNavigator: TDBNavigator;
+  pgcPrincipal: TcxPageControl; Flag: Boolean);
+begin
+  btnNovo.Enabled      :=Flag;
+  btnApagar.Enabled    :=Flag;
+  btnAlterar.Enabled   :=Flag;
+  btnNavigator.Enabled :=Flag;
+  pgcPrincipal.Pages[0].TabVisible:=Flag;
+
+  btnCancelar.Enabled  :=not(Flag);
+  btnGravar.Enabled    :=not(Flag);
+end;
+
+class procedure TEmprestimo.Exibir;
+var
+  lEmprestimo : TEmprestimo;
+begin
+  lEmprestimo := TEmprestimo.Create(nil);
+  lEmprestimo.ShowModal();
+  FreeAndNil(lEmprestimo);
+
+end;
+
+procedure TEmprestimo.FormKeyUp(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = VK_ESCAPE) then
+    ModalResult := mrCancel;
+end;
+
+procedure TEmprestimo.SetModo(const Value: TDataSetState);
+begin
+  FModo := Value;
+end;
+
+end.

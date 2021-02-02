@@ -1,0 +1,36 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Sele'#231#227'o de filme'
+  ClientHeight = 561
+  ClientWidth = 973
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlTop: TPanel
+    Left = 0
+    Top = 0
+    Width = 973
+    Height = 41
+    Align = alTop
+    BevelOuter = bvNone
+    Caption = 'LOCALIZAR FILME'
+    Color = 4605510
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = 15790320
+    Font.Height = -19
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 0
+    ExplicitLeft = -42
+    ExplicitWidth = 1015
+  end
+end

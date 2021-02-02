@@ -106,6 +106,12 @@
 			<DCCReference Include="CadastroGenero\lcdGeneroSelecao.pas">
 				<Form>GeneroSelecao</Form>
 			</DCCReference>
+			<DCCReference Include="CadastroCliente\lcdClienteSelecao.pas">
+				<Form>ClienteSelecao</Form>
+			</DCCReference>
+			<DCCReference Include="CadastroFilme\lcdFilmeSelecao.pas">
+				<Form>FilmeSelecao</Form>
+			</DCCReference>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
 			</BuildConfiguration>

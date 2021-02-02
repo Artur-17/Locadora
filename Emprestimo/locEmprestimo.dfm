@@ -26,14 +26,12 @@ object Emprestimo: TEmprestimo
     Height = 675
     Align = alClient
     TabOrder = 0
-    Properties.ActivePage = pgListagemEmprestimo
+    Properties.ActivePage = pgEmprestimoItens
     Properties.CustomButtons.Buttons = <>
     Properties.TabHeight = 25
     Properties.TabWidth = 200
     LookAndFeel.NativeStyle = False
     LookAndFeel.SkinName = 'Office2007Silver'
-    ExplicitLeft = -8
-    ExplicitWidth = 1363
     ClientRectBottom = 669
     ClientRectLeft = 3
     ClientRectRight = 994
@@ -41,7 +39,6 @@ object Emprestimo: TEmprestimo
     object pgListagemEmprestimo: TcxTabSheet
       Caption = 'Emprestimos'
       ImageIndex = 0
-      ExplicitWidth = 1243
       object pnlClient: TPanel
         Left = 0
         Top = 0
@@ -49,7 +46,6 @@ object Emprestimo: TEmprestimo
         Height = 56
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 1243
         DesignSize = (
           991
           56)
@@ -69,7 +65,6 @@ object Emprestimo: TEmprestimo
           Anchors = [akLeft, akTop, akRight]
           TabOrder = 0
           TextHint = 'Digite o seu texto aqui para pesquisar'
-          ExplicitWidth = 1205
         end
       end
       object gdrListagem: TcxGrid
@@ -79,14 +74,37 @@ object Emprestimo: TEmprestimo
         Height = 539
         Align = alClient
         TabOrder = 1
-        ExplicitLeft = 48
-        ExplicitWidth = 889
         object ViewListagem: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
+          DataController.DataModeController.SmartRefresh = True
+          DataController.DataSource = dtsEmprestimo
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
           OptionsData.Editing = False
+          object ViewListagemID: TcxGridDBColumn
+            DataBinding.FieldName = 'ID'
+            Width = 70
+          end
+          object ViewListagemNUM_VENDA: TcxGridDBColumn
+            Caption = 'NUMERO DA VENDA'
+            DataBinding.FieldName = 'NUM_VENDA'
+            Width = 200
+          end
+          object ViewListagemULTIMAALTERACAO: TcxGridDBColumn
+            DataBinding.FieldName = 'ULTIMAALTERACAO'
+            Width = 200
+          end
+          object ViewListagemDELETADO: TcxGridDBColumn
+            DataBinding.FieldName = 'DELETADO'
+            Width = 200
+          end
+          object ViewListagemCD_USUARIO: TcxGridDBColumn
+            Caption = 'C'#211'DIGO DO USUARIO'
+            DataBinding.FieldName = 'CD_USUARIO'
+            Options.Editing = False
+            Width = 200
+          end
         end
         object lvlListagem: TcxGridLevel
           GridView = ViewListagem
@@ -99,7 +117,6 @@ object Emprestimo: TEmprestimo
         Height = 41
         Align = alBottom
         TabOrder = 2
-        ExplicitWidth = 1243
         object btnAlterarEmprestimo: TcxButton
           Left = 125
           Top = 6
@@ -118,6 +135,7 @@ object Emprestimo: TEmprestimo
             7BF69FCB09F22F72A17ADF5E96639B03BB5F6438B4E43CE6ECC0040FDC71C211
             67D5AF47F101B4A2582947CFEBF80000000049454E44AE426082}
           TabOrder = 1
+          OnClick = btnAlterarEmprestimoClick
         end
         object btnExcluirEmprestimo: TcxButton
           Left = 237
@@ -159,6 +177,7 @@ object Emprestimo: TEmprestimo
             B7F88ACAADE43A86B8C35CF2C332F6B738698ABF01062775A96EA3EBA7000000
             0049454E44AE426082}
           TabOrder = 0
+          OnClick = btnIncluirEmprestimoClick
         end
         object DBNavigatorEmprestimo: TDBNavigator
           Left = 488
@@ -173,7 +192,6 @@ object Emprestimo: TEmprestimo
     object pgEmprestimoItens: TcxTabSheet
       Caption = 'Itens do Emprestimo'
       ImageIndex = 1
-      ExplicitWidth = 1243
       object pnlBottomEmprestimoItem: TPanel
         Left = 0
         Top = 595
@@ -181,74 +199,27 @@ object Emprestimo: TEmprestimo
         Height = 41
         Align = alBottom
         TabOrder = 3
-        ExplicitWidth = 1243
-        object btnAlterarItem: TcxButton
-          Left = 117
+        object btnConcluir: TcxButton
+          Left = 703
           Top = 6
-          Width = 85
+          Width = 131
           Height = 25
-          Caption = 'Alterar(F5)'
+          Caption = 'Concluir'
           OptionsImage.Glyph.SourceDPI = 96
           OptionsImage.Glyph.Data = {
             89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
-            610000000473424954080808087C08648800000009704859730000005C000000
-            5C018727CC700000001974455874536F667477617265007777772E696E6B7363
-            6170652E6F72679BEE3C1A0000009749444154388DCDD23D0AC2501045E1CF22
-            3B08FE6CC585D8B80E2DDC93BD5DB4B6D404415C82E0028458240F4288E12536
-            1E9866E0DC3BC5308C19323CB119E84A7041D9986DAC9CD6016BBC1B01AF1879
-            8A2BF61D2159AC1C1A43C8AADE2F86C8ED90A44F9EA3E890CB7A9F8E692E711B
-            7BF69FCB09F22F72A17ADF5E96639B03BB5F6438B4E43CE6ECC0040FDC71C211
-            67D5AF47F101B4A2582947CFEBF80000000049454E44AE426082}
-          TabOrder = 1
-        end
-        object btnExcluirItem: TcxButton
-          Left = 229
-          Top = 6
-          Width = 85
-          Height = 25
-          Caption = 'Excluir(F4)'
-          OptionsImage.Glyph.SourceDPI = 96
-          OptionsImage.Glyph.Data = {
-            89504E470D0A1A0A0000000D4948445200000010000000100403000000EDDDE2
-            520000000373424954080808DBE14FE000000009704859730000004B0000004B
-            019C777AC50000001974455874536F667477617265007777772E696E6B736361
-            70652E6F72679BEE3C1A00000021504C5445FFFFFF0000000000000000000000
-            00000000000000000000000000000000000000DD7064570000000A74524E5300
-            014044498091A0F2F3BA098FA20000004649444154085B636060609EB5D28001
-            04580BD8031840FC55400014635D0506010811048802892C0531162DAFD20233
-            162C8DE2229A01D3E5053267099021D6B56AD58A440600DDC52C2A6CBB80B500
-            00000049454E44AE426082}
-          TabOrder = 2
-        end
-        object btnIncluirItem: TcxButton
-          Left = 16
-          Top = 6
-          Width = 81
-          Height = 25
-          Caption = 'Incluir(F2)'
-          OptionsImage.Glyph.SourceDPI = 96
-          OptionsImage.Glyph.Data = {
-            89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
-            610000000473424954080808087C086488000000097048597300000059000000
-            5901AA9DA9860000001974455874536F667477617265007777772E696E6B7363
-            6170652E6F72679BEE3C1A000000E649444154388D95D2C14DC3401005D01703
-            16173742D2007728810640DC68051411E586E80308670A48688420E540A270D8
-            0958B6D7902F7DED7AF6CFCEECF8D3C608632CF0195C446CD4A1FF41892936D8
-            66B8C624B4ADE4D79EC42667CD4BA619E12AD875765F7FF33A23BA0CE69E333C
-            C4350E32735966279672AE0A9CF588FEC2F9001FA822B0C24DADF25BACA7B156
-            D2BC8E771D167B561C7405DFE57FD74530773E2FF0BC6717753C157890DCD785
-            CAEF7C9AD8E071F731C9B4D867A471FDB652B2E77FADFC82A3664BA564CF9C2B
-            B7F88ACAADE43A86B8C35CF2C332F6B738698ABF01062775A96EA3EBA7000000
-            0049454E44AE426082}
+            610000000473424954080808087C086488000000097048597300000094000000
+            940179BF0DEF0000001974455874536F667477617265007777772E696E6B7363
+            6170652E6F72679BEE3C1A000000C449444154388DADD3416A02411005D0D7A3
+            EECC15C453040201AF61EEE022B7105C0572082727C83A1BBD46CC115CEAA2B2
+            488F4C463233463F145435FD3F55BFBB608503D611A119982350E67A8F578C23
+            4281678C90F4C31D16784F298D8B4C6EC30E6FD834CE1FB194DB3BB5D815B5FB
+            817DCAC9BF515C4386612DFFC4474FDE0CD3AAB8C883EC4359F1864DE99452AB
+            2711F1EBB9CF04F0D4730CDCD8C40AEB0E4ED92AD09CB10BF58FF4856D4FDE03
+            2695C041F73EFC85E3C0CF76DD637029192FDF89D476AD1A1B827F0000000049
+            454E44AE426082}
           TabOrder = 0
-        end
-        object DBNavigator1: TDBNavigator
-          Left = 488
-          Top = 6
-          Width = 224
-          Height = 25
-          VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
-          TabOrder = 3
+          OnClick = btnConcluirClick
         end
       end
       object pnlTop: TPanel
@@ -258,7 +229,6 @@ object Emprestimo: TEmprestimo
         Height = 137
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 1243
         object lblNumVenda: TLabel
           Left = 19
           Top = 5
@@ -343,6 +313,7 @@ object Emprestimo: TEmprestimo
             F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
             CCCEC728114BCD0000000049454E44AE426082}
           TabOrder = 3
+          OnClick = btnClienteClick
         end
         object btnIncluir: TcxButton
           Left = 735
@@ -365,6 +336,7 @@ object Emprestimo: TEmprestimo
             B7F88ACAADE43A86B8C35CF2C332F6B738698ABF01062775A96EA3EBA7000000
             0049454E44AE426082}
           TabOrder = 4
+          OnClick = btnIncluirClick
         end
         object btnRemoverItem: TcxButton
           Left = 870
@@ -385,9 +357,10 @@ object Emprestimo: TEmprestimo
             00000049454E44AE426082}
           TabOrder = 5
         end
-        object dtpDataVenda: TcxDateEdit
+        object edtDataVenda: TcxDateEdit
           Left = 822
           Top = 23
+          EditValue = 44228d
           TabOrder = 0
           Width = 155
         end
@@ -397,6 +370,7 @@ object Emprestimo: TEmprestimo
           Width = 121
           Height = 23
           NumbersOnly = True
+          ReadOnly = True
           TabOrder = 1
         end
         object edtNomeCliente: TEdit
@@ -406,7 +380,7 @@ object Emprestimo: TEmprestimo
           Height = 23
           TabOrder = 2
         end
-        object btnProduto: TcxButton
+        object btnFilme: TcxButton
           Left = 345
           Top = 81
           Width = 22
@@ -434,6 +408,7 @@ object Emprestimo: TEmprestimo
             F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
             CCCEC728114BCD0000000049454E44AE426082}
           TabOrder = 7
+          OnClick = btnFilmeClick
         end
         object edtQuantidade: TEdit
           Left = 496
@@ -471,13 +446,60 @@ object Emprestimo: TEmprestimo
         Height = 419
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 1243
-        ExplicitHeight = 417
         object viewVenda: TcxGridDBTableView
           Navigator.Buttons.CustomButtons = <>
+          DataController.DataSource = dtsEmprestimoItem
           DataController.Summary.DefaultGroupSummaryItems = <>
           DataController.Summary.FooterSummaryItems = <>
           DataController.Summary.SummaryGroups = <>
+          OptionsData.Editing = False
+          object viewVendaID: TcxGridDBColumn
+            Caption = 'C'#211'DIGO'
+            DataBinding.FieldName = 'ID'
+            Width = 100
+          end
+          object viewVendaCD_EMPRESTIMO: TcxGridDBColumn
+            DataBinding.FieldName = 'CD_EMPRESTIMO'
+            Visible = False
+            Width = 150
+          end
+          object viewVendaULTIMAALTERACAO: TcxGridDBColumn
+            Caption = 'ULTIMA ALTERA'#199#195'O'
+            DataBinding.FieldName = 'ULTIMAALTERACAO'
+            Width = 150
+          end
+          object viewVendaDELETADO: TcxGridDBColumn
+            DataBinding.FieldName = 'DELETADO'
+            Visible = False
+            Width = 150
+          end
+          object viewVendaCD_CLIENTE: TcxGridDBColumn
+            DataBinding.FieldName = 'CD_CLIENTE'
+            Visible = False
+            Width = 150
+          end
+          object viewVendaCD_FILME: TcxGridDBColumn
+            DataBinding.FieldName = 'CD_FILME'
+            Visible = False
+            Width = 150
+          end
+          object viewVendaVALOR: TcxGridDBColumn
+            DataBinding.FieldName = 'VALOR'
+            Width = 150
+          end
+          object viewVendaQUANTIDADE: TcxGridDBColumn
+            DataBinding.FieldName = 'QUANTIDADE'
+            Width = 150
+          end
+          object viewVendaTOTAL: TcxGridDBColumn
+            DataBinding.FieldName = 'TOTAL'
+            Width = 150
+          end
+          object viewVendaDT_VENDA: TcxGridDBColumn
+            Caption = 'DATA DA VENDA'
+            DataBinding.FieldName = 'DT_VENDA'
+            Width = 150
+          end
         end
         object lvlVenda: TcxGridLevel
           GridView = viewVenda
@@ -527,10 +549,10 @@ object Emprestimo: TEmprestimo
   object btnFecharEmprestimo: TcxButton
     Left = 851
     Top = 634
-    Width = 132
+    Width = 129
     Height = 25
     Anchors = [akRight, akBottom]
-    Caption = 'Fechar(ESC)'
+    Caption = 'Cancelar(ESC)'
     OptionsImage.Glyph.SourceDPI = 96
     OptionsImage.Glyph.Data = {
       89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
@@ -543,14 +565,91 @@ object Emprestimo: TEmprestimo
       85119E2654D1CAB70000000049454E44AE426082}
     TabOrder = 1
     OnClick = btnFecharEmprestimoClick
-    ExplicitLeft = 1103
   end
   object qryEmprestimo: TUniQuery
+    Connection = dtmPrincipal.conexao
+    SQL.Strings = (
+      'select'
+      '    *'
+      'from'
+      '    Emprestimo E')
     Left = 32
     Top = 488
+    object qryEmprestimoID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object qryEmprestimoNUM_VENDA: TIntegerField
+      FieldName = 'NUM_VENDA'
+    end
+    object qryEmprestimoULTIMAALTERACAO: TDateTimeField
+      FieldName = 'ULTIMAALTERACAO'
+    end
+    object qryEmprestimoDELETADO: TStringField
+      FieldName = 'DELETADO'
+      FixedChar = True
+      Size = 1
+    end
+    object qryEmprestimoCD_USUARIO: TIntegerField
+      FieldName = 'CD_USUARIO'
+    end
   end
   object qryEmprestimoItem: TUniQuery
-    Left = 104
+    Connection = dtmPrincipal.conexao
+    SQL.Strings = (
+      'select'
+      '    *'
+      'from'
+      '    Emprestimo_Item E')
+    Left = 208
+    Top = 488
+    object qryEmprestimoItemID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object qryEmprestimoItemCD_EMPRESTIMO: TIntegerField
+      FieldName = 'CD_EMPRESTIMO'
+    end
+    object qryEmprestimoItemULTIMAALTERACAO: TDateTimeField
+      FieldName = 'ULTIMAALTERACAO'
+    end
+    object qryEmprestimoItemDELETADO: TStringField
+      FieldName = 'DELETADO'
+      FixedChar = True
+      Size = 1
+    end
+    object qryEmprestimoItemCD_CLIENTE: TIntegerField
+      FieldName = 'CD_CLIENTE'
+    end
+    object qryEmprestimoItemCD_FILME: TIntegerField
+      FieldName = 'CD_FILME'
+    end
+    object qryEmprestimoItemVALOR: TFloatField
+      FieldName = 'VALOR'
+    end
+    object qryEmprestimoItemQUANTIDADE: TIntegerField
+      FieldName = 'QUANTIDADE'
+    end
+    object qryEmprestimoItemTOTAL: TFloatField
+      FieldName = 'TOTAL'
+    end
+    object qryEmprestimoItemDT_VENDA: TDateTimeField
+      FieldName = 'DT_VENDA'
+    end
+  end
+  object dtsEmprestimo: TDataSource
+    DataSet = qryEmprestimo
+    Left = 112
+    Top = 488
+  end
+  object dtsEmprestimoItem: TDataSource
+    DataSet = qryEmprestimoItem
+    Left = 304
+    Top = 488
+  end
+  object TrsFilme: TUniTransaction
+    DefaultConnection = dtmPrincipal.conexao
+    Left = 408
     Top = 488
   end
 end

@@ -26,7 +26,9 @@ uses
   lcdInterfaces in 'interfaces\lcdInterfaces.pas',
   lcdCadastroGenero in 'CadastroGenero\lcdCadastroGenero.pas' {CadastroGenero},
   lcdLocalizarGenero in 'CadastroGenero\lcdLocalizarGenero.pas' {LocalizarGenero},
-  lcdGeneroSelecao in 'CadastroGenero\lcdGeneroSelecao.pas' {GeneroSelecao};
+  lcdGeneroSelecao in 'CadastroGenero\lcdGeneroSelecao.pas' {GeneroSelecao},
+  lcdClienteSelecao in 'CadastroCliente\lcdClienteSelecao.pas' {ClienteSelecao},
+  lcdFilmeSelecao in 'CadastroFilme\lcdFilmeSelecao.pas' {FilmeSelecao};
 
 {$R *.res}
 
@@ -39,5 +41,7 @@ begin
   Application.CreateForm(TCadastroGenero, CadastroGenero);
   Application.CreateForm(TLocalizarGenero, LocalizarGenero);
   Application.CreateForm(TGeneroSelecao, GeneroSelecao);
+  Application.CreateForm(TClienteSelecao, ClienteSelecao);
+  Application.CreateForm(TFilmeSelecao, FilmeSelecao);
   Application.Run;
 end.

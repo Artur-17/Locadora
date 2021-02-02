@@ -64,17 +64,26 @@
     <Transaction>2020/12/23 19:41:30.702.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroGenero\lcdGeneroCadastro.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroGenero\lcdCadastroGenero.dfm</Transaction>
     <Transaction>2020/12/28 19:16:49.619.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroGenero\lcdGeneroSelecao.pas</Transaction>
     <Transaction>2020/12/28 19:16:49.619.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroGenero\lcdGeneroSelecao.dfm</Transaction>
-  </Transactions>  <ProjectSortOrder AutoSort="0" SortType="0">
+    <Transaction>2021/02/02 11:09:47.754.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroCliente\lcdClienteSelecao.pas</Transaction>
+    <Transaction>2021/02/02 11:09:47.754.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroCliente\lcdClienteSelecao.dfm</Transaction>
+    <Transaction>2021/02/02 16:01:54.262.pas,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.pas=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroFilme\lcdFilmeSelecao.pas</Transaction>
+    <Transaction>2021/02/02 16:01:54.262.dfm,C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\Unit1.dfm=C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\CadastroFilme\lcdFilmeSelecao.dfm</Transaction>
+  </Transactions>
+	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="CadastroCliente"/>
     <File Path="CadastroCliente\lcdCadastroCliente.pas"/>
     <File Path="CadastroCliente\lcdCadastroCliente.dfm"/>
     <File Path="CadastroCliente\lcdLocalizarCliente.pas"/>
     <File Path="CadastroCliente\lcdLocalizarCliente.dfm"/>
+    <File Path="CadastroCliente\lcdClienteSelecao.pas"/>
+    <File Path="CadastroCliente\lcdClienteSelecao.dfm"/>
     <File Path="CadastroFilme"/>
     <File Path="CadastroFilme\lcdCadastroFilme.pas"/>
     <File Path="CadastroFilme\lcdCadastroFilme.dfm"/>
     <File Path="CadastroFilme\lcdLocalizarFilme.pas"/>
     <File Path="CadastroFilme\lcdLocalizarFilme.dfm"/>
+    <File Path="CadastroFilme\lcdFilmeSelecao.pas"/>
+    <File Path="CadastroFilme\lcdFilmeSelecao.dfm"/>
     <File Path="CadastroGenero"/>
     <File Path="CadastroGenero\lcdCadastroGenero.pas"/>
     <File Path="CadastroGenero\lcdCadastroGenero.dfm"/>

@@ -3,6 +3,7 @@ object dtmPrincipal: TdtmPrincipal
   Height = 183
   Width = 302
   object conexao: TUniConnection
+    AutoCommit = False
     ProviderName = 'InterBase'
     Database = 
       'C:\Users\pdvfo\Desktop\OficinaDelphi\FocusLocadora\BaseDados\LOC' +

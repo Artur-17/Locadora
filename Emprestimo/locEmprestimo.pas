@@ -47,7 +47,6 @@ type
     lvlListagem: TcxGridLevel;
     gdrListagem: TcxGrid;
     pnlBottomEmprestimoItem: TPanel;
-    edtNumVenda: TEdit;
     edtNomeCliente: TEdit;
     btnCliente: TcxButton;
     edtDataVenda: TcxDateEdit;
@@ -58,7 +57,6 @@ type
     viewVenda: TcxGridDBTableView;
     lvlVenda: TcxGridLevel;
     gridVenda: TcxGrid;
-    lblNumVenda: TLabel;
     lblNomeCliente: TLabel;
     lblDataVenda: TLabel;
     lblNomeFilme: TLabel;
@@ -116,6 +114,7 @@ type
     procedure btnClienteClick(Sender: TObject);
     procedure btnFilmeClick(Sender: TObject);
     procedure btnIncluirClick(Sender: TObject);
+    procedure edtQuantidadeExit(Sender: TObject);
   private
     FModo: TDataSetState;
     FClienteId : Integer;
@@ -154,6 +153,9 @@ end;
 
 procedure TEmprestimo.btnAlterarEmprestimoClick(Sender: TObject);
 begin
+  pgListagemEmprestimo.Enabled := false;
+  pgEmprestimoItens.Enabled := true;
+
   AlterarEmprestimo();
 end;
 
@@ -183,7 +185,7 @@ begin
           lQryCliente.Fields.FieldByName('nome').DisplayText
         ]);
 
-
+      edtNomeCliente.Enabled := false;
 
     finally
        if lQryCliente.Active then
@@ -224,7 +226,11 @@ end;
 
 procedure TEmprestimo.btnIncluirEmprestimoClick(Sender: TObject);
 begin
+  pgListagemEmprestimo.Enabled := false;
+  pgEmprestimoItens.Enabled := true;
+
   NovoEmprestimo();
+
 end;
 
 procedure TEmprestimo.btnFilmeClick(Sender: TObject);
@@ -240,7 +246,7 @@ begin
     try
       lQryFilme.Connection := dtmPrincipal.conexao;
 
-      lQryFilme.SQL.Add('SELECT ID, TITULO FROM FILME WHERE ID = :ID');
+      lQryFilme.SQL.Add('SELECT ID, TITULO, VALOR FROM FILME WHERE ID = :ID');
       lQryFilme.Prepare();
       lQryFilme.ParamByName('ID').AsInteger := FFilmeId;
 
@@ -253,6 +259,8 @@ begin
           lQryFilme.Fields.FieldByName('TITULO').DisplayText
         ]);
 
+      edtValorUnitario.Text := lQryFilme.Fields.FieldByName('VALOR').DisplayText;
+      edtNomeFilme.Enabled := false;
 
 
     finally
@@ -281,6 +289,22 @@ begin
 
   btnCancelar.Enabled  :=not(Flag);
   btnGravar.Enabled    :=not(Flag);
+end;
+
+procedure TEmprestimo.edtQuantidadeExit(Sender: TObject);
+var
+  quantidade : integer;
+  valor,
+  total : double;
+begin
+
+  valor := edtValorUnitario.Value;
+  quantidade := StrToInt(edtQuantidade.Text);
+
+  total := valor * quantidade ;
+
+  edtTotal.Text := FloatToStr(total);
+  edtTotal.Enabled := false;
 end;
 
 class procedure TEmprestimo.Exibir;

@@ -87,6 +87,7 @@ object Emprestimo: TEmprestimo
             Width = 70
           end
           object ViewListagemNUM_VENDA: TcxGridDBColumn
+            Caption = 'NUMERO DA VENDA'
             DataBinding.FieldName = 'NUM_VENDA'
             Width = 200
           end
@@ -99,6 +100,7 @@ object Emprestimo: TEmprestimo
             Width = 200
           end
           object ViewListagemCD_USUARIO: TcxGridDBColumn
+            Caption = 'C'#211'DIGO DO USUARIO'
             DataBinding.FieldName = 'CD_USUARIO'
             Options.Editing = False
             Width = 200
@@ -189,6 +191,7 @@ object Emprestimo: TEmprestimo
     end
     object pgEmprestimoItens: TcxTabSheet
       Caption = 'Itens do Emprestimo'
+      Enabled = False
       ImageIndex = 1
       object pnlBottomEmprestimoItem: TPanel
         Left = 0
@@ -198,35 +201,26 @@ object Emprestimo: TEmprestimo
         Align = alBottom
         TabOrder = 3
         object btnConcluir: TcxButton
-          Left = 711
+          Left = 703
           Top = 6
-          Width = 106
+          Width = 131
           Height = 25
           Caption = 'Concluir'
           OptionsImage.Glyph.SourceDPI = 96
           OptionsImage.Glyph.Data = {
             89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
-            6100000012744558745469746C65004578706F72743B46696C653B4E94C4B600
-            00022D49444154785E65523D6B5451149CFBF66D5CF0034BC1FC01C12210ADC4
-            AC104404AD2C6C8C080A228806C44208A9B4B0B1338DA0A588A0586865A10988
-            8569B41205034642444DA289BB7BEF39F7381CEE6651E7316FD873EECC9BB7BB
-            F5CD3BAF5F54A16A8330F0322000C8E677181546E554A43B377DF1D0B8992514
-            D4B0D0BE726E3F1C8602FBFF237163E6D5414A831C04886537F6A252E00DE0DA
-            0F093E6F0D05A86410150640AD341250330FEA9B407A76B0121C20EA67C3DF01
-            A26E3123B3811EA86618064D32D9B0060E8CEE06D10C2134A919649DCAE18C00
-            CD19B7EF3DC6C7852F585B5EC6F0F02EA80A240AA25053C2E1E3E7575A3B7622
-            4B9A7DFAE0D6786900D00B11C5874F8B181DD98BE7CF16317DED02E7DE80F436
-            387D66125B5B5BB0F6338E0168D43129AC2CD900591549844C10CD58FABEC1B9
-            6D0629E799E7844A843A9506AA56C8651288889B92E4CDA71310550F50AA07A8
-            9606BCD4BC81BFAF92A7262E71C63D0D0C70A3BF8E9AEF3703E04B90D9172909
-            F68CEC839B60D8585D41677DDDCD4439571A088D06F852D5BC62EC257C5D5AC4
-            C3BBD7F12F8E9D9C44A36A42B5DF40D403B6B56A04AD90CBCF45BAE1DB5A178E
-            F29A2972DEAC91B534889DDF2FCF5E7DD4CE069ABB6E4C648A71F38F64D472F3
-            795DB7065FE2FD9989A3602619C8ED474E5CFE9C9220F522A69EBC8730591545
-            BD0142D5E937406D661D2A098410E2AFD51FB36FE7DF8C0DB1E6BBF905880644
-            9A7A5D213B086C904421A9370740FE0066C2CDCB0CA7A3C60000000049454E44
-            AE426082}
+            610000000473424954080808087C086488000000097048597300000094000000
+            940179BF0DEF0000001974455874536F667477617265007777772E696E6B7363
+            6170652E6F72679BEE3C1A000000C449444154388DADD3416A02411005D0D7A3
+            EECC15C453040201AF61EEE022B7105C0572082727C83A1BBD46CC115CEAA2B2
+            488F4C463233463F145435FD3F55BFBB608503D611A119982350E67A8F578C23
+            4281678C90F4C31D16784F298D8B4C6EC30E6FD834CE1FB194DB3BB5D815B5FB
+            817DCAC9BF515C4386612DFFC4474FDE0CD3AAB8C883EC4359F1864DE99452AB
+            2711F1EBB9CF04F0D4730CDCD8C40AEB0E4ED92AD09CB10BF58FF4856D4FDE03
+            2695C041F73EFC85E3C0CF76DD637029192FDF89D476AD1A1B827F0000000049
+            454E44AE426082}
           TabOrder = 0
+          OnClick = btnConcluirClick
         end
       end
       object pnlTop: TPanel
@@ -320,6 +314,7 @@ object Emprestimo: TEmprestimo
             F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
             CCCEC728114BCD0000000049454E44AE426082}
           TabOrder = 3
+          OnClick = btnClienteClick
         end
         object btnIncluir: TcxButton
           Left = 735
@@ -342,6 +337,7 @@ object Emprestimo: TEmprestimo
             B7F88ACAADE43A86B8C35CF2C332F6B738698ABF01062775A96EA3EBA7000000
             0049454E44AE426082}
           TabOrder = 4
+          OnClick = btnIncluirClick
         end
         object btnRemoverItem: TcxButton
           Left = 870
@@ -362,9 +358,10 @@ object Emprestimo: TEmprestimo
             00000049454E44AE426082}
           TabOrder = 5
         end
-        object dtpDataVenda: TcxDateEdit
+        object edtDataVenda: TcxDateEdit
           Left = 822
           Top = 23
+          EditValue = 44228d
           TabOrder = 0
           Width = 155
         end
@@ -384,7 +381,7 @@ object Emprestimo: TEmprestimo
           Height = 23
           TabOrder = 2
         end
-        object btnProduto: TcxButton
+        object btnFilme: TcxButton
           Left = 345
           Top = 81
           Width = 22
@@ -412,6 +409,7 @@ object Emprestimo: TEmprestimo
             F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
             CCCEC728114BCD0000000049454E44AE426082}
           TabOrder = 7
+          OnClick = btnFilmeClick
         end
         object edtQuantidade: TEdit
           Left = 496
@@ -467,6 +465,7 @@ object Emprestimo: TEmprestimo
             Width = 150
           end
           object viewVendaULTIMAALTERACAO: TcxGridDBColumn
+            Caption = 'ULTIMA ALTERA'#199#195'O'
             DataBinding.FieldName = 'ULTIMAALTERACAO'
             Width = 150
           end
@@ -498,6 +497,7 @@ object Emprestimo: TEmprestimo
             Width = 150
           end
           object viewVendaDT_VENDA: TcxGridDBColumn
+            Caption = 'DATA DA VENDA'
             DataBinding.FieldName = 'DT_VENDA'
             Width = 150
           end
@@ -550,7 +550,7 @@ object Emprestimo: TEmprestimo
   object btnFecharEmprestimo: TcxButton
     Left = 851
     Top = 634
-    Width = 132
+    Width = 129
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = 'Cancelar(ESC)'
@@ -646,6 +646,11 @@ object Emprestimo: TEmprestimo
   object dtsEmprestimoItem: TDataSource
     DataSet = qryEmprestimoItem
     Left = 304
+    Top = 488
+  end
+  object TrsFilme: TUniTransaction
+    DefaultConnection = dtmPrincipal.conexao
+    Left = 408
     Top = 488
   end
 end

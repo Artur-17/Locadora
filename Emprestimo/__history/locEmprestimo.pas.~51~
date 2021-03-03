@@ -27,7 +27,7 @@ uses
   ExtCtrls, cxPC, MemDS, DBAccess, Uni, cxCurrencyEdit,
 
 
-  lcdEnum, lcdDataModule, lcdSistemaController, lcdClienteSelecao;
+  lcdEnum, lcdDataModule, lcdSistemaController, lcdClienteSelecao, lcdFilmeSelecao;
 
 type
   TEmprestimo = class(TForm)
@@ -50,7 +50,7 @@ type
     edtNumVenda: TEdit;
     edtNomeCliente: TEdit;
     btnCliente: TcxButton;
-    dtpDataVenda: TcxDateEdit;
+    edtDataVenda: TcxDateEdit;
     edtNomeFilme: TEdit;
     btnIncluir: TcxButton;
     btnRemoverItem: TcxButton;
@@ -62,7 +62,7 @@ type
     lblNomeCliente: TLabel;
     lblDataVenda: TLabel;
     lblNomeFilme: TLabel;
-    btnProduto: TcxButton;
+    btnFilme: TcxButton;
     lblValorUnitario: TLabel;
     lblQuantidade: TLabel;
     edtQuantidade: TEdit;
@@ -107,15 +107,20 @@ type
     viewVendaTOTAL: TcxGridDBColumn;
     viewVendaDT_VENDA: TcxGridDBColumn;
     btnConcluir: TcxButton;
+    TrsFilme: TUniTransaction;
     procedure FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnFecharEmprestimoClick(Sender: TObject);
     procedure btnIncluirEmprestimoClick(Sender: TObject);
     procedure btnAlterarEmprestimoClick(Sender: TObject);
     procedure btnConcluirClick(Sender: TObject);
     procedure btnClienteClick(Sender: TObject);
+    procedure btnFilmeClick(Sender: TObject);
+    procedure btnIncluirClick(Sender: TObject);
+    procedure edtQuantidadeExit(Sender: TObject);
   private
     FModo: TDataSetState;
     FClienteId : Integer;
+    FFilmeId: Integer;
     { Private declarations }
     procedure ControlarBotoes(btnNovo, btnAlterar, btnCancelar, btnGravar,
       btnApagar: TcxButton; btnNavigator: TDBNavigator;
@@ -128,6 +133,7 @@ type
 
     procedure NovoEmprestimo();
     procedure AlterarEmprestimo();
+    procedure IncluirItem();
     //function Gravar(EstadoDoCadastro:TEstadoDoCadastro):boolean; virtual;
 
     property Modo : TDataSetState read FModo write SetModo;
@@ -149,6 +155,9 @@ end;
 
 procedure TEmprestimo.btnAlterarEmprestimoClick(Sender: TObject);
 begin
+  pgListagemEmprestimo.Enabled := false;
+  pgEmprestimoItens.Enabled := true;
+
   AlterarEmprestimo();
 end;
 
@@ -165,9 +174,9 @@ begin
     try
       lQryCliente.Connection := dtmPrincipal.conexao;
 
-      lQryCliente.SQL.Add('SELECT ID, NOME FROM GENERO WHERE ID = :ID');
+      lQryCliente.SQL.Add('SELECT ID, NOME FROM CLIENTE WHERE ID = :ID');
       lQryCliente.Prepare();
-      lQryCliente.ParamByName('ID').AsInteger := FGeneroId;
+      lQryCliente.ParamByName('ID').AsInteger := FClienteId;
 
       lQryCliente.Open();
 
@@ -178,7 +187,7 @@ begin
           lQryCliente.Fields.FieldByName('nome').DisplayText
         ]);
 
-
+      edtNomeCliente.Enabled := false;
 
     finally
        if lQryCliente.Active then
@@ -197,75 +206,8 @@ begin
 end;
 
 procedure TEmprestimo.btnConcluirClick(Sender: TObject);
-var
-   lTrs : TUniTransaction;
 begin
-  lTrs := TUniTransaction.Create(self);
-  if FModo = dsInsert then
-  begin
-
-
-  lTrs.StartTransaction;
-
-  try
-
-    qryEmprestimo.Close;
-    qryEmprestimo.SQL.Clear;
-  
-    qryEmprestimo.SQL.Add('INSERT INTO EMPRESTIMO(ID, NUM_VENDA, ULTIMAALTERACAO, CD_USUARIO) ');
-    qryEmprestimo.SQL.Add('VALUES (:ID, :NUM_VENDA, :ULTIMAALTERACAO, :CD_USUARIO) ');
-
-    qryEmprestimo.ParamByName('NUM_VENDA').AsString := edtNumVenda.Text;
-    qryEmprestimo.ParamByName('ULTIMAALTERACAO').AsDateTime := now;
-    qryEmprestimo.ParamByName('CD_USUARIO').AsInteger := AcessoController.UsuarioLogado.Id;
-
-    qryEmprestimo.Prepare();
-    qryEmprestimo.Open();
-    qryEmprestimo.ExecSQL();
-
-   
-    qryEmprestimoItem.Close;
-    qryEmprestimoItem.SQL.Clear;
-                    
-    qryEmprestimoItem.SQL.Add('INSERT INTO EMPRESTIMO_ITEM (ID, CD_EMPRESTIMO, ');
-    qryEmprestimoItem.SQL.Add('ULTIMAALTERACAO, CD_CLIENTE, CD_FILME, VALOR, QUANTIDADE, TOTAL, DT_VENDA)');
-    qryEmprestimoItem.SQL.Add('VALUES (:ID, :CD_EMPRESTIMO, :ULTIMAALTERACAO, :CD_CLIENTE, :CD_FILME, :VALOR, :QUANTIDADE, :TOTAL, :DT_VENDA)');    
-
-    qryEmprestimoItem.ParamByName('CD_EMPRESTIMO').AsInteger := qryEmprestimo.FieldByName('ID').AsInteger;
-    qryEmprestimoItem.ParamByName('ULTIMAALTERACAO').AsDateTime := now;
-//    qryEmprestimoItem.ParamByName('CD_CLIENTE').AsInteger :=
-
-    
-    qryEmprestimoItem.open();
-    qryEmprestimoItem.Prepare();
-    qryEmprestimoItem.ExecSQL();
-    
-    
-   lTrs.Commit();
-
-  except
-    on E: Exception do
-      begin
-        lTrs.Rollback();
-        ShowMessage('Erro ao gravar os dados.'#13'Detalhes: ' + E.Message);
-      end;
-  end;
-  end
-  else
-    begin
-      
-      try
-
-      
-        
-      except
-        
-      end;
-
-
-    end;
-
-  FreeAndNil(lTrs);
+//
 end;
 
 procedure TEmprestimo.btnFecharEmprestimoClick(Sender: TObject);
@@ -279,9 +221,62 @@ begin
   FModo := dsInsert;
 end;
 
+procedure TEmprestimo.btnIncluirClick(Sender: TObject);
+begin
+  IncluirItem();
+end;
+
 procedure TEmprestimo.btnIncluirEmprestimoClick(Sender: TObject);
 begin
+  pgListagemEmprestimo.Enabled := false;
+  pgEmprestimoItens.Enabled := true;
+
   NovoEmprestimo();
+
+end;
+
+procedure TEmprestimo.btnFilmeClick(Sender: TObject);
+var
+  lQryFilme : TUniQuery;
+begin
+  FFilmeId := TFilmeSelecao.Selecionar();
+
+  if FFilmeId > 0 then
+  begin
+    lQryFilme := TUniQuery.Create(nil);
+
+    try
+      lQryFilme.Connection := dtmPrincipal.conexao;
+
+      lQryFilme.SQL.Add('SELECT ID, TITULO, VALOR FROM FILME WHERE ID = :ID');
+      lQryFilme.Prepare();
+      lQryFilme.ParamByName('ID').AsInteger := FFilmeId;
+
+      lQryFilme.Open();
+
+      (lQryFilme.FieldByName('ID') as TIntegerField).DisplayFormat := '00000';
+
+      edtNomeFilme.Text := Format('%s - %s', [
+          lQryFilme.Fields.FieldByName('id').DisplayText,
+          lQryFilme.Fields.FieldByName('TITULO').DisplayText
+        ]);
+
+      edtValorUnitario.Text := lQryFilme.Fields.FieldByName('VALOR').DisplayText;
+
+
+
+    finally
+       if lQryFilme.Active then
+          lQryFilme.Close();
+
+        FreeAndNil(lQryFilme);
+    end;
+  end
+  else
+    begin
+      edtNomeFilme.Clear();
+    end;
+
 end;
 
 procedure TEmprestimo.ControlarBotoes(btnNovo, btnAlterar, btnCancelar,
@@ -296,6 +291,22 @@ begin
 
   btnCancelar.Enabled  :=not(Flag);
   btnGravar.Enabled    :=not(Flag);
+end;
+
+procedure TEmprestimo.edtQuantidadeExit(Sender: TObject);
+var
+  quantidade : integer;
+  valor,
+  total : double;
+begin
+
+  valor := edtValorUnitario.Value;
+  quantidade := StrToInt(edtQuantidade.Text);
+
+  total := valor * quantidade ;
+
+  edtTotal.Text := FloatToStr(total);
+  edtTotal.Enabled := false;
 end;
 
 class procedure TEmprestimo.Exibir;
@@ -313,6 +324,89 @@ procedure TEmprestimo.FormKeyUp(Sender: TObject; var Key: Word;
 begin
   if (Key = VK_ESCAPE) then
     ModalResult := mrCancel;
+end;
+
+procedure TEmprestimo.IncluirItem;
+var
+  quantidade : integer;
+  valor,
+  total : double;
+begin
+  if FModo = dsInsert then
+  begin
+
+  valor := edtValorUnitario.Value;
+  quantidade := StrToInt(edtQuantidade.Text);
+
+  total := valor * quantidade ;
+
+  TrsFilme.StartTransaction;
+
+  try
+
+    qryEmprestimo.Close;
+    qryEmprestimo.SQL.Clear;
+
+    qryEmprestimo.SQL.Add('INSERT INTO EMPRESTIMO(ID, NUM_VENDA, ULTIMAALTERACAO, CD_USUARIO) ');
+    qryEmprestimo.SQL.Add('VALUES (:ID, :NUM_VENDA, :ULTIMAALTERACAO, :CD_USUARIO) ');
+
+    qryEmprestimo.ParamByName('NUM_VENDA').AsString := edtNumVenda.Text;
+    qryEmprestimo.ParamByName('ULTIMAALTERACAO').AsDateTime := now;
+    qryEmprestimo.ParamByName('CD_USUARIO').AsInteger := AcessoController.UsuarioLogado.Id;
+
+    qryEmprestimo.Prepare();
+    qryEmprestimo.Open();
+    qryEmprestimo.ExecSQL();
+
+
+    qryEmprestimoItem.Close;
+    qryEmprestimoItem.SQL.Clear;
+
+    qryEmprestimoItem.SQL.Add('INSERT INTO EMPRESTIMO_ITEM (ID, CD_EMPRESTIMO, ');
+    qryEmprestimoItem.SQL.Add('ULTIMAALTERACAO, CD_CLIENTE, CD_FILME, VALOR, QUANTIDADE, TOTAL, DT_VENDA)');
+    qryEmprestimoItem.SQL.Add('VALUES (:ID, :CD_EMPRESTIMO, :ULTIMAALTERACAO, :CD_CLIENTE, :CD_FILME, :VALOR, :QUANTIDADE, :TOTAL, :DT_VENDA)');
+
+    qryEmprestimoItem.ParamByName('CD_EMPRESTIMO').AsInteger := qryEmprestimo.FieldByName('ID').AsInteger;
+    qryEmprestimoItem.ParamByName('ULTIMAALTERACAO').AsDateTime := now;
+    qryEmprestimoItem.ParamByName('CD_CLIENTE').AsInteger := FClienteId;
+    qryEmprestimoItem.ParamByName('CD_FILME').AsInteger := FFilmeId;
+    qryEmprestimoItem.ParamByName('VALOR').AsFloat := edtValorUnitario.Value;
+    qryEmprestimoItem.ParamByName('QUANTIDADE').AsInteger := StrToInt(edtQuantidade.Text);
+    qryEmprestimoItem.ParamByName('TOTAL').AsFloat := total;
+    qryEmprestimoItem.ParamByName('DT_VENDA').AsDateTime := edtDataVenda.Date;
+
+    qryEmprestimoItem.open();
+    qryEmprestimoItem.Prepare();
+    qryEmprestimoItem.ExecSQL();
+
+
+   TrsFilme.Commit();
+
+  except
+    on E: Exception do
+      begin
+        TrsFilme.Rollback();
+        ShowMessage('Erro ao gravar os dados.'#13'Detalhes: ' + E.Message);
+      end;
+  end;
+  end
+  else
+    begin
+
+      try
+
+
+
+      except
+
+      end;
+
+
+    end;
+
+  FreeAndNil(TrsFilme);
+
+
 end;
 
 procedure TEmprestimo.SetModo(const Value: TDataSetState);

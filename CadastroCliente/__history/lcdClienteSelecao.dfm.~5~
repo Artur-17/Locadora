@@ -89,7 +89,6 @@ object ClienteSelecao: TClienteSelecao
       DataController.Summary.DefaultGroupSummaryItems = <>
       DataController.Summary.FooterSummaryItems = <>
       DataController.Summary.SummaryGroups = <>
-      OptionsData.Editing = False
       object grdClienteDBTableView1ID: TcxGridDBColumn
         DataBinding.FieldName = 'ID'
       end

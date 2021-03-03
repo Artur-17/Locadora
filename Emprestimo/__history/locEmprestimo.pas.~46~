@@ -154,6 +154,9 @@ end;
 
 procedure TEmprestimo.btnAlterarEmprestimoClick(Sender: TObject);
 begin
+  pgListagemEmprestimo.Enabled := false;
+  pgEmprestimoItens.Enabled := true;
+
   AlterarEmprestimo();
 end;
 
@@ -224,7 +227,11 @@ end;
 
 procedure TEmprestimo.btnIncluirEmprestimoClick(Sender: TObject);
 begin
+  pgListagemEmprestimo.Enabled := false;
+  pgEmprestimoItens.Enabled := true;
+
   NovoEmprestimo();
+
 end;
 
 procedure TEmprestimo.btnFilmeClick(Sender: TObject);
@@ -240,7 +247,7 @@ begin
     try
       lQryFilme.Connection := dtmPrincipal.conexao;
 
-      lQryFilme.SQL.Add('SELECT ID, TITULO FROM FILME WHERE ID = :ID');
+      lQryFilme.SQL.Add('SELECT ID, TITULO, VALOR FROM FILME WHERE ID = :ID');
       lQryFilme.Prepare();
       lQryFilme.ParamByName('ID').AsInteger := FFilmeId;
 
@@ -252,6 +259,8 @@ begin
           lQryFilme.Fields.FieldByName('id').DisplayText,
           lQryFilme.Fields.FieldByName('TITULO').DisplayText
         ]);
+
+      edtValorUnitario.Text :=
 
 
 
@@ -345,9 +354,9 @@ begin
     qryEmprestimoItem.ParamByName('CD_CLIENTE').AsInteger := FClienteId;
     qryEmprestimoItem.ParamByName('CD_FILME').AsInteger := FFilmeId;
     qryEmprestimoItem.ParamByName('VALOR').AsFloat := edtValorUnitario.Value;
-    qryEmprestimoItem.ParamByName('QUANTIDADE').AsInteger := edtQuantidade.Text;
-    qryEmprestimoItem.ParamByName('TOTAL').AsInteger := total;
-    qryEmprestimoItem.ParamByName('DT_VENDA').AsDateTime := edtDataVenda.Text;
+    qryEmprestimoItem.ParamByName('QUANTIDADE').AsInteger := StrToInt(edtQuantidade.Text);
+    qryEmprestimoItem.ParamByName('TOTAL').AsFloat := total;
+    qryEmprestimoItem.ParamByName('DT_VENDA').AsDateTime := edtDataVenda.Date;
 
     qryEmprestimoItem.open();
     qryEmprestimoItem.Prepare();

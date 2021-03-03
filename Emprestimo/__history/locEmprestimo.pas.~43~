@@ -50,7 +50,7 @@ type
     edtNumVenda: TEdit;
     edtNomeCliente: TEdit;
     btnCliente: TcxButton;
-    dtpDataVenda: TcxDateEdit;
+    edtDataVenda: TcxDateEdit;
     edtNomeFilme: TEdit;
     btnIncluir: TcxButton;
     btnRemoverItem: TcxButton;
@@ -116,6 +116,7 @@ type
     procedure btnClienteClick(Sender: TObject);
     procedure btnFilmeClick(Sender: TObject);
     procedure btnIncluirClick(Sender: TObject);
+    procedure edtQuantidadeExit(Sender: TObject);
   private
     FModo: TDataSetState;
     FClienteId : Integer;
@@ -154,6 +155,9 @@ end;
 
 procedure TEmprestimo.btnAlterarEmprestimoClick(Sender: TObject);
 begin
+  pgListagemEmprestimo.Enabled := false;
+  pgEmprestimoItens.Enabled := true;
+
   AlterarEmprestimo();
 end;
 
@@ -224,7 +228,11 @@ end;
 
 procedure TEmprestimo.btnIncluirEmprestimoClick(Sender: TObject);
 begin
+  pgListagemEmprestimo.Enabled := false;
+  pgEmprestimoItens.Enabled := true;
+
   NovoEmprestimo();
+
 end;
 
 procedure TEmprestimo.btnFilmeClick(Sender: TObject);
@@ -345,14 +353,9 @@ begin
     qryEmprestimoItem.ParamByName('CD_CLIENTE').AsInteger := FClienteId;
     qryEmprestimoItem.ParamByName('CD_FILME').AsInteger := FFilmeId;
     qryEmprestimoItem.ParamByName('VALOR').AsFloat := edtValorUnitario.Value;
-    qryEmprestimoItem.ParamByName('QUANTIDADE').AsInteger := edtQuantidade.Text;
-
-    TOTAL
-
-
-
-
-
+    qryEmprestimoItem.ParamByName('QUANTIDADE').AsInteger := StrToInt(edtQuantidade.Text);
+    qryEmprestimoItem.ParamByName('TOTAL').AsFloat := total;
+    qryEmprestimoItem.ParamByName('DT_VENDA').AsDateTime := edtDataVenda.Date;
 
     qryEmprestimoItem.open();
     qryEmprestimoItem.Prepare();

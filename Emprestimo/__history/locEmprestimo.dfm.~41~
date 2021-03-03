@@ -26,7 +26,7 @@ object Emprestimo: TEmprestimo
     Height = 675
     Align = alClient
     TabOrder = 0
-    Properties.ActivePage = pgEmprestimoItens
+    Properties.ActivePage = pgListagemEmprestimo
     Properties.CustomButtons.Buttons = <>
     Properties.TabHeight = 25
     Properties.TabWidth = 200
@@ -87,6 +87,7 @@ object Emprestimo: TEmprestimo
             Width = 70
           end
           object ViewListagemNUM_VENDA: TcxGridDBColumn
+            Caption = 'NUMERO DA VENDA'
             DataBinding.FieldName = 'NUM_VENDA'
             Width = 200
           end
@@ -99,6 +100,7 @@ object Emprestimo: TEmprestimo
             Width = 200
           end
           object ViewListagemCD_USUARIO: TcxGridDBColumn
+            Caption = 'C'#211'DIGO DO USUARIO'
             DataBinding.FieldName = 'CD_USUARIO'
             Options.Editing = False
             Width = 200
@@ -189,6 +191,7 @@ object Emprestimo: TEmprestimo
     end
     object pgEmprestimoItens: TcxTabSheet
       Caption = 'Itens do Emprestimo'
+      Enabled = False
       ImageIndex = 1
       object pnlBottomEmprestimoItem: TPanel
         Left = 0
@@ -311,6 +314,7 @@ object Emprestimo: TEmprestimo
             F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
             CCCEC728114BCD0000000049454E44AE426082}
           TabOrder = 3
+          OnClick = btnClienteClick
         end
         object btnIncluir: TcxButton
           Left = 735
@@ -333,6 +337,7 @@ object Emprestimo: TEmprestimo
             B7F88ACAADE43A86B8C35CF2C332F6B738698ABF01062775A96EA3EBA7000000
             0049454E44AE426082}
           TabOrder = 4
+          OnClick = btnIncluirClick
         end
         object btnRemoverItem: TcxButton
           Left = 870
@@ -353,9 +358,10 @@ object Emprestimo: TEmprestimo
             00000049454E44AE426082}
           TabOrder = 5
         end
-        object dtpDataVenda: TcxDateEdit
+        object edtDataVenda: TcxDateEdit
           Left = 822
           Top = 23
+          EditValue = 44228d
           TabOrder = 0
           Width = 155
         end
@@ -375,7 +381,7 @@ object Emprestimo: TEmprestimo
           Height = 23
           TabOrder = 2
         end
-        object btnProduto: TcxButton
+        object btnFilme: TcxButton
           Left = 345
           Top = 81
           Width = 22
@@ -403,6 +409,7 @@ object Emprestimo: TEmprestimo
             F4D86102BB4F24D446A5545AD20AF3F9149F4CFB761D9A02E35B6555EEFB0516
             CCCEC728114BCD0000000049454E44AE426082}
           TabOrder = 7
+          OnClick = btnFilmeClick
         end
         object edtQuantidade: TEdit
           Left = 496
@@ -411,6 +418,7 @@ object Emprestimo: TEmprestimo
           Height = 23
           NumbersOnly = True
           TabOrder = 9
+          OnExit = edtQuantidadeExit
         end
         object edtTotal: TcxCurrencyEdit
           Left = 611
@@ -639,6 +647,11 @@ object Emprestimo: TEmprestimo
   object dtsEmprestimoItem: TDataSource
     DataSet = qryEmprestimoItem
     Left = 304
+    Top = 488
+  end
+  object TrsFilme: TUniTransaction
+    DefaultConnection = dtmPrincipal.conexao
+    Left = 408
     Top = 488
   end
 end
